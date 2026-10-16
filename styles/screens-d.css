@@ -1,0 +1,1068 @@
+/* ============================================================================
+   SnapLife AI — CSS riêng của nhóm D (Ôn tập 5 dạng)
+   Owner: screens-review  |  review-hub, review-run, review-summary
+   Chỉ dùng token ngữ nghĩa trong tokens.css. Không hardcode màu.
+   Touch target: mọi lựa chọn ≥ 48px, nút chấm SRS ≥ 56px.
+   ========================================================================== */
+
+/* ============================== Khối dùng chung =========================== */
+.rv-hero__row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+}
+.rv-ring__num {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  line-height: 1.05;
+  letter-spacing: var(--tracking-tight);
+}
+.rv-hero__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: var(--sp-3);
+}
+.rv-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: var(--r-full);
+  background: var(--card-inset);
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+.rv-prompt {
+  font-size: var(--fs-md);
+  font-weight: 600;
+  line-height: 1.4;
+}
+.rv-hint {
+  margin: 0;
+  font-size: var(--fs-xs);
+  line-height: 1.55;
+  color: var(--ink-3);
+  max-width: var(--measure-read, 68ch); /* 88 ky tu/dong o 1440px la qua dai */
+}
+.rv-qhead {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+}
+
+/* =============================== review-hub =============================== */
+.rv-types {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.rv-type {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  min-height: 64px;
+  padding: var(--sp-3);
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--card);
+  transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease),
+    transform var(--dur-instant) var(--ease);
+}
+.rv-type:hover {
+  border-color: var(--line-strong);
+  background: var(--card-2);
+}
+.rv-type:active {
+  transform: scale(0.99);
+}
+.rv-type--on {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+.rv-type__icon {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-sm);
+  display: grid;
+  place-items: center;
+  background: var(--card-inset);
+  color: var(--ink-2);
+}
+.rv-type--on .rv-type__icon {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+.rv-type__name {
+  font-size: var(--fs-base);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.rv-type__desc {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+  line-height: 1.45;
+  margin-top: 2px;
+}
+.rv-type__state {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.rv-type--on .rv-type__state {
+  color: var(--primary);
+}
+.rv-preview__row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-3);
+  margin: var(--sp-3) 0;
+}
+.rv-preview__k {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  line-height: 1.2;
+}
+.rv-preview__words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: var(--sp-2);
+}
+
+/* =============================== review-run =============================== */
+.rv-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.rv-head__cost {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--success);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.04em;
+}
+.rv-head__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.rv-typebadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--r-full);
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+.rv-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: var(--r-full);
+  background: var(--card-inset);
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.03em;
+}
+.rv-count--ok {
+  background: var(--success-soft);
+  color: var(--success);
+}
+.rv-count--no {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+/* Thẻ bài tập */
+.rv-q {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+.rv-read {
+  background: var(--card-2);
+}
+
+/* --- dạng đọc: từ tiếng Anh là liên kết nằm trong câu --------------------
+   Vùng chạm được nới lên đúng 44px bằng padding + margin âm, nên nhịp dòng
+   của đoạn văn không đổi; phần tô sáng cam được vẽ lại bằng ::before với đúng
+   tỉ lệ như thiết kế gốc. */
+.rv-read .interleave .en {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  padding: 0.26em 2px;
+  margin: -0.26em -2px;
+  background: none;
+}
+.rv-read .interleave .en::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1.79em;
+  transform: translateY(-50%);
+  border-radius: 3px;
+  background: linear-gradient(to bottom, transparent 62%, var(--highlight-soft) 62%);
+  z-index: -1;
+}
+.rv-read .interleave .en:hover {
+  background: none;
+}
+.rv-read .interleave .en:hover::before {
+  background: var(--highlight-soft);
+}
+.rv-read .interleave .en[aria-expanded='true'] {
+  background: none;
+  color: var(--on-primary);
+}
+.rv-read .interleave .en[aria-expanded='true']::before {
+  background: var(--highlight);
+}
+
+/* --- cloze ---------------------------------------------------------------- */
+.rv-sentence {
+  font-family: var(--font-read);
+  font-size: var(--fs-lg);
+  line-height: 1.7;
+  color: var(--ink);
+}
+.rv-blank {
+  display: inline-block;
+  min-width: 92px;
+  padding: 0 8px;
+  border-bottom: 2px solid var(--primary);
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  text-align: center;
+  color: var(--primary);
+}
+.rv-blank--ok {
+  border-bottom-color: var(--success);
+  color: var(--success);
+}
+.rv-blank--no {
+  border-bottom-color: var(--danger);
+  color: var(--danger);
+}
+.rv-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+/* --- chọn đáp án: lưới 2 cột ngay khi khung đủ rộng ---------------------- */
+@container appframe (min-width: 430px) {
+  .rv-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.rv-opt {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-height: 48px;
+  padding: 0 var(--sp-4);
+  text-align: left;
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--r-md);
+  background: var(--card);
+  transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease),
+    transform var(--dur-instant) var(--ease);
+}
+.rv-opt:hover:not([disabled]) {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+.rv-opt:active:not([disabled]) {
+  transform: scale(0.985);
+}
+.rv-opt__key {
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--r-full);
+  display: grid;
+  place-items: center;
+  background: var(--card-inset);
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+.rv-opt__text {
+  font-size: var(--fs-base);
+  font-weight: 550;
+}
+.rv-opt--ok {
+  border-color: var(--success);
+  background: var(--success-soft);
+}
+.rv-opt--ok .rv-opt__key,
+.rv-opt--ok svg {
+  color: var(--success);
+  background: var(--card);
+}
+.rv-opt--no {
+  border-color: var(--danger);
+  background: var(--danger-soft);
+}
+.rv-opt--no .rv-opt__key,
+.rv-opt--no svg {
+  color: var(--danger);
+}
+.rv-opt--dim {
+  opacity: 0.6;
+}
+.rv-opt[disabled] {
+  cursor: default;
+}
+
+/* --- chạm ảnh ------------------------------------------------------------ */
+.rv-photo {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 420px;
+}
+.rv-photo .bbox:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+.rv-bbox--wrong {
+  border-color: var(--danger) !important;
+  background: color-mix(in srgb, var(--danger) 26%, transparent) !important;
+}
+
+/* --- ghép cặp ------------------------------------------------------------ */
+.rv-match {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: var(--sp-2);
+  align-items: start;
+}
+.rv-match__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.rv-match__col > .label {
+  margin-bottom: 2px;
+}
+.rv-match__link {
+  display: grid;
+  place-items: center;
+  align-self: center;
+  padding-top: 26px;
+  color: var(--ink-3);
+}
+.rv-match__item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 48px;
+  padding: var(--sp-2) var(--sp-3);
+  text-align: left;
+  font-size: var(--fs-sm);
+  font-weight: 550;
+  line-height: 1.3;
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--r-md);
+  background: var(--card);
+  transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+.rv-match__item:not([disabled]):hover {
+  border-color: var(--primary);
+}
+.rv-match__item--sel {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+.rv-match__item--done {
+  border-color: var(--success);
+  background: var(--success-soft);
+  cursor: default;
+}
+.rv-match__item--done svg {
+  color: var(--success);
+}
+.rv-match__item--no {
+  border-color: var(--danger);
+  background: var(--danger-soft);
+}
+.rv-match__item[disabled] {
+  opacity: 1;
+}
+
+/* --- flashcard SRS ------------------------------------------------------- */
+.rv-flip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  width: 100%;
+  min-height: 232px;
+  padding: var(--sp-6) var(--sp-5);
+  text-align: center;
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  background: var(--card);
+  box-shadow: var(--shadow-2);
+  transition: background var(--dur) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.rv-flip:not([disabled]):active {
+  transform: scale(0.99);
+}
+.rv-flip--back {
+  align-items: stretch;
+  justify-content: flex-start;
+  text-align: left;
+  background: var(--card-2);
+}
+.rv-flip--locked {
+  cursor: default;
+}
+.rv-card__face {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  width: 100%;
+}
+.rv-flip:not(.rv-flip--back) .rv-card__face {
+  align-items: center;
+}
+.rv-card__en {
+  font-family: var(--font-display);
+  font-size: var(--fs-3xl);
+  line-height: 1.1;
+  letter-spacing: var(--tracking-tight);
+}
+.rv-card__ipa {
+  color: var(--ink-3);
+  font-size: var(--fs-sm);
+}
+.rv-card__listen {
+  margin-top: var(--sp-2);
+}
+.rv-card__tap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--sp-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.rv-card__vi {
+  font-family: var(--font-read);
+  font-size: var(--fs-xl);
+  line-height: 1.35;
+}
+.rv-card__meta {
+  margin-top: var(--sp-2);
+}
+.rv-quality-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-2);
+}
+.rv-quality {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.rv-quality .rv-quality__btn {
+  min-height: 56px;
+  width: 100%;
+  padding: 0 var(--sp-3);
+}
+.rv-quality__hint {
+  font-size: var(--fs-2xs);
+  color: var(--ink-3);
+  text-align: center;
+  line-height: 1.35;
+}
+
+/* --- phản hồi đúng/sai (màu + icon) -------------------------------------- */
+.rv-fb {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  animation: sl-enter var(--dur) var(--ease-out) both;
+}
+.rv-fb__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+}
+.rv-fb__icon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-full);
+}
+.rv-fb__title {
+  font-size: var(--fs-base);
+  font-weight: 650;
+  line-height: 1.35;
+}
+.rv-fb__body {
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+  line-height: 1.5;
+  margin-top: 2px;
+}
+.rv-fb__extra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.rv-fb__ans,
+.rv-fb__pair {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-sm);
+}
+.rv-fb__ans svg,
+.rv-fb__pair svg {
+  flex: 0 0 auto;
+}
+.rv-fb--ok {
+  background: var(--success-soft);
+  border-color: color-mix(in srgb, var(--success) 34%, transparent);
+}
+.rv-fb--ok .rv-fb__icon {
+  background: var(--success);
+  color: var(--on-primary);
+}
+.rv-fb--no {
+  background: var(--danger-soft);
+  border-color: color-mix(in srgb, var(--danger) 34%, transparent);
+}
+.rv-fb--no .rv-fb__icon {
+  background: var(--danger);
+  color: var(--on-primary);
+}
+.rv-fb--neutral {
+  background: var(--card-inset);
+  border-color: var(--line);
+}
+.rv-fb--neutral .rv-fb__icon {
+  background: var(--card);
+  color: var(--ink-2);
+}
+
+/* --- CTA ----------------------------------------------------------------- */
+.rv-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 auto;
+  width: 100%;
+}
+.rv-cta__hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin: 0;
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+
+/* --- chi tiết từ trong sheet --------------------------------------------- */
+.rv-word__en {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  line-height: 1.15;
+  margin-top: var(--sp-3);
+}
+.rv-word__ipa {
+  color: var(--ink-3);
+  font-size: var(--fs-sm);
+}
+.rv-word__vi {
+  font-size: var(--fs-md);
+  margin-top: 2px;
+}
+.rv-word__actions {
+  margin-top: var(--sp-3);
+}
+
+/* ============================= review-summary ============================= */
+.rv-res-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.rv-res {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  min-height: 56px;
+  padding: var(--sp-2) var(--sp-3);
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--card);
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.rv-res:hover {
+  background: var(--card-2);
+  border-color: var(--line-strong);
+}
+.rv-res__icon {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--r-full);
+  display: grid;
+  place-items: center;
+}
+.rv-res--ok .rv-res__icon {
+  background: var(--success-soft);
+  color: var(--success);
+}
+.rv-res--no .rv-res__icon {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+.rv-res__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  line-height: 1.2;
+}
+.rv-log {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--card);
+  overflow: hidden;
+}
+.rv-log__row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-height: 48px;
+  padding: var(--sp-2) var(--sp-4);
+}
+.rv-log__row + .rv-log__row {
+  box-shadow: inset 0 1px 0 var(--line);
+}
+.rv-log__i {
+  font-size: var(--fs-2xs);
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+}
+.rv-log__icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+.rv-log__row--ok .rv-log__icon {
+  color: var(--success);
+}
+.rv-log__row--no .rv-log__icon {
+  color: var(--danger);
+}
+.rv-log__row--neutral .rv-log__icon {
+  color: var(--ink-3);
+}
+.rv-log__title {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* --- khối chứng minh 0 API call ------------------------------------------ */
+.rv-cost__hero {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin: var(--sp-3) 0;
+}
+.rv-cost__n {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 104px;
+  padding: var(--sp-3);
+  border-radius: var(--r-lg);
+  background: var(--success-soft);
+  text-align: center;
+}
+.rv-cost__num {
+  font-family: var(--font-display);
+  font-size: var(--fs-3xl);
+  line-height: 1;
+  color: var(--success);
+}
+.rv-cost__compare {
+  margin-top: var(--sp-3);
+  padding-top: var(--sp-2);
+  box-shadow: inset 0 1px 0 var(--line);
+}
+
+/* ------------------------------ Màn hẹp ---------------------------------- */
+@container appframe (max-width: 359px) {
+  .rv-preview__row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .rv-quality-row {
+    grid-template-columns: 1fr;
+  }
+  .rv-cost__hero {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .rv-cost__n {
+    align-self: center;
+  }
+}
+
+/* ============================================================================
+   BỐ CỤC THEO BỀ RỘNG KHUNG APP — @container appframe
+   ---------------------------------------------------------------------------
+   Xem giải thích đầy đủ ở đầu phần tương ứng trong `screens-c.css`: trong chế
+   độ demo, app nằm trong khung điện thoại 390px giữa màn 1440px, nên
+   `@media (min-width: 900px)` sẽ kích hoạt SAI bên trong khung 390px. Container
+   `appframe` đo bề rộng khung app ở mọi chế độ (khung điện thoại, web mode,
+   `#frame` của probe, `.probe` của audit).
+   ========================================================================== */
+
+/* ============ ≥ 600px: thẻ kết quả và biểu đồ thành lưới ================= */
+@container appframe (min-width: 600px) {
+  /* Mỗi từ là một thẻ — trên tablet phải xếp thành lưới, không phải danh sách
+     dọc dài. `auto-fit` nên số cột tự tính theo bề rộng khung. */
+  .rv-res-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    align-items: stretch;
+  }
+}
+
+/* ============== ≥ 900px: hai cột cho review-hub và review-run ============ */
+@container appframe (min-width: 900px) {
+  /* ------------------------------ review-hub ---------------------------- */
+  /* Bốn khối: hero — 0 API call — [độ dài phiên | phiên sắp bắt đầu] — 5 dạng
+     bài (lưới riêng). Đặt cột theo lớp chứ không theo thứ tự DOM, nên thêm/bớt
+     một khối không làm lệch cả lưới. */
+  div.screen__body:has(> .rv-hero):has(.rv-types) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--sp-6);
+    row-gap: var(--sp-5);
+    align-items: start;
+    width: 100%;
+    margin-inline: auto;
+    max-width: var(--measure-grid, 1040px);
+  }
+  div.screen__body:has(> .rv-hero):has(.rv-types) > .rv-hero,
+  div.screen__body:has(> .rv-hero):has(.rv-types) > .callout,
+  div.screen__body:has(> .rv-hero):has(.rv-types) > .stack:has(.rv-types),
+  div.screen__body:has(> .rv-hero):has(.rv-types) > .btn {
+    grid-column: 1 / -1;
+  }
+  div.screen__body:has(> .rv-hero):has(.rv-types) > .stack:has(.seg) {
+    grid-column: 1;
+  }
+  /* Hàng của "phiên sắp bắt đầu" phải khai báo tường minh: nếu để tự động,
+     nó rơi xuống dưới khối 5 dạng bài vì khối đó chiếm cả hai cột. */
+  div.screen__body:has(> .rv-hero):has(.rv-types) > .rv-preview {
+    grid-column: 2;
+    grid-row: 3;
+  }
+  div.screen__body:has(> .rv-hero):has(.rv-types) > .btn {
+    justify-self: start;
+    width: auto;
+  }
+  /* "5 dạng bài" là một hàng thẻ ngang ở điện thoại; trên desktop nó thành lưới
+     2–3 cột để cả 5 dạng nhìn thấy cùng lúc. */
+  .rv-types {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    align-items: stretch;
+  }
+  /* Khối chữ không dài quá một dòng đọc được. */
+  div.screen__body:has(> .rv-hero):has(.rv-types) p {
+    max-width: var(--measure-body, 720px);
+  }
+
+  /* ------------------------------ review-run ---------------------------- */
+  /* Chưa trả lời: một cột, canh giữa ở bề rộng đọc được (lựa chọn đáp án đã là
+     lưới 2 cột từ 430px). Đã trả lời: câu hỏi bên trái, phản hồi đúng/sai bên
+     phải — mắt không phải cuộn xuống mới thấy vì sao sai. */
+  div.screen__body.rv-run {
+    width: 100%;
+    margin-inline: auto;
+    max-width: var(--measure-body, 720px);
+  }
+  div.screen__body.rv-run:has(> .stack > .rv-fb) {
+    max-width: var(--measure-grid, 1040px);
+  }
+  div.screen__body.rv-run > .stack:has(> .rv-fb) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: var(--sp-6);
+    row-gap: var(--sp-4);
+    align-items: start;
+  }
+  div.screen__body.rv-run > .stack:has(> .rv-fb) > .rv-qhead,
+  div.screen__body.rv-run > .stack:has(> .rv-fb) > .callout {
+    grid-column: 1 / -1;
+  }
+  div.screen__body.rv-run > .stack:has(> .rv-fb) > .card,
+  div.screen__body.rv-run > .stack:has(> .rv-fb) > .rv-photo,
+  div.screen__body.rv-run > .stack:has(> .rv-fb) > .rv-flip {
+    grid-column: 1;
+  }
+  div.screen__body.rv-run > .stack:has(> .rv-fb) > .rv-fb {
+    grid-column: 2;
+  }
+  div.screen__body.rv-run > .stack:has(> .rv-fb) > .stack--tight {
+    grid-column: 2;
+  }
+  div.screen__body.rv-run p {
+    max-width: var(--measure-body, 720px);
+  }
+  /* Dạng "đọc tương tác" chèn cả một đoạn văn đan xen — vẫn phải ≤ 68ch. */
+  div.screen__body.rv-run .rv-read .interleave {
+    max-width: var(--measure-read, 68ch);
+  }
+
+  /* ---------------------------- review-summary -------------------------- */
+  /* Thân màn luôn được giới hạn bề rộng, kể cả khi CHƯA có kết quả phiên —
+     nhánh rỗng chỉ có callout + nút + khối chi phí, không có `.rv-hero`. */
+  div.screen__body:has(> .rv-cost) {
+    width: 100%;
+    margin-inline: auto;
+    max-width: var(--measure-grid, 1040px);
+  }
+  div.screen__body:has(> .rv-cost) p {
+    max-width: var(--measure-body, 720px);
+  }
+  /* Bố cục 6 khối theo đúng thứ tự render: hero — dạng bài — từ nhớ tốt — từ
+     cần ôn lại — nhật ký — chi phí. Chỉ áp dụng khi CÓ kết quả phiên (có hero). */
+  div.screen__body:has(> .rv-hero):has(> .rv-cost) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--sp-6);
+    row-gap: var(--sp-5);
+    align-items: start;
+  }
+  div.screen__body:has(> .rv-hero):has(> .rv-cost) > :nth-child(1),
+  div.screen__body:has(> .rv-hero):has(> .rv-cost) > :nth-child(2),
+  div.screen__body:has(> .rv-hero):has(> .rv-cost) > :nth-child(5),
+  div.screen__body:has(> .rv-hero):has(> .rv-cost) > :nth-child(6) {
+    grid-column: 1 / -1;
+  }
+  div.screen__body:has(> .rv-hero):has(> .rv-cost) > :nth-child(3) {
+    grid-column: 1;
+  }
+  div.screen__body:has(> .rv-hero):has(> .rv-cost) > :nth-child(4) {
+    grid-column: 2;
+  }
+  /* Bốn chỉ số nằm một hàng thay vì 2×2. */
+  div.screen__body:has(> .rv-hero):has(> .rv-cost) .rv-hero .stat-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  /* Phụ đề app bar KHÔNG cap ở đây nữa — Lead đã xử lý ở tầng dùng chung.
+     Ghi chú còn giá trị cho người sửa sau: KHÔNG lồng `:has()` trong `:has()`
+     (`.screen:has(> .screen__body:has(> .rv-hero))`) — cú pháp đó bị vô hiệu và
+     `:is()` sẽ âm thầm bỏ qua nhánh đó, nên luật "trông như đã viết" mà không
+     bao giờ chạy. Dùng một `:has()` với bộ chọn tương đối đầy đủ. */
+  /* Khối chứng minh chi phí: số lớn một bên, bảng đối chiếu một bên. */
+  .rv-cost__compare {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    column-gap: var(--sp-5);
+    align-items: center;
+  }
+}
+
+/* =============== Nút hành động: không kéo hết bề rộng khung ============= */
+/* `.screen__cta` là dải dính đáy, tràn hết bề rộng (đúng: nền phải liền mạch),
+   nhưng nút bên trong thì phải canh giữa theo bề rộng nội dung — nếu không,
+   ở 1440px nút "Tiếp" thành một dải dài 1400px. */
+@container appframe (min-width: 900px) {
+  .screen__cta > .rv-cta {
+    width: 100%;
+    max-width: var(--measure-body, 720px);
+    margin-inline: auto;
+  }
+}
+
+/* ============================================================================
+   ≥ 1100px: GIAO DIỆN MÁY TÍNH (WEB-SPEC §8) — nhóm D
+   ---------------------------------------------------------------------------
+   Tầng này khác tầng 900px ở chỗ: không chỉ nới bề rộng mà chia thành VÙNG.
+   Hạn mức bề rộng theo bậc thang trong web.css (≥1100: body 820 / grid 1160 /
+   pad 28; ≥1500: 900 / 1400 / 40), đặt trong container query nên theo bề rộng
+   khung. Tầng 900–1099 và < 900 giữ nguyên.
+   ========================================================================== */
+@container appframe (min-width: 1100px) {
+  /* ------------------------- `review-hub`: 3 cột ------------------------
+     [ chọn độ dài phiên | 5 dạng bài | phiên sắp bắt đầu ] — ba quyết định
+     người học phải làm nằm cùng một hàng, đúng §8.4. --------------------- */
+  div.screen__body:has(> .rv-hero):has(.rv-types) {
+    grid-template-columns: minmax(0, 300px) minmax(0, 1fr) minmax(0, 320px);
+  }
+  div.screen__body:has(> .rv-hero):has(.rv-types) > .stack:has(.seg) {
+    grid-column: 1;
+  }
+  div.screen__body:has(> .rv-hero):has(.rv-types) > .stack:has(.rv-types) {
+    grid-column: 2;
+  }
+  div.screen__body:has(> .rv-hero):has(.rv-types) > .rv-preview {
+    grid-column: 3;
+    grid-row: 3;
+  }
+  /* Dải chọn 2/10/20 phút nằm gọn trong cột hẹp: ba lựa chọn chia đều 300px. */
+
+  /* ---------------- `review-run`: câu hỏi trái, đáp án/phản hồi phải ------
+     Mặc định (chưa trả lời): câu hỏi ở cột trái, phần phụ trợ (từ trọng tâm,
+     mức độ nhớ, nhắc nhở) ở cột phải. Riêng thẻ cloze / ghép cặp trải cả hai
+     cột vì bản thân nó đã tự chia vùng "đề bài | đáp án" bên trong.
+     Đã trả lời: câu hỏi về cột trái, phản hồi đúng/sai sang cột phải.
+     Nút "Tiếp" nằm trong `.screen__cta` (dính đáy, xem khối 900px ở trên) nên
+     luôn trong khung nhìn ở mọi trạng thái. -------------------------------- */
+  div.screen__body.rv-run {
+    max-width: var(--measure-grid, 1160px);
+  }
+  div.screen__body.rv-run > .stack {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    column-gap: var(--sp-7);
+    row-gap: var(--sp-5);
+    align-items: start;
+  }
+  div.screen__body.rv-run > .stack > .rv-qhead,
+  div.screen__body.rv-run > .stack > .callout {
+    grid-column: 1 / -1;
+  }
+  div.screen__body.rv-run > .stack > .card,
+  div.screen__body.rv-run > .stack > .rv-flip,
+  div.screen__body.rv-run > .stack > .rv-photo {
+    grid-column: 1;
+  }
+  div.screen__body.rv-run > .stack > .stack--tight,
+  div.screen__body.rv-run > .stack > .rv-hint {
+    grid-column: 2;
+  }
+  div.screen__body.rv-run > .stack > .card.rv-q {
+    grid-column: 1 / -1;
+  }
+  div.screen__body.rv-run > .stack:has(> .rv-fb) > .card.rv-q {
+    grid-column: 1;
+    display: block;
+  }
+  div.screen__body.rv-run > .stack:has(> .rv-fb) > .rv-fb {
+    grid-column: 2;
+  }
+  /* Ảnh 1:1 của dạng "chạm ảnh" không nên to hơn 560px — vùng khoanh phải còn
+     nhìn thấy cùng lúc với phản hồi bên phải. */
+  .rv-photo {
+    max-width: 560px;
+  }
+  /* Thẻ câu hỏi (cloze / ghép cặp): đề bài bên trái, đáp án bên phải. */
+  .rv-q {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    column-gap: var(--sp-7);
+    row-gap: var(--sp-4);
+    align-items: start;
+  }
+  .rv-q > .badge {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+  .rv-q > .rv-sentence {
+    grid-column: 1;
+  }
+  .rv-q > .rv-options {
+    grid-column: 2;
+  }
+  .rv-q > .rv-match,
+  .rv-q > .rv-hint {
+    grid-column: 1 / -1;
+  }
+  /* Flashcard không nên kéo dài hết 1160px — nó là một tấm thẻ, không phải bảng. */
+  .rv-flip {
+    width: 100%;
+    max-width: 620px;
+    margin-inline: auto;
+  }
+
+  /* ---------------- `review-summary`: dashboard --------------------------
+     Một hàng ba khối: [dạng bài đã làm | từ nhớ tốt | từ cần ôn lại]; hero,
+     nhật ký và khối chi phí trải ngang. Cột 1/-1 cho hàng 1/2/5/6 vẫn giữ từ
+     tầng 900px, ở đây chỉ đổi hàng giữa từ 2 cột thành 3. ------------------- */
+  div.screen__body:has(> .rv-cost) {
+    max-width: var(--measure-grid, 1160px);
+  }
+  div.screen__body:has(> .rv-hero):has(> .rv-cost) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  div.screen__body:has(> .rv-hero):has(> .rv-cost) > :nth-child(2) {
+    grid-column: 1;
+  }
+  div.screen__body:has(> .rv-hero):has(> .rv-cost) > :nth-child(3) {
+    grid-column: 2;
+  }
+  div.screen__body:has(> .rv-hero):has(> .rv-cost) > :nth-child(4) {
+    grid-column: 3;
+  }
+}
+
+/* ================== ≥ 1500px: màn rất rộng ============================== */
+@container appframe (min-width: 1500px) {
+  /* Ba cột review-hub rộng ra; cột "5 dạng bài" vẫn xếp một cột vì năm thẻ này
+     có mô tả dài, chia đôi sẽ bóp chữ xuống 3–4 dòng mỗi thẻ. */
+  div.screen__body:has(> .rv-hero):has(.rv-types) {
+    grid-template-columns: minmax(0, 320px) minmax(0, 1fr) minmax(0, 360px);
+  }
+}
+
+
+/* Cổng đo độ dài dòng của tools/audit.js tìm ra `.rv-hint` dài 88 ký tự/dòng ở
+   1440px. Luật `.rv-hint { max-width: 68ch }` ở trên bị `div.screen__body.rv-run p`
+   (specificity cao hơn) ghi đè, nên cần luật này ở CUỐI file để thắng về thứ tự. */
+div.screen__body.rv-run p.rv-hint {
+  max-width: var(--measure-read, 68ch);
+}

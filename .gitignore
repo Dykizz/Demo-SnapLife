@@ -1,0 +1,30 @@
+# ============================================================================
+#  SnapLife AI — những gì KHÔNG đưa lên git
+#
+#  Nguyên tắc: chỉ bỏ qua thứ SINH RA KHI CHẠY và tạo lại được bằng một lệnh.
+#  Ảnh chụp trong tools/shots/ thì GIỮ LẠI, vì đó là bản ghi thị giác của demo
+#  (đổi bố cục là phải xem lại ảnh, mà xem lại thì cần ảnh trong repo).
+# ============================================================================
+
+# --- Rác tạm của các lần chạy QA -------------------------------------------
+# File tạm đều có tiền tố "_" (tools/_gate-*, tools/_dk-*, tools/_lp-*, ...)
+tools/_*
+tools/_*/
+
+# DOM dump của audit / flows / web-check — sinh lại bằng tools/verify-all.ps1
+tools/dom-*.html
+tools/qa-dom-*.html
+tools/*.err
+
+# --- Hệ điều hành -----------------------------------------------------------
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# --- Trình soạn thảo / công cụ ---------------------------------------------
+.vscode/
+.idea/
+*.log
+node_modules/
+__pycache__/
+*.pyc

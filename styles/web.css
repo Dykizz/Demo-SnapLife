@@ -1,0 +1,318 @@
+/* ============================================================================
+   SnapLife AI — Chế độ web & responsive đa thiết bị
+   Owner: Lead.
+
+   Hai chế độ trình bày, cùng một bộ màn hình:
+     · Demo shell (mặc định khi cửa sổ ≥ 1100px): rail chọn màn hình + khung
+       điện thoại + cột inspector — để trình bày trước ban giám khảo.
+     · Web mode  ([data-mode="web"]): app tràn khung nhìn như một web app thật,
+       nav đổi theo thiết bị — tab bar dưới ở điện thoại, rail trái ở desktop.
+
+   Bấm phím W để chuyển; lựa chọn được nhớ trong localStorage.
+   Chi tiết breakpoint và quy tắc bề rộng: docs/WEB-SPEC.md
+   ========================================================================== */
+
+:root {
+  /* Đo bề rộng nội dung. Trên màn lớn, KHÔNG để chữ kéo hết chiều rộng:
+     dòng dài quá ~75 ký tự là không đọc được. Các nhóm màn hình dùng 3 biến này. */
+  --measure-read: 68ch;
+  --measure-body: 720px;
+  --measure-grid: 1040px;
+  /* Nhỏ hơn một chút để bố cục desktop bắt đầu sớm hơn: nội dung = cửa sổ − rail,
+     nên rail càng hẹp thì breakpoint 900px của nội dung càng tới sớm. 212px vẫn
+     đủ cho icon 22px + nhãn + padding. Chi tiết: docs/WEB-SPEC.md §1. */
+  --sidebar-w: 212px;
+}
+
+/* ======================= Container của khung app ==========================
+   Vì sao dùng CONTAINER QUERY chứ không phải media query:
+   app nằm trong khung điện thoại 390px ngay cả khi cửa sổ rộng 1440px (chế độ
+   demo). `@media (min-width: 900px)` tính theo VIEWPORT nên nó vẫn kích hoạt
+   bên trong khung 390px và làm vỡ bố cục. `@container appframe (min-width: 900px)`
+   tính theo BỀ RỘNG KHUNG, nên chỉ chạy khi khung thật sự đủ rộng — đúng ở cả
+   ba nơi: khung điện thoại, web mode, và harness audit.
+
+   Mọi nhóm màn hình viết: @container appframe (min-width: 900px) { … }
+   ========================================================================== */
+/* `.app__screen` phải nằm trong danh sách: ở web mode ≥900px, `.app` là grid
+   hai cột nên bề rộng `.app` = CẢ cửa sổ, trong khi vùng nội dung thật chỉ còn
+   100% − 236px. Nếu chỉ lấy `.app` làm container thì `@container appframe
+   (min-width: 900px)` khớp sớm ~236px và lưới desktop nhồi vào vùng hẹp hơn.
+   `.app__screen` nằm trong `.app` nên là container gần nhất và sẽ thắng. */
+.device__viewport,
+.app,
+.app__screen,
+#frame,
+.probe {
+  container-type: inline-size;
+  container-name: appframe;
+}
+
+/* ======================= Chuyển sang chế độ web ========================== */
+[data-mode='web'] body.shell {
+  background: var(--paper);
+}
+/* `div.shell` chứ không phải `.shell`: <body> cũng mang class `shell` để lấy nền,
+   nên nếu luật này khớp cả body thì body thành khối tràn viền — vô hại nhưng sai
+   đối tượng. Xem chú thích dài trong shell.css. */
+[data-mode='web'] div.shell {
+  display: block;
+  padding: 0;
+  gap: 0;
+  min-height: 100vh;
+  max-width: none;
+}
+[data-mode='web'] .shell__topbar,
+[data-mode='web'] .rail,
+[data-mode='web'] .inspector,
+[data-mode='web'] .stage__controls,
+[data-mode='web'] .stage > p {
+  display: none !important;
+}
+[data-mode='web'] .stage {
+  display: block;
+  gap: 0;
+}
+/* Bỏ hẳn khung điện thoại: app tràn khung nhìn. */
+[data-mode='web'] .device {
+  width: 100%;
+  height: 100vh;
+  max-height: none;
+  min-height: 0;
+  border-radius: 0;
+  padding: 0;
+  background: var(--paper);
+  box-shadow: none;
+}
+[data-mode='web'] .device__viewport {
+  border-radius: 0;
+}
+[data-mode='web'] .device__notch {
+  display: none;
+}
+/* Chrome của điện thoại (giờ giả, thanh home) không thuộc về web app. */
+[data-mode='web'] .app__statusbar,
+[data-mode='web'] .app__homebar {
+  display: none;
+}
+[data-mode='web'] .app {
+  position: absolute;
+  inset: 0;
+}
+
+/* Nút quay về chế độ demo — chỉ hiện trong web mode. */
+.mode-toggle {
+  position: fixed;
+  right: var(--sp-4);
+  bottom: var(--sp-4);
+  z-index: var(--z-toast);
+  display: none;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: var(--tap-min);
+  padding: 0 var(--sp-4);
+  border-radius: var(--r-full);
+  background: var(--card);
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+  box-shadow: var(--shadow-3);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+.mode-toggle:hover {
+  background: var(--card-2);
+}
+[data-mode='web'] .mode-toggle {
+  display: inline-flex;
+}
+
+/* ================== Web mode ở màn hẹp: dùng nguyên tab bar ============== */
+/* Không cần gì thêm: tab bar dưới là mặc định của shell, phù hợp điện thoại. */
+
+/* ================== Web mode ≥ 900px: nav thành rail TRÁI ================ */
+@media (min-width: 900px) {
+  [data-mode='web'] .app {
+    display: grid;
+    grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  [data-mode='web'] .tabbar {
+    grid-column: 1;
+    grid-row: 1;
+    /* `!important` là cần thiết: router đặt `display:none` bằng inline style cho
+       những màn khai `chrome: 'appbar'`. Ở desktop, nav chính của web app phải
+       luôn hiện — nếu không, rail biến mất và thừa một cột trống 236px bên trái. */
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 2px;
+    padding: var(--sp-5) var(--sp-3);
+    border-top: 0;
+    border-right: 1px solid var(--line);
+    background: var(--card-2);
+    overflow-y: auto;
+  }
+
+  /* Thương hiệu ở đầu rail — dựng bằng CSS để không phải sửa router. */
+  [data-mode='web'] .tabbar::before {
+    content: 'SnapLife AI';
+    display: block;
+    margin: 0 var(--sp-3) var(--sp-5);
+    font-family: var(--font-display);
+    font-size: var(--fs-lg);
+    line-height: 1.15;
+    color: var(--ink);
+  }
+
+  [data-mode='web'] .tab {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: var(--sp-3);
+    min-height: 48px;
+    padding: 0 var(--sp-3);
+    border-radius: var(--r-md);
+    font-size: var(--fs-sm);
+  }
+  [data-mode='web'] .tab__label {
+    font-size: var(--fs-base);
+    font-weight: 550;
+  }
+  [data-mode='web'] .tab__dot {
+    margin-left: auto;
+  }
+  /* Nút Chụp không còn nhô lên ở giữa — trong rail nó là một hành động nổi bật. */
+  [data-mode='web'] .tab--capture .tab__fab {
+    width: 40px;
+    height: 40px;
+    margin-top: 0;
+    box-shadow: var(--shadow-2);
+  }
+  [data-mode='web'] .tab--capture {
+    margin-bottom: var(--sp-3);
+  }
+
+  [data-mode='web'] .app__screen {
+    grid-column: 2;
+    grid-row: 1;
+    min-height: 0;
+  }
+
+  /* Nội dung canh giữa, có bề rộng tối đa. Các nhóm màn hình ghi đè
+     max-width cho lưới nhiều cột (tới --measure-grid). */
+  [data-mode='web'] .screen__body {
+    max-width: var(--measure-body);
+    margin-inline: auto;
+    width: 100%;
+    padding-top: var(--sp-6);
+    padding-bottom: var(--sp-8);
+  }
+  /* App bar cũng canh giữa theo cùng bề rộng để tiêu đề thẳng hàng với nội dung. */
+  [data-mode='web'] .appbar {
+    padding-inline: max(var(--sp-4), calc((100% - var(--measure-grid)) / 2));
+  }
+}
+
+/* ================== Web mode ≥ 1280px: rộng rãi hơn ===================== */
+@media (min-width: 1280px) {
+  :root {
+    --sidebar-w: 260px;
+  }
+  [data-mode='web'] .screen__body {
+    padding-top: var(--sp-7);
+  }
+}
+
+/* ============ Chế độ demo shell: giữ nguyên hành vi cũ ================== */
+/* Nút đổi chế độ hiện ở CẢ HAI chế độ để luôn có đường thoát.
+   Trước đây demo mode ẩn nút này, mà bấm nút lại luôn setMode('demo') — nên khi
+   đã ở demo mode thì không còn cách nào quay về web ngoài phím W hoặc đoán ra
+   icon quả địa cầu trên thanh trên. Góc dưới TRÁI vì góc phải là inspector;
+   .rail được chừa chỗ để nút không che màn hình cuối cùng. */
+[data-mode='demo'] .mode-toggle {
+  display: inline-flex;
+  right: auto;
+  left: var(--sp-4);
+}
+[data-mode='demo'] .rail {
+  padding-bottom: 72px;
+}
+
+/* ================== Màn hẹp: tự dùng web mode trông đúng =============== */
+/* Khi cửa sổ hẹp, shell.css đã ẩn rail/inspector và cho khung tràn màn hình.
+   Ở đây chỉ bỏ bo góc/viền để giống app thật trên điện thoại. */
+@media (max-width: 640px) {
+  .device {
+    border-radius: 0;
+    padding: 0;
+    background: var(--paper);
+    box-shadow: none;
+  }
+  .device__viewport {
+    border-radius: 0;
+  }
+}
+
+/* Vào màn hình dùng base.css; ở đây không cần gì thêm. */
+
+/* ============ Màn rộng: tăng lề ngang, theo BỀ RỘNG KHUNG ===============
+   Đây là chỗ duy nhất được phép đổi `--screen-pad`. Trước kia nó nằm trong
+   `@media (min-width: 900px)` ở tokens.css nên khung điện thoại 390px cũng bị
+   đổi padding khi cửa sổ rộng — vừa sai thị giác vừa làm lưới `topics` lật giữa
+   3 và 4 cột theo cửa sổ thay vì theo khung.
+   Đặt trên chính các phần tử dùng biến này (không dùng `:root` được, vì `:root`
+   không nằm trong container) — có mặt ở cả app thật và harness audit.
+   ========================================================================= */
+@container appframe (min-width: 900px) {
+  .screen__body,
+  .appbar,
+  .screen__cta {
+    --screen-pad: 24px;
+  }
+}
+
+/* ============ Màn máy tính (≥1100px): rộng rãi thật sự ==================
+   Trước đây nội dung dừng ở 992–1040px giữa màn 1440px, tức là bỏ trống hơn
+   400px và trông như giao diện điện thoại được canh giữa. Ở đây mở rộng bề
+   rộng theo bậc thang để màn lớn dùng được không gian thật.
+   Vẫn đặt trên chính phần tử dùng biến (không dùng `:root`) để phản ứng theo
+   BỀ RỘNG KHUNG, không theo cửa sổ. */
+@container appframe (min-width: 1100px) {
+  .screen__body,
+  .appbar,
+  .screen__cta {
+    --measure-body: 820px;
+    --measure-grid: 1160px;
+    --screen-pad: 28px;
+  }
+  /* App bar thành thanh đầu trang của web app: tiêu đề lớn hơn, thoáng hơn. */
+  .appbar {
+    padding-top: var(--sp-4);
+    padding-bottom: var(--sp-4);
+  }
+  .appbar__title {
+    font-size: var(--fs-xl);
+  }
+}
+@container appframe (min-width: 1500px) {
+  .screen__body,
+  .appbar,
+  .screen__cta {
+    --measure-body: 900px;
+    --measure-grid: 1400px;
+    --screen-pad: 40px;
+  }
+}
+
+/* ============ Con trỏ chuột: thêm phản hồi chỉ có ở desktop ============= */
+@media (hover: hover) and (pointer: fine) {
+  [data-mode='web'] .rail__item:hover,
+  [data-mode='web'] .tab:hover {
+    background: var(--card-inset);
+  }
+  [data-mode='web'] .listitem:hover,
+  [data-mode='web'] .wordrow:hover {
+    background: var(--card-inset);
+  }
+}

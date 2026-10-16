@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nhóm B · đo toạ độ thật của màn hình</title>
+  <style>
+    html, body { margin: 0; padding: 0; overflow: hidden; background: white; }
+    iframe { display: block; width: 390px; height: 844px; border: 0; }
+    #geo { position: fixed; left: -99999px; top: 0; white-space: pre-wrap; font: 11px monospace; }
+  </style>
+</head>
+<body>
+  <iframe id="app" src="/index.html#/regions"></iframe>
+  <pre id="geo">…</pre>
+  <!-- Đặt src NGAY trong HTML (đồng bộ, trước khi iframe kịp nạp): nếu để module
+       JS đổi src sau load, ảnh chụp headless sẽ bắt trúng khung chưa vẽ. -->
+  <script>
+    (function () {
+      var q = new URLSearchParams(location.search);
+      var t = q.get('screen') || 'regions';
+      var wd = q.get('word');
+      document.getElementById('app').src = '/index.html#/' + t + (wd ? '?word=' + encodeURIComponent(wd) : '');
+    })();
+  </script>
+  <script type="module" src="./_measure.js"></script>
+</body>
+</html>

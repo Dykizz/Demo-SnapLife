@@ -1,0 +1,110 @@
+[
+  {
+    "id": "H2",
+    "title": "Sheet mo roi doi man: co that su bam duoc va co che man moi khong?",
+    "data": {
+      "openedWord": "downpour",
+      "stateWithSheet": {
+        "hasSheet": true,
+        "hasScrim": true,
+        "scrimRect": {
+          "t": -179,
+          "l": 24,
+          "w": 456,
+          "h": 636
+        },
+        "overlayZ": "55",
+        "focusInsideSheet": true
+      },
+      "railClick": null,
+      "afterRailClick": null,
+      "arrowKey": {
+        "before": {
+          "hash": "#/reader",
+          "sheet": true
+        },
+        "after": {
+          "hash": "#/speaking",
+          "sheet": false,
+          "scrim": false
+        }
+      },
+      "afterEsc": {
+        "sheet": false,
+        "scrim": false,
+        "overlayChildren": 0
+      },
+      "ketLuan": "Neu sheetStillOpen=true sau khi doi man qua rail thi overlay khong duoc don khi router.render()"
+    }
+  },
+  {
+    "id": "I2",
+    "title": "Dialog co aria-modal=\"true\" nhung Tab co thoat ra ngoai khong?",
+    "data": {
+      "totalStops": 25,
+      "stopsInsideDialog": 5,
+      "stopsOutsideDialog": 20,
+      "firstEscapes": [
+        {
+          "inSheet": false,
+          "tag": "BUTTON",
+          "label": "Đặt lại dữ liệu demo",
+          "inApp": false
+        },
+        {
+          "inSheet": false,
+          "tag": "BUTTON",
+          "label": "Xoá bộ đếm chi phí",
+          "inApp": false
+        },
+        {
+          "inSheet": false,
+          "tag": "BODY",
+          "label": "SnapLife AI Học tiếng Anh qu",
+          "inApp": false
+        },
+        {
+          "inSheet": false,
+          "tag": "BUTTON",
+          "label": "Danh sách màn hình",
+          "inApp": false
+        },
+        {
+          "inSheet": false,
+          "tag": "BUTTON",
+          "label": "Chuyển sang giao diện tối",
+          "inApp": false
+        },
+        {
+          "inSheet": false,
+          "tag": "BUTTON",
+          "label": "Tắt âm thanh",
+          "inApp": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "A2",
+    "title": "Chrome/tabbar co khop BUILD-SPEC §5 khong?",
+    "data": {
+      "expectedTabbarScreens": [
+        "home",
+        "wordlist",
+        "reader",
+        "stories",
+        "review-hub",
+        "progress"
+      ],
+      "actualTabbarScreens": [
+        "home",
+        "wordlist",
+        "reader",
+        "stories",
+        "review-hub",
+        "progress"
+      ],
+      "mismatches": []
+    }
+  }
+]

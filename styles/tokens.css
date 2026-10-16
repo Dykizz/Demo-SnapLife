@@ -1,0 +1,216 @@
+/* ============================================================================
+   SnapLife AI — Design Tokens
+   Owner: Lead. Không nhóm nào được sửa file này.
+   Nguyên tắc: màn hình chỉ dùng token NGỮ NGHĨA, không hardcode hex.
+   ========================================================================== */
+
+:root {
+  /* ---- Font families ---------------------------------------------------- */
+  --font-display: 'Calistoga', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --font-read: 'Newsreader', 'Iowan Old Style', Georgia, serif;
+  --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* ---- Type scale (1.25 nhịp, base 16) --------------------------------- */
+  --fs-2xs: 10px;
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-base: 15px;
+  --fs-md: 17px;
+  --fs-lg: 20px;
+  --fs-xl: 24px;
+  --fs-2xl: 30px;
+  --fs-3xl: 38px;
+  --lh-tight: 1.12;
+  --lh-snug: 1.3;
+  --lh-base: 1.55;
+  --lh-read: 1.75;
+  --tracking-label: 0.09em;
+  --tracking-tight: -0.015em;
+
+  /* ---- Spacing (4/8 nhịp) ---------------------------------------------- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-7: 32px;
+  --sp-8: 40px;
+  --sp-9: 48px;
+  --sp-10: 64px;
+
+  /* ---- Radii ------------------------------------------------------------ */
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 18px;
+  --r-xl: 24px;
+  --r-2xl: 32px;
+  --r-full: 999px;
+
+  /* ---- Motion ----------------------------------------------------------- */
+  --dur-instant: 80ms;
+  --dur-fast: 140ms;
+  --dur: 220ms;
+  --dur-slow: 380ms;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.5, 1);
+
+  /* ---- Z-index ---------------------------------------------------------- */
+  --z-sticky: 10;
+  --z-tabbar: 30;
+  --z-sheet: 60;
+  --z-modal: 70;
+  --z-toast: 90;
+
+  /* ---- Layout ----------------------------------------------------------- */
+  --tap-min: 44px;
+  --screen-pad: 20px;
+  --measure: 34rem;
+}
+
+/* ============================ LIGHT (mặc định) ============================ */
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+
+  --paper: #fbf6ef;
+  --paper-sunken: #f3e9dc;
+  --card: #ffffff;
+  --card-2: #fffcf7;
+  --card-inset: #f8f1e7;
+
+  --ink: #2a211b;
+  --ink-2: #4e4238;
+  --ink-3: #6e6055;
+  --ink-inverse: #fffaf4;
+
+  --line: #eadfd1;
+  --line-strong: #d9c9b4;
+
+  --primary: #a63d12;
+  --primary-hover: #8c320b;
+  --primary-press: #76290a;
+  --primary-soft: #fbeadf;
+  --primary-soft-2: #f6dccb;
+  --on-primary: #ffffff;
+
+  /* Màu chữ đặt TRÊN các màu ngữ nghĩa. Ở light, các màu này đều đậm nên chữ trắng;
+     ở dark chúng chuyển thành màu sáng nên chữ phải là mực tối. Thiếu bộ token này
+     chính là lỗi đã bị audit bắt: chữ trắng cứng trên --danger sáng = 2.41:1. */
+  --on-success: #ffffff;
+  --on-warning: #ffffff;
+  --on-danger: #ffffff;
+  --on-info: #ffffff;
+  --on-highlight: #ffffff;
+
+  --highlight: #b03a0e;
+  --highlight-soft: #fcebdc;
+
+  --success: #2f6b4f;
+  --success-soft: #e3efe7;
+  --warning: #8a5a05;
+  --warning-soft: #faf0d7;
+  --danger: #a8261c;
+  --danger-soft: #fbe6e3;
+  --info: #2c5c7a;
+  --info-soft: #e4eff5;
+
+  --focus: #1b64c9;
+
+  --shadow-1: 0 1px 2px rgba(42, 33, 27, 0.06);
+  --shadow-2: 0 1px 2px rgba(42, 33, 27, 0.05), 0 6px 16px -8px rgba(42, 33, 27, 0.22);
+  --shadow-3: 0 2px 4px rgba(42, 33, 27, 0.05), 0 16px 36px -16px rgba(42, 33, 27, 0.3);
+  --shadow-4: 0 30px 60px -24px rgba(42, 33, 27, 0.34);
+  --scrim: rgba(42, 33, 27, 0.42);
+
+  --overlay-line: rgba(255, 255, 255, 0.72);
+  --overlay-chip: rgba(22, 16, 12, 0.74);
+  --overlay-chip-ink: #fff7ef;
+}
+
+/* ================================ DARK =================================== */
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --paper: #16120e;
+  --paper-sunken: #100d0a;
+  --card: #221c16;
+  --card-2: #2a231c;
+  --card-inset: #1c1712;
+
+  --ink: #f4ece1;
+  --ink-2: #c9b9a8;
+  --ink-3: #ad9a87;
+  --ink-inverse: #1a1510;
+
+  --line: #382e25;
+  --line-strong: #4a3d31;
+
+  --primary: #ef8f68;
+  --primary-hover: #f4a184;
+  --primary-press: #e07d54;
+  --primary-soft: #3a2418;
+  --primary-soft-2: #4a2d1d;
+  --on-primary: #2a1409;
+
+  --on-success: #0e2419;
+  --on-warning: #2a1e05;
+  --on-danger: #3a120d;
+  --on-info: #0d1f28;
+  --on-highlight: #341c0d;
+
+  --highlight: #f4a479;
+  --highlight-soft: #3d2718;
+
+  --success: #7fc39d;
+  --success-soft: #1e2f26;
+  --warning: #e0b45f;
+  --warning-soft: #33280f;
+  --danger: #f08b80;
+  --danger-soft: #3a1d1a;
+  --info: #8fc0dc;
+  --info-soft: #17272f;
+
+  --focus: #7fb2f5;
+
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-2: 0 1px 2px rgba(0, 0, 0, 0.35), 0 6px 16px -8px rgba(0, 0, 0, 0.6);
+  --shadow-3: 0 2px 4px rgba(0, 0, 0, 0.35), 0 16px 36px -16px rgba(0, 0, 0, 0.7);
+  --shadow-4: 0 30px 60px -24px rgba(0, 0, 0, 0.8);
+  --scrim: rgba(0, 0, 0, 0.62);
+
+  --overlay-line: rgba(255, 255, 255, 0.6);
+  --overlay-chip: rgba(0, 0, 0, 0.76);
+  --overlay-chip-ink: #fdf6ef;
+}
+
+/* ================== Dày đặc hơn trên màn hình lớn (tablet/desktop) ========
+   LƯU Ý: KHÔNG đặt phần này trong `@media` nữa.
+   `@media (min-width: 900px)` tính theo VIEWPORT, nên khi chạy chế độ demo trên
+   cửa sổ 1440px, khung điện thoại 390px cũng bị đổi `--screen-pad` thành 24px —
+   sai cả về thị giác lẫn về số đo, và làm lưới chủ đề lật giữa 3 và 4 cột tuỳ
+   theo bề rộng cửa sổ chứ không theo bề rộng khung.
+   Giờ luật này nằm trong `@container appframe (min-width: 900px)` ở styles/web.css,
+   tức phản ứng theo bề rộng KHUNG — cùng nguyên tắc với mọi breakpoint khác.
+   ========================================================================== */
+
+/* ================== Tôn trọng người dùng giảm chuyển động ================ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-instant: 1ms;
+    --dur-fast: 1ms;
+    --dur: 1ms;
+    --dur-slow: 1ms;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}

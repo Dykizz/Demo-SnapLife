@@ -1,0 +1,289 @@
+[
+  {
+    "id": "U5",
+    "title": "Man khong co tabbar: bam tung nut xem co loi ra khong",
+    "data": [
+      {
+        "man": "splash",
+        "soNut": 1,
+        "coLoiRa": true,
+        "chiTiet": [
+          {
+            "i": 0,
+            "nhan": "Vào ngay",
+            "hashTruoc": "#/splash",
+            "hashSau": "#/onboarding",
+            "coThoat": true
+          }
+        ]
+      },
+      {
+        "man": "onboarding",
+        "soNut": 3,
+        "coLoiRa": true,
+        "chiTiet": [
+          {
+            "i": 0,
+            "nhan": "Bỏ qua",
+            "hashTruoc": "#/onboarding",
+            "hashSau": "#/home",
+            "coThoat": true
+          },
+          {
+            "i": 1,
+            "nhan": "Bước trước",
+            "hashTruoc": "#/onboarding",
+            "hashSau": "#/onboarding",
+            "coThoat": false
+          },
+          {
+            "i": 2,
+            "nhan": "Tiếp tục",
+            "hashTruoc": "#/onboarding",
+            "hashSau": "#/onboarding",
+            "coThoat": false
+          }
+        ]
+      },
+      {
+        "man": "capture",
+        "soNut": 4,
+        "coLoiRa": true,
+        "chiTiet": [
+          {
+            "i": 0,
+            "nhan": "Đóng",
+            "hashTruoc": "#/capture",
+            "hashSau": "#/home",
+            "coThoat": true
+          },
+          {
+            "i": 1,
+            "nhan": "Thư viện",
+            "hashTruoc": "#/capture",
+            "hashSau": "#/capture",
+            "coThoat": false
+          },
+          {
+            "i": 2,
+            "nhan": "Chụp ảnh và nhận diện từ vựng",
+            "hashTruoc": "#/capture",
+            "hashSau": "#/regions",
+            "coThoat": true
+          },
+          {
+            "i": 3,
+            "nhan": "Bật đèn flash",
+            "hashTruoc": "#/capture",
+            "hashSau": "#/capture",
+            "coThoat": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "V5",
+    "title": "Chi Tab + Enter: co kich hoat duoc the \"Chụp ảnh\" tren trang chu?",
+    "data": {
+      "timThay": {
+        "sauNBaoTab": 10,
+        "tag": "DIV",
+        "t": "Chụp ảnh Chụp thứ đang ở trước mặt",
+        "inApp": true,
+        "label": "Chụp ảnh. Chụp thứ đang ở trước mặt — AI khoanh vùng và sinh thẻ từ."
+      },
+      "thuTuTab": [
+        "BUTTON[shell]:Danh sách màn hình",
+        "BUTTON[shell]:Chuyển sang giao diện ",
+        "BUTTON[shell]:Tắt âm thanh",
+        "BUTTON[shell]:Mở thư viện màn hình",
+        "BUTTON[shell]:Chế độ chỉ hiện ứng dụ",
+        "BUTTON[app]:Hồ sơ của bạn",
+        "BUTTON[app]:Theo tâm trạng",
+        "BUTTON[app]:Nghe câu: Steady beats",
+        "BUTTON[app]:Câu khác",
+        "DIV[app]:Chụp ảnh. Chụp thứ đan"
+      ],
+      "sauEnter": {
+        "hash": "#/capture",
+        "ready": "true"
+      }
+    }
+  },
+  {
+    "id": "Y5",
+    "title": "regions: bam vao vung khoanh co nhay toi the tu (.is-focused / scroll)?",
+    "data": {
+      "truoc": {
+        "scrollTop": 0,
+        "cardTop": 1515,
+        "focused": 0
+      },
+      "sau": {
+        "scrollTop": 1158,
+        "cardTop": 223,
+        "bboxDuocDanhDau": "ai-1",
+        "soTheCoClassFocus": 1
+      }
+    }
+  },
+  {
+    "id": "N5",
+    "title": "Tran ngang cua vung app o 320/375/390/768/1024/1440 (20 man/lan)",
+    "data": [
+      {
+        "viewport": 320,
+        "appWidth": 272,
+        "manTranNgang": [
+          "capture(screen=32,doc=0)",
+          "regions(screen=88,doc=0)",
+          "worddetail(screen=88,doc=0)",
+          "reader(screen=94,doc=0)",
+          "review-summary(screen=87,doc=0)",
+          "profile(screen=69,doc=0)"
+        ]
+      },
+      {
+        "viewport": 375,
+        "appWidth": 327,
+        "manTranNgang": [
+          "regions(screen=33,doc=0)",
+          "worddetail(screen=45,doc=0)",
+          "reader(screen=39,doc=0)",
+          "review-summary(screen=32,doc=0)",
+          "profile(screen=14,doc=0)"
+        ]
+      },
+      {
+        "viewport": 390,
+        "appWidth": 342,
+        "manTranNgang": [
+          "regions(screen=18,doc=0)",
+          "worddetail(screen=30,doc=0)",
+          "reader(screen=24,doc=0)",
+          "review-summary(screen=17,doc=0)"
+        ]
+      },
+      {
+        "viewport": 768,
+        "appWidth": 396,
+        "manTranNgang": []
+      },
+      {
+        "viewport": 1024,
+        "appWidth": 366,
+        "manTranNgang": [
+          "worddetail(screen=14,doc=0)",
+          "reader(screen=4,doc=0)"
+        ]
+      },
+      {
+        "viewport": 1440,
+        "appWidth": 366,
+        "manTranNgang": [
+          "worddetail(screen=14,doc=0)",
+          "reader(screen=4,doc=0)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "X5",
+    "title": "Anh bia reader: chu trang nam truc tiep tren anh (de do diem)",
+    "data": {
+      "shots": [
+        {
+          "hash": "#/reader?story=today",
+          "tag": "today",
+          "file": "tools/qa-reader-cover-today.png",
+          "elements": [
+            {
+              "sel": ".cs-cover__kicker",
+              "text": "TRUYỆN CỦA PHÚ TÀI",
+              "color": "rgb(255, 247, 239)",
+              "bg": "rgba(0, 0, 0, 0)",
+              "fontSize": "10px",
+              "fontWeight": "400",
+              "x": 60,
+              "y": 801,
+              "w": 400,
+              "h": 16
+            },
+            {
+              "sel": ".cs-cover__caption",
+              "text": "Chiều qua, trú mưa trước hiên quán",
+              "color": "rgb(255, 247, 239)",
+              "bg": "rgba(0, 0, 0, 0)",
+              "fontSize": "17px",
+              "fontWeight": "400",
+              "x": 60,
+              "y": 818,
+              "w": 400,
+              "h": 22
+            },
+            {
+              "sel": ".cs-cover",
+              "text": "TRUYỆN CỦA PHÚ TÀI Chiều qua, trú mưa trước ",
+              "color": "rgb(42, 33, 27)",
+              "bg": "rgb(248, 241, 231)",
+              "fontSize": "15px",
+              "fontWeight": "400",
+              "x": 44,
+              "y": 317,
+              "w": 432,
+              "h": 540
+            }
+          ],
+          "anh": "assets/photos/rainy-street.jpg",
+          "dpr": 1
+        },
+        {
+          "hash": "#/reader?story=ceramic-cup",
+          "tag": "ceramic-cup",
+          "file": "tools/qa-reader-cover-ceramic-cup.png",
+          "elements": [
+            {
+              "sel": ".cs-cover__kicker",
+              "text": "TRUYỆN CỦA PHÚ TÀI",
+              "color": "rgb(255, 247, 239)",
+              "bg": "rgba(0, 0, 0, 0)",
+              "fontSize": "10px",
+              "fontWeight": "400",
+              "x": 60,
+              "y": 801,
+              "w": 400,
+              "h": 16
+            },
+            {
+              "sel": ".cs-cover__caption",
+              "text": "Chiếc ca mới mua ở phiên chợ gốm",
+              "color": "rgb(255, 247, 239)",
+              "bg": "rgba(0, 0, 0, 0)",
+              "fontSize": "17px",
+              "fontWeight": "400",
+              "x": 60,
+              "y": 818,
+              "w": 400,
+              "h": 22
+            },
+            {
+              "sel": ".cs-cover",
+              "text": "TRUYỆN CỦA PHÚ TÀI Chiếc ca mới mua ở phiên ",
+              "color": "rgb(42, 33, 27)",
+              "bg": "rgb(248, 241, 231)",
+              "fontSize": "15px",
+              "fontWeight": "400",
+              "x": 44,
+              "y": 317,
+              "w": 432,
+              "h": 540
+            }
+          ],
+          "anh": "assets/photos/ceramic-cup.jpg",
+          "dpr": 1
+        }
+      ]
+    }
+  }
+]

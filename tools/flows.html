@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SnapLife AI · Kiểm thử luồng end-to-end</title>
+  <link rel="stylesheet" href="/styles/fonts.css" />
+  <link rel="stylesheet" href="/styles/tokens.css" />
+  <link rel="stylesheet" href="/styles/base.css" />
+  <style>
+    body { padding: 20px; font-family: var(--font-mono); }
+    iframe { width: 390px; height: 844px; border: 1px solid var(--line); border-radius: 16px; }
+    #report { white-space: pre-wrap; font-size: 12px; line-height: 1.55; }
+    h1 { font-family: var(--font-display); font-size: 22px; margin-bottom: 10px; }
+    .wrap { display: flex; gap: 24px; align-items: flex-start; }
+  </style>
+</head>
+<body>
+  <h1>SnapLife AI — kiểm thử luồng end-to-end</h1>
+  <p class="muted" style="font-size: 13px; max-width: 70ch">
+    Harness này nhúng <strong>chính <code>index.html</code></strong> vào iframe rồi bấm nút như người dùng thật —
+    không mô phỏng lại tầng module. Mục đích: bắt lỗi ghép nối giữa 5 nhóm (chi phí AI, deep link, tab bar,
+    truyền dữ liệu giữa màn hình).
+  </p>
+  <div class="wrap">
+    <pre id="report">Đang chạy…</pre>
+    <iframe id="app" src="/index.html#/home" title="SnapLife AI demo"></iframe>
+  </div>
+  <script type="module" src="/tools/flows.js"></script>
+</body>
+</html>

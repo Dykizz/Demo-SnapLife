@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <base href="/" />
+  <title>SnapLife AI · Khung chụp ảnh màn hình</title>
+  <link rel="stylesheet" href="/styles/fonts.css" />
+  <link rel="stylesheet" href="/styles/tokens.css" />
+  <link rel="stylesheet" href="/styles/base.css" />
+  <link rel="stylesheet" href="/styles/components.css" />
+  <link rel="stylesheet" href="/styles/shell.css" />
+  <link rel="stylesheet" href="/styles/screens-a.css" />
+  <link rel="stylesheet" href="/styles/screens-b.css" />
+  <link rel="stylesheet" href="/styles/screens-c.css" />
+  <link rel="stylesheet" href="/styles/screens-d.css" />
+  <link rel="stylesheet" href="/styles/screens-e.css" />
+  <link rel="stylesheet" href="/styles/web.css" />
+  <style>
+    /* Khung chụp đặt đúng (0,0) và đúng kích thước thật của thiết bị.
+       Vì sao cần file này: `chrome --window-size=390,844` KHÔNG tạo viewport
+       390×844 — Chrome ép viewport lên tối thiểu ~500×748 rồi mới cắt ảnh, nên
+       ảnh chụp trực tiếp bị lệch và thiếu. Ở đây ta chụp một cửa sổ lớn hơn
+       nhưng đặt khung 390×844 tại gốc, rồi cắt đúng 390×844 bằng Pillow. */
+    html, body { margin: 0 !important; padding: 0 !important; background: #ffffff; overflow: hidden; }
+    #frame {
+      position: absolute; top: 0; left: 0;
+      /* Bề rộng/cao do probe.js đặt từ ?w= và ?h=. Mặc định là khung điện thoại.
+         (Trước đây đóng cứng 390×844 nên ảnh chụp ở bề rộng lớn vô nghĩa: nó vẫn
+         render bố cục điện thoại trong cửa sổ rộng.) */
+      width: var(--frame-w, 390px);
+      height: var(--frame-h, 844px);
+      overflow: hidden;
+      background: var(--paper);
+    }
+    #frame .app { position: absolute; inset: 0; }
+    #frame .app__screen { overflow: hidden; }
+  </style>
+</head>
+<body>
+  <div id="frame"></div>
+  <script type="module" src="/tools/probe.js"></script>
+</body>
+</html>

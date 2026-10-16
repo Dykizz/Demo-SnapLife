@@ -1,0 +1,2 @@
+[500:19340:1016/152057.061:ERROR:sandbox\policy\win\sandbox_win.cc:804] Sandbox cannot access executable C:\Users\Admin\AppData\Local\ms-playwright\chromium-1243\chrome-win64\chrome.exe. Check filesystem permissions are valid. See https://bit.ly/31yqMJR.: Access is denied. (0x5)
+[500:14660:1016/152057.292:ERROR:content\browser\network_service_instance_impl.cc:655] Network service crashed or was terminated, restarting service.

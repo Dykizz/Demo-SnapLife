@@ -1,0 +1,597 @@
+[
+  {
+    "id": "H4",
+    "title": "Sheet dang mo + bam rail that: man moi co bi overlay che khong?",
+    "data": {
+      "moBang": "downpour",
+      "railItem": {
+        "x": 0,
+        "y": 0,
+        "label": "18Hồ sơ tự cập nhật"
+      },
+      "sauKhiBamRail": {
+        "hash": "#/reader",
+        "sheetCon": true,
+        "scrimCon": true,
+        "overlayChildren": 1,
+        "nutTrongManMoi": [
+          {
+            "nut": "Quay lại",
+            "biChe": true,
+            "phuTrach": null
+          },
+          {
+            "nut": "Lưu đoạn này vào nhật ký",
+            "biChe": true,
+            "phuTrach": null
+          },
+          {
+            "nut": "Phát audio đoạn văn",
+            "biChe": true,
+            "phuTrach": "divider divider--label"
+          },
+          {
+            "nut": "downpour",
+            "biChe": true,
+            "phuTrach": null
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "T4",
+    "title": "regions TRANG THAI SACH: 1 vung ↔ 1 the tu + bam vung",
+    "data": {
+      "bang": {
+        "boxes": 3,
+        "cards": 3,
+        "boxText": [
+          "mug",
+          "headphones",
+          "notebook"
+        ],
+        "cardText": [
+          "mug",
+          "headphones",
+          "notebook"
+        ],
+        "removed": [],
+        "oneToOne": true,
+        "cta": "Học với 3 từ này"
+      },
+      "bamVung": {
+        "key": "ai-1",
+        "scrollTopTruoc": 0
+      },
+      "sauKhiBam": {
+        "scrollTopSau": 0,
+        "coTheDuocDanhDau": false,
+        "clsTheDanhDau": null
+      }
+    }
+  },
+  {
+    "id": "O4",
+    "title": "Cost Meter cua speaking theo dung trinh tu nguoi dung",
+    "data": {
+      "vaoMan_chuaBamGi": {
+        "llm": 1,
+        "ledger": [
+          "llm:speak-1"
+        ],
+        "nut": [
+          {
+            "t": "",
+            "a": "Quay lại"
+          },
+          {
+            "t": "",
+            "a": "Vì sao phần này là bản đối chiếu, không phải chat"
+          },
+          {
+            "t": "",
+            "a": "Bắt đầu ghi âm"
+          }
+        ]
+      },
+      "sauKhiBamMic": {
+        "llm": 1
+      },
+      "sauChinhLan1": {
+        "nut": null,
+        "llm": 1,
+        "ledger": [
+          "llm:speak-1"
+        ]
+      },
+      "nhanNutSauLan1": [],
+      "sauChinhLanNua": {
+        "nut": null,
+        "llm": 1,
+        "ledger": [
+          "llm:speak-1"
+        ]
+      }
+    }
+  },
+  {
+    "id": "M4",
+    "title": "Be ngang that cua khung dien thoai theo viewport (kiem tra \"responsive 375→1440\")",
+    "data": {
+      "ghiChu": "tranTrang > 0 nghia la ca trang bi cuon ngang.",
+      "rows": [
+        {
+          "viewport": 320,
+          "deviceW": 272,
+          "deviceLeft": 24,
+          "docScrollW": 320,
+          "docClientW": 320,
+          "tranTrang": 0,
+          "appScreenW": 272
+        },
+        {
+          "viewport": 375,
+          "deviceW": 327,
+          "deviceLeft": 24,
+          "docScrollW": 375,
+          "docClientW": 375,
+          "tranTrang": 0,
+          "appScreenW": 327
+        },
+        {
+          "viewport": 390,
+          "deviceW": 342,
+          "deviceLeft": 24,
+          "docScrollW": 390,
+          "docClientW": 390,
+          "tranTrang": 0,
+          "appScreenW": 342
+        },
+        {
+          "viewport": 768,
+          "deviceW": 420,
+          "deviceLeft": 174,
+          "docScrollW": 768,
+          "docClientW": 768,
+          "tranTrang": 0,
+          "appScreenW": 396
+        },
+        {
+          "viewport": 1024,
+          "deviceW": 390,
+          "deviceLeft": 97,
+          "docScrollW": 1024,
+          "docClientW": 1024,
+          "tranTrang": 0,
+          "appScreenW": 366
+        },
+        {
+          "viewport": 1440,
+          "deviceW": 390,
+          "deviceLeft": 129,
+          "docScrollW": 1440,
+          "docClientW": 1440,
+          "tranTrang": 0,
+          "appScreenW": 366
+        }
+      ]
+    }
+  },
+  {
+    "id": "BB4",
+    "title": "Chu nam DE LEN ANH: co nen chip mo hay nam truc tiep tren pixel anh?",
+    "data": {
+      "ghiChu": "alphaNen=0 nghia la chu nam truc tiep tren anh (khong the bao dam tuong phan); alphaNen>0 la chip co nen.",
+      "rows": [
+        {
+          "id": "capture",
+          "soKhoiAnh": 1,
+          "chuTrenAnh": []
+        },
+        {
+          "id": "regions",
+          "soKhoiAnh": 1,
+          "chuTrenAnh": [
+            {
+              "cls": "bbox__tag",
+              "text": "1. mug",
+              "color": "rgb(255, 247, 239)",
+              "background": "rgba(22, 16, 12, 0.74)",
+              "alphaNen": 0.74,
+              "backdrop": "blur(6px)"
+            },
+            {
+              "cls": "bbox__tag",
+              "text": "2. headphones",
+              "color": "rgb(255, 247, 239)",
+              "background": "rgba(22, 16, 12, 0.74)",
+              "alphaNen": 0.74,
+              "backdrop": "blur(6px)"
+            },
+            {
+              "cls": "bbox__tag",
+              "text": "3. notebook",
+              "color": "rgb(255, 247, 239)",
+              "background": "rgba(22, 16, 12, 0.74)",
+              "alphaNen": 0.74,
+              "backdrop": "blur(6px)"
+            }
+          ]
+        },
+        {
+          "id": "reader",
+          "soKhoiAnh": 1,
+          "chuTrenAnh": [
+            {
+              "cls": "cs-cover__kicker",
+              "text": "TRUYỆN CỦA PHÚ TÀI",
+              "color": "rgb(255, 247, 239)",
+              "background": "rgba(0, 0, 0, 0)",
+              "alphaNen": 0,
+              "backdrop": "none"
+            },
+            {
+              "cls": "cs-cover__caption",
+              "text": "Chiều qua, trú mưa trước h",
+              "color": "rgb(255, 247, 239)",
+              "background": "rgba(0, 0, 0, 0)",
+              "alphaNen": 0,
+              "backdrop": "none"
+            }
+          ]
+        },
+        {
+          "id": "compose",
+          "soKhoiAnh": 5,
+          "chuTrenAnh": []
+        }
+      ]
+    }
+  },
+  {
+    "id": "F4",
+    "title": "Trang thai sach: chon 20 phut -> tra loi 3 cau -> API call co tang khong?",
+    "data": {
+      "cauDaBam": [
+        "downpour",
+        "downpour",
+        "downpour"
+      ],
+      "tienDo": [
+        {
+          "buoc": "vao review-hub",
+          "apiCalls": 0,
+          "vlm": 0,
+          "llm": 0,
+          "rule": 0
+        },
+        {
+          "buoc": "reset",
+          "apiCalls": 0,
+          "vlm": 0,
+          "llm": 0,
+          "rule": 0
+        },
+        {
+          "buoc": "vao review-run",
+          "apiCalls": 0,
+          "vlm": 0,
+          "llm": 0,
+          "rule": 0
+        },
+        {
+          "buoc": "sau khi tra loi 3 cau",
+          "apiCalls": 0,
+          "vlm": 0,
+          "llm": 0,
+          "rule": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "N4",
+    "title": "Mat mang: web font co tai duoc khong, va do rong CHU that thay doi bao nhieu?",
+    "data": {
+      "coMang": {
+        "fontsSize": 28,
+        "faces": [
+          "Calistoga:loaded",
+          "Calistoga:unloaded",
+          "Calistoga:loaded",
+          "Inter:unloaded",
+          "Inter:unloaded",
+          "Inter:unloaded",
+          "Inter:unloaded",
+          "Inter:loaded",
+          "Inter:loaded",
+          "Inter:loaded",
+          "JetBrains Mono:unloaded",
+          "JetBrains Mono:unloaded",
+          "JetBrains Mono:unloaded",
+          "JetBrains Mono:loaded",
+          "JetBrains Mono:loaded",
+          "JetBrains Mono:loaded",
+          "JetBrains Mono:unloaded",
+          "JetBrains Mono:unloaded",
+          "JetBrains Mono:unloaded",
+          "JetBrains Mono:loaded",
+          "JetBrains Mono:loaded",
+          "JetBrains Mono:loaded",
+          "Newsreader:unloaded",
+          "Newsreader:unloaded",
+          "Newsreader:unloaded",
+          "Newsreader:unloaded",
+          "Newsreader:unloaded",
+          "Newsreader:loaded"
+        ],
+        "titleText": "Chào buổi chiều, Tài",
+        "titleIntrinsicW": 174.1,
+        "titleFamily": "Calistoga",
+        "labelIntrinsicW": 75.9,
+        "ready": "true",
+        "boot": null,
+        "docH": 1885
+      },
+      "chanCdn": {
+        "fontsSize": 0,
+        "faces": [],
+        "titleText": "Chào buổi chiều, Tài",
+        "titleIntrinsicW": 183.8,
+        "titleFamily": "Calistoga",
+        "labelIntrinsicW": 70.4,
+        "ready": "true",
+        "boot": null,
+        "docH": 1884
+      },
+      "chenhLechBeRongChuTieuDe": 9.7,
+      "chenhLechChieuCaoTrang": -1,
+      "requestBiChan": [
+        {
+          "u": "https://fonts.googleapis.com/css2?family=Calistoga&family=Inter:wght@300",
+          "transferSize": 0,
+          "duration": 0,
+          "failed": true
+        },
+        {
+          "u": "https://fonts.googleapis.com/css2?family=Calistoga&family=Inter:wght@300",
+          "transferSize": 0,
+          "duration": 0,
+          "failed": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "R4",
+    "title": "Theme toi: RELOAD that voi localStorage dark, ca 20 man",
+    "data": {
+      "soManSaiTheme": [],
+      "coLoiBoot": [],
+      "tranNgang": [
+        "regions",
+        "worddetail",
+        "reader",
+        "review-summary"
+      ],
+      "mauMau": [
+        {
+          "id": "splash",
+          "theme": "dark",
+          "paper": "#16120e",
+          "ink": "#f4ece1",
+          "bodyBg": "rgb(16, 13, 10)",
+          "appBg": "rgb(22, 18, 14)",
+          "samples": [
+            {
+              "cls": "label a-splash__team",
+              "color": "rgb(173, 154, 135)",
+              "fontSize": "10px",
+              "nenRieng": null,
+              "nenDungDeTinh": "rgb(22, 18, 14)",
+              "contrast": 6.88
+            }
+          ]
+        },
+        {
+          "id": "onboarding",
+          "theme": "dark",
+          "paper": "#16120e",
+          "ink": "#f4ece1",
+          "bodyBg": "rgb(16, 13, 10)",
+          "appBg": "rgb(22, 18, 14)",
+          "samples": [
+            {
+              "cls": "label",
+              "color": "rgb(173, 154, 135)",
+              "fontSize": "10px",
+              "nenRieng": null,
+              "nenDungDeTinh": "rgb(22, 18, 14)",
+              "contrast": 6.88
+            },
+            {
+              "cls": "label",
+              "color": "rgb(173, 154, 135)",
+              "fontSize": "10px",
+              "nenRieng": null,
+              "nenDungDeTinh": "rgb(22, 18, 14)",
+              "contrast": 6.88
+            }
+          ]
+        },
+        {
+          "id": "placement",
+          "theme": "dark",
+          "paper": "#16120e",
+          "ink": "#f4ece1",
+          "bodyBg": "rgb(16, 13, 10)",
+          "appBg": "rgb(22, 18, 14)",
+          "samples": [
+            {
+              "cls": "label",
+              "color": "rgb(173, 154, 135)",
+              "fontSize": "10px",
+              "nenRieng": null,
+              "nenDungDeTinh": "rgb(22, 18, 14)",
+              "contrast": 6.88
+            }
+          ]
+        },
+        {
+          "id": "topics",
+          "theme": "dark",
+          "paper": "#16120e",
+          "ink": "#f4ece1",
+          "bodyBg": "rgb(16, 13, 10)",
+          "appBg": "rgb(22, 18, 14)",
+          "samples": []
+        },
+        {
+          "id": "home",
+          "theme": "dark",
+          "paper": "#16120e",
+          "ink": "#f4ece1",
+          "bodyBg": "rgb(16, 13, 10)",
+          "appBg": "rgb(22, 18, 14)",
+          "samples": [
+            {
+              "cls": "label",
+              "color": "rgb(173, 154, 135)",
+              "fontSize": "10px",
+              "nenRieng": null,
+              "nenDungDeTinh": "rgb(22, 18, 14)",
+              "contrast": 6.88
+            },
+            {
+              "cls": "label",
+              "color": "rgb(173, 154, 135)",
+              "fontSize": "10px",
+              "nenRieng": null,
+              "nenDungDeTinh": "rgb(22, 18, 14)",
+              "contrast": 6.88
+            },
+            {
+              "cls": "label",
+              "color": "rgb(173, 154, 135)",
+              "fontSize": "10px",
+              "nenRieng": null,
+              "nenDungDeTinh": "rgb(22, 18, 14)",
+              "contrast": 6.88
+            },
+            {
+              "cls": "label",
+              "color": "rgb(173, 154, 135)",
+              "fontSize": "10px",
+              "nenRieng": null,
+              "nenDungDeTinh": "rgb(22, 18, 14)",
+              "contrast": 6.88
+            }
+          ]
+        }
+      ],
+      "tatCaCacMan": [
+        {
+          "id": "splash",
+          "theme": "dark",
+          "paper": "#16120e"
+        },
+        {
+          "id": "onboarding",
+          "theme": "dark",
+          "paper": "#16120e"
+        },
+        {
+          "id": "placement",
+          "theme": "dark",
+          "paper": "#16120e"
+        },
+        {
+          "id": "topics",
+          "theme": "dark",
+          "paper": "#16120e"
+        },
+        {
+          "id": "home",
+          "theme": "dark",
+          "paper": "#16120e"
+        },
+        {
+          "id": "capture",
+          "theme": "dark",
+          "paper": "#16120e"
+        },
+        {
+          "id": "regions",
+          "theme": "dark",
+          "paper": "#16120e"
+        },
+        {
+          "id": "wordlist",
+          "theme": "dark",
+          "paper": "#16120e"
+        },
+        {
+          "id": "worddetail",
+          "theme": "dark",
+          "paper": "#16120e"
+        },
+        {
+          "id": "compose",
+          "theme": "dark",
+          "paper": "#16120e"
+        },
+        {
+          "id": "reader",
+          "theme": "dark",
+          "paper": "#16120e"
+        },
+        {
+          "id": "speaking",
+          "theme": "dark",
+          "paper": "#16120e"
+        },
+        {
+          "id": "stories",
+          "theme": "dark",
+          "paper": "#16120e"
+        },
+        {
+          "id": "review-hub",
+          "theme": "dark",
+          "paper": "#16120e"
+        },
+        {
+          "id": "review-run",
+          "theme": "dark",
+          "paper": "#16120e"
+        },
+        {
+          "id": "review-summary",
+          "theme": "dark",
+          "paper": "#16120e"
+        },
+        {
+          "id": "diary",
+          "theme": "dark",
+          "paper": "#16120e"
+        },
+        {
+          "id": "progress",
+          "theme": "dark",
+          "paper": "#16120e"
+        },
+        {
+          "id": "profile",
+          "theme": "dark",
+          "paper": "#16120e"
+        },
+        {
+          "id": "system-states",
+          "theme": "dark",
+          "paper": "#16120e"
+        }
+      ]
+    }
+  }
+]

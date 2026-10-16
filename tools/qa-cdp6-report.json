@@ -1,0 +1,54 @@
+[
+  {
+    "rail": {
+      "display": "block",
+      "w": 264,
+      "items": 25
+    },
+    "moBang": "downpour",
+    "truocKhiBamRail": {
+      "hash": "#/reader",
+      "sheet": true,
+      "scrim": true
+    },
+    "mucRail": {
+      "x": 172,
+      "y": 391,
+      "label": "05 Hôm nay"
+    },
+    "sauKhiBamRail": {
+      "hash": "#/reader",
+      "sheetCon": false,
+      "scrimCon": false,
+      "overlayChildren": 0,
+      "soNutBiChe": 4,
+      "chiTiet": [
+        {
+          "nut": "Quay lại",
+          "biChe": false,
+          "phuTrach": "[object SVGAnimatedStrin"
+        },
+        {
+          "nut": "Lưu đoạn này vào nhật ",
+          "biChe": true,
+          "phuTrach": "inspector__block"
+        },
+        {
+          "nut": "Phát audio đoạn văn",
+          "biChe": true,
+          "phuTrach": null
+        },
+        {
+          "nut": "downpour",
+          "biChe": true,
+          "phuTrach": null
+        },
+        {
+          "nut": "rush hour",
+          "biChe": true,
+          "phuTrach": null
+        }
+      ]
+    }
+  }
+]

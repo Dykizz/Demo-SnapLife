@@ -1,0 +1,1036 @@
+/* ============================================================================
+   SnapLife AI — CSS riêng của nhóm B
+   Owner: screens-capture  |  capture · regions · wordlist · worddetail
+   Chỉ nhóm này được ghi vào file này. Chỉ dùng token trong tokens.css và
+   component trong components.css — tuyệt đối không hardcode màu.
+   ========================================================================== */
+
+/* ========================= Quy ước chung nhóm B ========================== */
+/* Điểm chạm 44px nằm trọn ở components.css (chip · chip--sm · seg__opt ·
+   audio-btn · iconbtn--quiet), kể cả chống flex-shrink bóp nút nghe. Nhóm B
+   KHÔNG override lại bất cứ kích thước nào của thư viện chung. */
+.b-muted-note {
+  color: var(--ink-3);
+  font-size: var(--fs-xs);
+}
+
+/* ============================== 06 · capture ============================= */
+.b-cam {
+  background: var(--paper);
+}
+.b-cam__stage {
+  position: relative;
+}
+/* Tràn viền trên/dưới cho cảm giác "đang mở camera", không phải đang xem ảnh. */
+.b-cam .viewfinder {
+  border-radius: 0;
+}
+/* Dải tối phía trên để giờ hệ thống và app bar luôn đọc được trên mọi ảnh. */
+.b-cam__stage::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 132px;
+  background: linear-gradient(to bottom, var(--overlay-chip), transparent);
+  pointer-events: none;
+  z-index: 2;
+}
+.b-cam .appbar--overlay .appbar__title,
+.b-cam .appbar--overlay .appbar__sub {
+  color: var(--overlay-chip-ink);
+}
+.b-cam .appbar--overlay .appbar__sub {
+  opacity: 0.82;
+}
+.b-cam .appbar--overlay .iconbtn {
+  color: var(--overlay-chip-ink);
+}
+.b-cam .appbar--overlay .iconbtn:hover {
+  background: var(--overlay-chip);
+  color: var(--overlay-chip-ink);
+}
+.b-cam__corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--overlay-line);
+  pointer-events: none;
+  z-index: 3;
+}
+.b-cam__corner--tl {
+  top: 14%;
+  left: 16%;
+  border-right: 0;
+  border-bottom: 0;
+  border-top-left-radius: var(--r-md);
+}
+.b-cam__corner--tr {
+  top: 14%;
+  right: 16%;
+  border-left: 0;
+  border-bottom: 0;
+  border-top-right-radius: var(--r-md);
+}
+.b-cam__corner--bl {
+  bottom: 14%;
+  left: 16%;
+  border-right: 0;
+  border-top: 0;
+  border-bottom-left-radius: var(--r-md);
+}
+.b-cam__corner--br {
+  bottom: 14%;
+  right: 16%;
+  border-left: 0;
+  border-top: 0;
+  border-bottom-right-radius: var(--r-md);
+}
+/* Nhãn camera — nằm trên lớp stage và tự mang nền riêng (xem capture.js), nên
+   chữ không bao giờ phụ thuộc vào độ sáng của ảnh chụp. */
+.b-cam__badges {
+  position: absolute;
+  left: var(--sp-4);
+  right: var(--sp-4);
+  bottom: var(--sp-4);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  pointer-events: none;
+}
+.b-cam__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 26px;
+  padding: 5px 10px;
+  border-radius: var(--r-full);
+  background-color: var(--overlay-chip);
+  background-image: linear-gradient(var(--overlay-chip), var(--overlay-chip));
+  color: var(--overlay-chip-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.b-cam__badge--right svg {
+  color: var(--success);
+}
+
+/* Lớp phủ tiến trình khi bấm chụp */
+.b-cam__busy {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: grid;
+  place-items: center;
+  padding: var(--sp-5);
+  background: var(--scrim);
+}
+.b-cam__busy[hidden] {
+  display: none;
+}
+.b-cam__busybox {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-5);
+  border-radius: var(--r-lg);
+  background: var(--card);
+  box-shadow: var(--shadow-4);
+}
+.b-cam__busytitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  line-height: 1.2;
+}
+.b-cam__busynote {
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+
+.b-cam__body {
+  padding-top: var(--sp-5);
+  gap: var(--sp-4);
+}
+.b-tips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+.b-tip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: var(--r-full);
+  background: var(--card-inset);
+  border: 1px solid var(--line);
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+.b-tip svg {
+  color: var(--primary);
+  flex: 0 0 auto;
+}
+
+/* Bốn bước kiến trúc: nén → 1 call VLM → lưu DB → rule engine */
+.b-steps {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--sp-2);
+}
+.b-step {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) 0;
+}
+.b-step + .b-step {
+  box-shadow: inset 0 1px 0 var(--line);
+}
+.b-step__n {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--r-sm);
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+}
+.b-step__body {
+  min-width: 0;
+}
+.b-step__body svg {
+  color: var(--ink-3);
+  flex: 0 0 auto;
+}
+.b-step__t {
+  font-size: var(--fs-base);
+  font-weight: 600;
+}
+.b-step__note {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+  line-height: 1.45;
+}
+.b-step__v {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--ink-2);
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Cụm nút đáy */
+.b-cam__dock {
+  position: sticky;
+  bottom: 0;
+  z-index: var(--z-sticky);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--screen-pad) calc(var(--sp-3) + 22px);
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid var(--line);
+}
+.b-cam__docknote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+  text-align: center;
+}
+.b-cam__docknote svg {
+  flex: 0 0 auto;
+}
+.b-cam__dockrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+.b-cam__dockrow > .btn {
+  flex: 1 1 auto;
+}
+.b-shutter {
+  position: relative;
+  flex: 0 0 auto;
+  width: 76px;
+  height: 76px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-full);
+  background: var(--card);
+  border: 2px solid var(--primary);
+  box-shadow: var(--shadow-2);
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.b-shutter__ring {
+  position: absolute;
+  inset: 3px;
+  border-radius: var(--r-full);
+  border: 1px solid var(--primary-soft-2);
+}
+.b-shutter__dot {
+  width: 54px;
+  height: 54px;
+  border-radius: var(--r-full);
+  background: var(--primary);
+  transition: transform var(--dur-fast) var(--ease);
+}
+.b-shutter:hover .b-shutter__dot {
+  transform: scale(1.06);
+}
+.b-shutter:active {
+  transform: scale(0.94);
+}
+.b-cam__flash {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-full);
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  color: var(--ink-2);
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.b-cam__flash[aria-pressed='true'] {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary);
+}
+
+/* Thư viện ảnh trong bottom sheet */
+.b-lib {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-3);
+}
+.b-lib__item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: var(--sp-2);
+  border-radius: var(--r-md);
+  background: var(--card);
+  border: 1px solid var(--line);
+  text-align: left;
+  transition: border-color var(--dur-fast) var(--ease), transform var(--dur-instant) var(--ease);
+}
+.b-lib__item:hover {
+  border-color: var(--primary);
+}
+.b-lib__item:active {
+  transform: scale(0.98);
+}
+.b-lib__item[aria-current='true'] {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-soft);
+}
+.b-lib__thumb {
+  display: block;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  background: var(--card-inset);
+}
+.b-lib__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.b-lib__cap {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.b-lib__meta {
+  font-size: var(--fs-2xs);
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+}
+
+/* ============================== 07 · regions ============================= */
+.b-regions__photo {
+  position: relative;
+}
+.b-regions__frame {
+  border-radius: var(--r-lg);
+}
+.b-regions__tools {
+  display: flex;
+  gap: var(--sp-2);
+}
+.b-regions__tools > .btn {
+  flex: 1 1 0;
+}
+
+/* Hai wrapper dựng ở regions.js để tách 2 cột khi khung đủ rộng. Ở bề rộng hẹp
+   chúng phải "tan" đi (`display: contents`) để .screen__body vẫn thấy đúng sáu
+   con trực tiếp như trước: cùng thứ tự, cùng gap --sp-5 — bố cục điện thoại
+   không đổi. Nếu để nguyên display:block thì 4 khối trong cột trái sẽ mất
+   khoảng cách với nhau. */
+.b-regions__side,
+.b-regions__main {
+  display: contents;
+}
+
+.bbox.is-focused,
+.bbox.is-hover {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  z-index: 6;
+}
+.bbox.is-hover:not(.is-focused) {
+  outline-width: 2px;
+  outline-color: var(--primary);
+}
+
+.b-wordcard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  scroll-margin-top: 96px;
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.b-wordcard.is-focused {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-soft), var(--shadow-2);
+}
+.b-wordcard__top {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+}
+.b-wordcard__en {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  line-height: 1.1;
+  letter-spacing: var(--tracking-tight);
+}
+.b-wordcard__ipa {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--ink-3);
+  margin-top: 3px;
+}
+.b-wordcard__vi {
+  font-family: var(--font-read);
+  font-size: var(--fs-md);
+  line-height: 1.45;
+  color: var(--ink);
+}
+.b-wordcard__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.b-wordcard__ex {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-md);
+  background: var(--card-inset);
+}
+.b-wordcard__ex-en {
+  font-family: var(--font-read);
+  font-size: var(--fs-md);
+  line-height: 1.6;
+  color: var(--ink);
+}
+.b-wordcard__ex-vi {
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+  line-height: 1.55;
+}
+.b-wordcard__coord {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.05em;
+  color: var(--ink-3);
+}
+.b-wordcard__foot {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.b-wordcard__foot .seg {
+  flex: 0 0 auto;
+}
+.b-wordcard__foot .seg__opt {
+  min-width: 58px;
+}
+.b-wordcard__foot .btn {
+  margin-left: auto;
+}
+
+.b-restore {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-md);
+  background: var(--card-2);
+  border: 1px dashed var(--line-strong);
+}
+.b-restore__n {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  border-radius: var(--r-full);
+  background: var(--card-inset);
+  color: var(--ink-3);
+  font-size: var(--fs-xs);
+}
+.b-restore__en {
+  font-size: var(--fs-base);
+  font-weight: 600;
+  color: var(--ink-2);
+  text-decoration: line-through;
+  text-decoration-color: var(--ink-3);
+}
+.b-restore__note {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+.b-manual__results {
+  margin-top: var(--sp-3);
+}
+
+/* ============================= 08 · wordlist ============================= */
+.b-search {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 48px;
+  padding: 0 var(--sp-2) 0 var(--sp-4);
+  border-radius: var(--r-full);
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  color: var(--ink-3);
+  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.b-search:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-soft);
+}
+.b-search > svg {
+  flex: 0 0 auto;
+}
+.b-search__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 46px;
+  border: 0;
+  background: transparent;
+  outline: none;
+  font-size: var(--fs-base);
+  color: var(--ink);
+}
+.b-search__input::placeholder {
+  color: var(--ink-3);
+}
+.b-search__input::-webkit-search-cancel-button,
+.b-search__input::-webkit-search-decoration {
+  display: none;
+}
+.b-sort {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.b-wordlist__hint {
+  font-size: var(--fs-2xs);
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+}
+.b-wordlist .seg__opt {
+  font-size: var(--fs-xs);
+  white-space: nowrap;
+  padding: 0 var(--sp-2);
+}
+.b-wordlist .list .wordrow + .wordrow {
+  box-shadow: inset 0 1px 0 var(--line);
+}
+
+/* Hai wrapper dựng ở wordlist.js để tách "cột lọc" và "kết quả" ở desktop.
+   Ở mọi bề rộng dưới 1100px chúng "tan" đi để .screen__body vẫn thấy đúng tám
+   khối con như trước (cùng thứ tự, cùng gap) — bố cục điện thoại và tablet
+   không đổi. Chỉ từ 1100px chúng mới thành hai cột thật (xem cuối file). */
+.b-wordlist__filters,
+.b-wordlist__results {
+  display: contents;
+}
+
+/* ============================ 09 · worddetail ============================ */
+.b-hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.b-hero__row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+}
+.b-hero__en {
+  font-family: var(--font-display);
+  font-size: var(--fs-3xl);
+  line-height: 1.05;
+  letter-spacing: var(--tracking-tight);
+  overflow-wrap: anywhere;
+}
+.b-hero__ipa {
+  font-family: var(--font-mono);
+  font-size: var(--fs-base);
+  color: var(--ink-2);
+  margin-top: var(--sp-1);
+}
+.b-hero__vi {
+  font-family: var(--font-read);
+  font-size: var(--fs-lg);
+  line-height: 1.5;
+  color: var(--ink);
+}
+.b-hero__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.b-listen {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin-top: var(--sp-2);
+}
+.b-listen__row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding-bottom: var(--sp-3);
+  box-shadow: inset 0 -1px 0 var(--line);
+}
+.b-listen__t {
+  font-size: var(--fs-base);
+  font-weight: 600;
+}
+.b-listen__sub {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+.b-worddetail__stage {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+  letter-spacing: 0.06em;
+}
+.b-worddetail__stage-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  color: var(--primary);
+}
+
+/* ============================================================================
+   MÀN HÌNH RỘNG — container query `appframe`
+   ----------------------------------------------------------------------------
+   Dùng `@container appframe` chứ không `@media (min-width: …)`: media query
+   tính theo VIEWPORT, nên trong chế độ demo (khung điện thoại 390px giữa cửa sổ
+   1440px) luật desktop vẫn kích hoạt bên trong khung 390px và làm vỡ bố cục.
+   Container `appframe` khai báo ở styles/web.css, đo theo BỀ RỘNG KHUNG — đúng
+   ở cả ba nơi: khung điện thoại demo, web mode, harness audit `?w=`.
+   ========================================================================== */
+
+/* ======================= Màn hẹp (≤360px) & màn rộng ==================== */
+@container appframe (max-width: 360px) {
+  .b-step {
+    grid-template-columns: 30px minmax(0, 1fr);
+  }
+  .b-step__v {
+    grid-column: 2;
+    text-align: left;
+  }
+  .b-lib {
+    grid-template-columns: 1fr;
+  }
+  .b-wordcard__foot {
+    flex-wrap: wrap;
+  }
+  .b-wordcard__foot .btn {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+@container appframe (min-width: 720px) {
+  .b-lib {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ===================== ≥900px · bề rộng nội dung ========================= */
+/* WEB-SPEC §2. Độ đặc hiệu 3 lớp nên thắng `[data-mode='web'] .screen__body`
+   của web.css bất kể thứ tự nạp file. Màn một cột đọc/thao tác dừng ở
+   --measure-body; màn có lưới hoặc 2 cột được rộng tới --measure-grid. */
+@container appframe (min-width: 900px) {
+  .screen.b-cam .screen__body {
+    width: 100%;
+    max-width: var(--measure-body, 720px);
+    margin-inline: auto;
+  }
+  .screen.b-regions .screen__body,
+  .screen.b-wordlist .screen__body,
+  .screen.b-worddetail .screen__body {
+    width: 100%;
+    max-width: var(--measure-grid, 1040px);
+    margin-inline: auto;
+  }
+}
+
+/* ---- capture: khung ngắm 520px canh giữa, 4 bước kiến trúc xếp cạnh ----- */
+@container appframe (min-width: 900px) {
+  /* Ở desktop không còn ảnh camera phủ toàn màn hình, nên app bar quay về dạng
+     thanh thật (nền giấy, chữ mực). Nếu giữ dạng overlay, dải gradient tối sẽ
+     trải hết bề ngang khung trong khi khung ngắm chỉ 520px canh giữa — hai bên
+     là một vệt tối trên nền giấy, và chữ trắng mất nền. */
+  .b-cam .appbar--overlay {
+    position: sticky;
+    top: 0;
+    inset: auto;
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    border-bottom: 1px solid var(--line);
+  }
+  .b-cam .appbar--overlay .appbar__title {
+    color: var(--ink);
+  }
+  .b-cam .appbar--overlay .appbar__sub {
+    color: var(--ink-3);
+    opacity: 1;
+  }
+  .b-cam .appbar--overlay .iconbtn {
+    color: var(--ink-2);
+  }
+  .b-cam .appbar--overlay .iconbtn:hover {
+    background: var(--card-inset);
+    color: var(--ink);
+  }
+  /* Khung ngắm: giới hạn ~520px, KHÔNG để khung vuông to bằng cả màn hình. */
+  .b-cam__stage {
+    width: 100%;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+  /* Không còn chữ overlay nào đè lên ảnh nên dải tối phía trên là thừa. */
+  .b-cam__stage::before {
+    display: none;
+  }
+  /* Bốn bước kiến trúc: 2 × 2 thẻ thay cho 4 hàng dọc. */
+  .b-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(288px, 1fr));
+    gap: var(--sp-3);
+  }
+  .b-step {
+    grid-template-columns: 34px minmax(0, 1fr);
+    padding: var(--sp-3);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--card-2);
+  }
+  .b-step + .b-step {
+    box-shadow: none;
+  }
+  .b-step__v {
+    grid-column: 2;
+    text-align: left;
+  }
+  .b-tips {
+    justify-content: center;
+  }
+  /* Cụm nút đáy thành thanh điều khiển nổi, canh giữa theo khung ngắm. */
+  .b-cam__dock {
+    width: 100%;
+    max-width: 520px;
+    margin-inline: auto;
+    padding: var(--sp-3);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-3);
+  }
+}
+
+/* ---- regions: ảnh dính bên trái, thẻ từ bên phải (màn chính của SP) ----- */
+@container appframe (min-width: 900px) {
+  /* Hai wrapper .b-regions__side / .b-regions__main do regions.js dựng; ở bề
+     rộng hẹp chúng là `display: contents` nên bố cục điện thoại không đổi. */
+  .b-regions .screen__body {
+    display: grid;
+    grid-template-columns: minmax(0, 440px) minmax(0, 1fr);
+    column-gap: var(--sp-6);
+    row-gap: var(--sp-5);
+    align-items: start;
+  }
+  .b-regions__side {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-5);
+    align-self: start;
+    /* Dính theo cuộn: app bar cao 56px nên chừa thêm khoảng thở. */
+    position: sticky;
+    top: 76px;
+  }
+  .b-regions__main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-5);
+    min-width: 0;
+  }
+  /* Ảnh vẫn là khung VUÔNG 1:1 như ở điện thoại — bbox tính bằng % toạ độ nên
+     đổi tỉ lệ khung là toạ độ lệch ngay. Ở đây chỉ đổi bề rộng cột (440px). */
+  .b-regions .screen__cta {
+    position: static;
+    padding: 0;
+    background: none;
+    max-width: 420px;
+  }
+}
+
+/* ---- wordlist: bộ lọc trải ngang một hàng, danh sách từ 2 cột ----------- */
+@container appframe (min-width: 900px) {
+  /* Lưới 4 cột ảo. Trước đây tìm kiếm, tổng kết, chip CEFR, chip trạng thái,
+     sắp xếp và số từ xếp dọc hết bề ngang = 3 hàng chip lãng phí chiều cao.
+     Hai wrapper đang là `display: contents` nên các khối con vẫn là item của
+     lưới này; đặt cột theo LỚP thay vì :nth-child để không phụ thuộc thứ tự. */
+  .b-wordlist .screen__body {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--sp-5);
+    row-gap: var(--sp-4);
+    align-items: start;
+  }
+  .b-wordlist__filters > .b-search {
+    grid-column: 1 / 3;
+  }
+  .b-wordlist__filters > .card {
+    grid-column: 3 / 5;
+  }
+  .b-wordlist__filters > :nth-child(3),
+  .b-wordlist__filters > :nth-child(5) {
+    grid-column: 1 / 3;
+  }
+  .b-wordlist__filters > :nth-child(4) {
+    grid-column: 3 / 5;
+  }
+  .b-wordlist__results > .b-wordlist__count {
+    grid-column: 3 / 5;
+    align-self: end;
+  }
+  .b-wordlist__results > .b-wordlist__list,
+  .b-wordlist__results > .callout {
+    grid-column: 1 / -1;
+  }
+  /* Danh sách từ chia 2 cột; mỗi hàng từ vẫn giữ nguyên component .wordrow. */
+  .b-wordlist .list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ---- worddetail: thông tin từ bên trái, ví dụ + SRS bên phải ----------- */
+@container appframe (min-width: 900px) {
+  /* heroHost là một .stack; cho nó `display: contents` để các thẻ con trở thành
+     item của lưới 2 cột (CSS thuần, không phải đổi cấu trúc DOM). */
+  .b-worddetail .screen__body {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--sp-5);
+    row-gap: var(--sp-5);
+    align-items: start;
+  }
+  .b-worddetail .screen__body > .stack {
+    display: contents;
+  }
+  .b-worddetail .screen__body > .stack > .card:has(.b-hero) {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+  .b-worddetail .screen__body > .stack > .card:not(:has(.b-hero)) {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .b-worddetail .screen__body > div:not(.stack):not(.screen__cta) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .b-worddetail .screen__body > .stack > .stack {
+    grid-column: 2;
+    grid-row: 3;
+  }
+  .b-worddetail .screen__body > .screen__cta {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    position: static;
+    padding: 0;
+    background: none;
+    max-width: 420px;
+  }
+  /* Deep link sai từ: trạng thái rỗng chiếm cả hai cột, không nằm nửa trái. */
+  .b-worddetail .screen__body > .empty {
+    grid-column: 1 / -1;
+  }
+  .b-worddetail .b-hero__en {
+    font-size: 44px;
+  }
+}
+/* KHÔNG chặn `max-width` trên `.appbar__sub` ở tầng nhóm: app bar tràn hết bề
+   rộng là đúng (WEB-SPEC §2). Giới hạn phụ đề là quyết định typographic chung,
+   đã có trong components.css; còn harness audit bỏ qua chrome trong `.appbar`. */
+
+/* ============================================================================
+   GIAO DIỆN MÁY TÍNH (≥1100px) — nhóm B
+   ----------------------------------------------------------------------------
+   Hợp đồng: docs/WEB-SPEC.md §8. Tầng này KHÔNG đổi bố cục điện thoại/tablet
+   (đã chốt ở 360/720/900px). Hạn mức bề rộng tự nhảy bậc qua token của Lead
+   (≥1100px: body 820 / grid 1160, ≥1500px: body 900 / grid 1400) nên ở đây chỉ
+   dùng var(), không hardcode số.
+   ========================================================================== */
+
+/* ---- capture: khung ngắm 560px canh giữa · 4 bước thành dải ngang -------- */
+@container appframe (min-width: 1100px) {
+  .b-cam__stage,
+  .b-cam__dock {
+    max-width: 560px;
+  }
+  /* Hai callout nằm cạnh nhau, dải chip ở giữa, thẻ 4 bước trải hết bề ngang. */
+  .screen.b-cam .screen__body {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--sp-6);
+    row-gap: var(--sp-5);
+    align-items: start;
+    max-width: var(--measure-grid, 1160px);
+  }
+  .screen.b-cam .screen__body > :nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .screen.b-cam .screen__body > :nth-child(4) {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .screen.b-cam .screen__body > :nth-child(2) {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  .screen.b-cam .screen__body > :nth-child(3) {
+    grid-column: 1 / -1;
+    grid-row: 3;
+  }
+  /* Bốn bước kiến trúc: một dải ngang 4 ô, mỗi ô xếp dọc. */
+  .b-steps {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .b-step {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-2);
+  }
+  .b-step__n {
+    width: 30px;
+    height: 30px;
+  }
+  .b-step__v {
+    grid-column: 1;
+  }
+}
+
+/* ---- regions: ảnh 1:1 sticky trái ~460px + thẻ từ 2 cột phải ------------- */
+@container appframe (min-width: 1100px) {
+  .b-regions .screen__body {
+    grid-template-columns: minmax(380px, 460px) minmax(0, 1fr);
+    column-gap: var(--sp-6);
+  }
+  /* `.b-regions__side` đã sticky từ tầng 900px (top: 76px) — giữ nguyên.
+     Ảnh vẫn là khung VUÔNG 1:1 vì bbox tính bằng % toạ độ. */
+  /* Danh sách thẻ từ ở cột phải: 2 cột. Tiêu đề nhóm và các dải phụ trải hết. */
+  .b-regions__main > :first-child {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-4);
+    align-items: start;
+  }
+  .b-regions__main > :first-child > .row,
+  .b-regions__main > :first-child > .stack,
+  .b-regions__main > :first-child > .callout,
+  .b-regions__main > :first-child > .empty {
+    grid-column: 1 / -1;
+  }
+  /* Thẻ hẹp hơn (≈330px) nên hàng nút ở đáy thẻ phải cho phép xuống dòng. */
+  .b-wordcard__foot {
+    flex-wrap: wrap;
+  }
+}
+
+/* ---- wordlist: cột lọc trái sticky + danh sách 2 cột bên phải (kiểu bảng) */
+@container appframe (min-width: 1100px) {
+  .b-wordlist .screen__body {
+    display: grid;
+    grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+    column-gap: var(--sp-6);
+    row-gap: var(--sp-5);
+    align-items: start;
+    max-width: var(--measure-grid, 1160px);
+  }
+  /* Hai wrapper thôi "tan": thành hai cột thật. */
+  .b-wordlist__filters {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+    grid-column: 1;
+    grid-row: 1;
+    align-self: start;
+    position: sticky;
+    /* 56px app bar + khoảng thở. */
+    top: 84px;
+  }
+  .b-wordlist__results {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+    min-width: 0;
+    grid-column: 2;
+    grid-row: 1;
+  }
+  /* Danh sách vẫn 2 cột (từ tầng 900px) và giờ nằm gọn trong cột phải. */
+  .b-wordlist .list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ---- worddetail: thông tin từ trái · ví dụ + SRS phải --------------------
+   Cấu trúc 2 vùng đã có từ tầng 900px; ở desktop chỉ nới cỡ chữ và chặn
+   bề rộng khối chữ đọc để dòng không dài ra theo cột. */
+@container appframe (min-width: 1100px) {
+  .b-worddetail .b-hero__en {
+    font-size: 52px;
+  }
+  .b-hero__vi,
+  .b-wordcard__ex-en,
+  .b-wordcard__ex-vi {
+    max-width: var(--measure-read, 68ch);
+  }
+}

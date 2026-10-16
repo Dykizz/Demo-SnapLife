@@ -1,0 +1,26 @@
+﻿SnapLife AI - chup man hinh - 2026-10-16 18:32
+id                     status           theme
+----------------------------------------------------
+splash                 ok               light
+onboarding             ok               light
+placement              ok               light
+topics                 ok               light
+home                   ok               light
+capture                ok               light
+regions                ok               light
+wordlist               ok               light
+worddetail             ok               light
+compose                ok               light
+reader                 ok               light
+speaking               ok               light
+stories                ok               light
+review-hub             ok               light
+review-run             ok               light
+review-summary         ok               light
+diary                  ok               light
+progress               ok               light
+profile                ok               light
+compare                ok               light
+system-states          ok               light
+
+ok: 21 / 21

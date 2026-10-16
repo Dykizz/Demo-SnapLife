@@ -1,0 +1,1072 @@
+/* ============================================================================
+   SnapLife AI — CSS riêng của nhóm C
+   Owner: screens-story    | compose, reader, speaking, stories
+   Chỉ nhóm này được ghi vào file này. Dùng token trong tokens.css,
+   dùng component trong components.css — không hardcode màu.
+   ========================================================================== */
+
+/* ============================== Đoạn đan xen ============================= */
+/* Từ tiếng Anh nằm trong dòng chữ, nên phải giữ đúng nhịp dòng của đoạn văn.
+   Gạch chân mảnh màu cam là tín hiệu "chạm được" liên tục, không chỉ khi hover. */
+.interleave .en {
+  display: inline-block;
+  line-height: inherit;
+  vertical-align: baseline;
+  position: relative;
+  padding: 0 3px;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--highlight) 42%, transparent);
+}
+
+/* Vùng chạm rộng 44px cho một từ nằm giữa câu, mà không làm giãn dòng chữ. */
+.interleave .en::after {
+  content: '';
+  position: absolute;
+  inset: -6px -3px;
+  border-radius: var(--r-xs);
+}
+
+.interleave .en:hover,
+.interleave .en:focus-visible {
+  z-index: 2;
+}
+
+.interleave .en.cs-en--seen {
+  text-decoration-color: var(--highlight);
+  font-weight: 650;
+}
+
+/* Đoạn đang được đọc: tô nền rộng hơn chữ một chút để mắt bám theo. */
+.cs-article .interleave p {
+  margin-left: -12px;
+  margin-right: -12px;
+  padding: 0 12px;
+  border-radius: var(--r-md);
+  transition: background var(--dur) var(--ease);
+}
+.cs-article .interleave p.cs-para--on {
+  background: var(--highlight-soft);
+}
+
+/* Chữ cái đầu lớn — dấu hiệu "trang tạp chí". */
+.cs-article .interleave p:first-child::first-letter {
+  font-family: var(--font-display);
+  font-size: 3em;
+  line-height: 0.84;
+  float: left;
+  padding: 6px 8px 0 0;
+  color: var(--primary);
+}
+
+/* ================================ Bìa đọc ================================ */
+.photo-frame.cs-cover {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-3);
+}
+.cs-cover__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(12, 8, 5, 0.68) 0%, rgba(12, 8, 5, 0.16) 46%, rgba(12, 8, 5, 0) 72%);
+}
+.cs-cover__meta {
+  position: absolute;
+  left: var(--sp-4);
+  right: var(--sp-4);
+  bottom: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cs-cover__kicker {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--overlay-chip-ink);
+  opacity: 0.86;
+}
+.cs-cover__caption {
+  font-family: var(--font-read);
+  font-size: var(--fs-md);
+  line-height: 1.3;
+  color: var(--overlay-chip-ink);
+}
+.cs-cover__ratio {
+  position: absolute;
+  top: var(--sp-3);
+  right: var(--sp-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: var(--r-full);
+  background: var(--overlay-chip);
+  color: var(--overlay-chip-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* ============================== Đầu trang đọc =========================== */
+.cs-head__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  font-weight: 400;
+}
+.cs-head__lede {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-md);
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+.cs-head__tags {
+  margin-top: var(--sp-3);
+}
+
+/* ============================== Trình phát audio ======================== */
+.cs-player {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.cs-player__btn {
+  width: 52px;
+  height: 52px;
+  flex: 0 0 auto;
+  border-radius: var(--r-full);
+  background: var(--primary);
+  color: var(--on-primary);
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-2);
+  transition: background var(--dur-fast) var(--ease), transform var(--dur-instant) var(--ease);
+}
+.cs-player__btn:hover { background: var(--primary-hover); }
+.cs-player__btn:active { transform: scale(0.94); }
+.cs-player__body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.cs-player__meta { gap: var(--sp-3); }
+.cs-player__time {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+
+/* ================================ Bộ đếm từ ============================= */
+.cs-count {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.cs-count__head { align-items: flex-end; }
+.cs-count__value {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  line-height: 1;
+  color: var(--highlight);
+}
+.cs-count__hint {
+  margin-top: 3px;
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+
+/* ================================== Sheet =============================== */
+.cs-sheet__top {
+  margin-bottom: var(--sp-3);
+  align-items: center;
+}
+.cs-sheet__ipa {
+  font-size: var(--fs-md);
+  color: var(--ink-2);
+}
+.cs-sheet__vi {
+  font-family: var(--font-read);
+  font-size: var(--fs-lg);
+  line-height: 1.45;
+}
+.cs-sheet__badges { margin-top: var(--sp-3); }
+.cs-sheet__ex { font-size: var(--fs-md); color: var(--ink); }
+.cs-sheet__exvi {
+  margin-top: 4px;
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+.cs-sheet__ctx { font-size: var(--fs-md); color: var(--ink-2); }
+.cs-sheet__ctx strong {
+  color: var(--highlight);
+  font-weight: 650;
+}
+
+.cs-reader__actions,
+.cs-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+/* =============================== Luyện nói ============================== */
+.cs-prompt {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.cs-prompt__img {
+  width: 76px;
+  height: 76px;
+  flex: 0 0 auto;
+  border-radius: var(--r-md);
+  object-fit: cover;
+  box-shadow: var(--shadow-1);
+}
+.cs-prompt__text {
+  margin-top: 2px;
+  font-family: var(--font-read);
+  font-size: var(--fs-md);
+  line-height: 1.5;
+}
+.cs-prompt__sub {
+  margin-top: 4px;
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+
+.cs-stage,
+.cs-extra {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+.cs-extra:empty { display: none; }
+
+.cs-rec {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-5) var(--sp-4);
+  border-radius: var(--r-xl);
+  background: var(--card);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-2);
+}
+.cs-rec--live { background: var(--card-2); }
+.cs-rec__hint {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 400;
+}
+.cs-rec__sub {
+  max-width: 32ch;
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+  text-align: center;
+}
+.cs-rec__timer {
+  font-size: var(--fs-xl);
+  letter-spacing: 0.02em;
+}
+.cs-rec__preview {
+  width: 120px;
+  margin-top: var(--sp-2);
+  opacity: 0.4;
+}
+
+.cs-mic {
+  width: 96px;
+  height: 96px;
+  border-radius: var(--r-full);
+  display: grid;
+  place-items: center;
+  background: var(--primary);
+  color: var(--on-primary);
+  box-shadow: var(--shadow-3);
+  transition: background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease-spring);
+}
+.cs-mic:hover { background: var(--primary-hover); }
+.cs-mic:active { transform: scale(0.94); }
+.cs-mic--stop {
+  background: var(--danger);
+  animation: cs-mic-pulse 1.6s var(--ease) infinite;
+}
+.cs-mic--stop:hover { background: var(--danger); filter: brightness(0.94); }
+
+@keyframes cs-mic-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--danger) 42%, transparent); }
+  70% { box-shadow: 0 0 0 20px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+/* Waveform — bằng chứng "mic đang chạy" phải nhìn thấy được. */
+.cs-wave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  width: 100%;
+  height: 56px;
+}
+.cs-wave__bar {
+  width: 4px;
+  border-radius: var(--r-full);
+  background: var(--line-strong);
+  transform-origin: center;
+}
+.cs-wave--live .cs-wave__bar {
+  background: var(--highlight);
+  animation: cs-wave 760ms var(--ease) infinite alternate;
+}
+@keyframes cs-wave {
+  from { transform: scaleY(0.32); }
+  to { transform: scaleY(1); }
+}
+
+.cs-transcript {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.cs-transcript__text {
+  font-size: var(--fs-lg);
+  line-height: 1.55;
+}
+.cs-transcript__foot { gap: var(--sp-3); }
+
+.cs-correcting {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.cs-correcting__sub { font-size: var(--fs-sm); }
+
+/* ================================ Điểm số =============================== */
+.cs-score {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+.cs-score__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-2);
+}
+.cs-score__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.cs-score__n {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+}
+.cs-score__label {
+  font-size: var(--fs-xs);
+  color: var(--ink-2);
+  text-align: center;
+}
+
+/* ================================== Diff ================================ */
+.cs-diff {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.cs-diff__head { align-items: center; }
+.cs-diff__legend {
+  display: flex;
+  gap: var(--sp-2);
+}
+.cs-diff__key {
+  padding: 2px 9px;
+  border-radius: var(--r-full);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.cs-diff__key--del {
+  background: var(--danger-soft);
+  color: var(--danger);
+  text-decoration: line-through;
+}
+.cs-diff__key--ins {
+  background: var(--success-soft);
+  color: var(--success);
+}
+.cs-diff__row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--sp-3);
+  border-radius: var(--r-md);
+  background: var(--card-inset);
+}
+.cs-diff__row--after {
+  background: var(--success-soft);
+}
+.cs-diff__tag {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.cs-diff__line {
+  font-size: var(--fs-md);
+  line-height: 1.6;
+}
+.cs-diff__del {
+  color: var(--danger);
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+.cs-diff__ins {
+  padding: 0 3px;
+  border-radius: var(--r-xs);
+  background: color-mix(in srgb, var(--success) 18%, transparent);
+  color: var(--success);
+  font-weight: 650;
+}
+
+.cs-changes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.cs-changes > .label { margin-bottom: 2px; }
+.cs-change {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+  background: var(--card);
+}
+.cs-change__pair {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+.cs-change__pair svg { color: var(--ink-3); flex: 0 0 auto; }
+.cs-change__from {
+  padding: 2px 10px;
+  border-radius: var(--r-full);
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-decoration: line-through;
+}
+.cs-change__to {
+  padding: 2px 10px;
+  border-radius: var(--r-full);
+  background: var(--success-soft);
+  color: var(--success);
+  font-size: var(--fs-sm);
+  font-weight: 650;
+}
+.cs-change__why {
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+
+/* =========================== Từ mới → ôn tập ============================ */
+.cs-newwords {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.cs-newwords__head {
+  align-items: flex-start;
+  gap: var(--sp-2);
+  color: var(--primary);
+}
+.cs-newwords__sub {
+  margin-top: 2px;
+  font-size: var(--fs-xs);
+}
+.cs-newword {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  padding: var(--sp-2) 0;
+}
+.cs-newword + .cs-newword { box-shadow: inset 0 1px 0 var(--line); }
+.cs-newword__en {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  color: var(--highlight);
+}
+.cs-newword__note {
+  flex: 1 1 120px;
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+
+/* ================================ Soạn thảo ============================= */
+.cs-compose__panel { display: flex; flex-direction: column; }
+.cs-compose__cta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.cs-compose__note {
+  font-size: var(--fs-xs);
+  text-align: center;
+}
+
+/* Chip trong form: cao đúng 44px cho ngón tay, vẫn giữ dáng viên thuốc. */
+.cs-compose .chip,
+.cs-stories .chip {
+  position: relative;
+  min-height: var(--tap-min);
+}
+.cs-compose .chip::after,
+.cs-stories .chip::after {
+  content: '';
+  position: absolute;
+  inset: -4px -2px;
+  border-radius: var(--r-full);
+}
+
+.cs-textarea {
+  width: 100%;
+  min-height: 124px;
+  margin-top: var(--sp-2);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-md);
+  border: 1px solid var(--line-strong);
+  background: var(--card);
+  color: var(--ink);
+  font-family: var(--font-read);
+  font-size: var(--fs-md);
+  line-height: 1.6;
+  resize: vertical;
+}
+.cs-textarea::placeholder { color: var(--ink-3); }
+.cs-textarea__foot { margin-top: var(--sp-2); }
+.cs-count-chars {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+.cs-textarea__hint { font-size: var(--fs-xs); }
+
+.cs-photos {
+  display: flex;
+  gap: var(--sp-2);
+  overflow-x: auto;
+  padding: var(--sp-1) 2px var(--sp-2);
+  margin-top: var(--sp-3);
+  scrollbar-width: none;
+}
+.cs-photos::-webkit-scrollbar { display: none; }
+.cs-photo {
+  position: relative;
+  width: 78px;
+  height: 78px;
+  flex: 0 0 auto;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 2px solid transparent;
+  box-shadow: var(--shadow-1);
+  transition: border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.cs-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cs-photo[aria-pressed='true'] {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-2);
+}
+.cs-photo[aria-pressed='true']::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--primary) 16%, transparent);
+}
+.cs-photo:active { transform: scale(0.96); }
+.cs-photos__caption {
+  font-size: var(--fs-xs);
+  margin-top: 2px;
+}
+
+.cs-input {
+  width: 100%;
+  min-height: var(--tap-min);
+  margin-top: var(--sp-2);
+  padding: 0 var(--sp-4);
+  border-radius: var(--r-full);
+  border: 1px solid var(--line-strong);
+  background: var(--card);
+  color: var(--ink);
+  font-size: var(--fs-base);
+}
+.cs-input::placeholder { color: var(--ink-3); }
+.cs-picked { margin-top: var(--sp-3); }
+.cs-picked__empty { font-size: var(--fs-sm); }
+
+.cs-suggest {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--card);
+  overflow: hidden;
+}
+.cs-suggest__head { padding: var(--sp-3) var(--sp-4) var(--sp-2); }
+.cs-suggest .callout { margin: var(--sp-2) var(--sp-4) var(--sp-4); }
+
+.cs-writing {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.cs-writing__sub { font-size: var(--fs-sm); }
+.cs-writing__cost {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+}
+
+/* =============================== Kệ truyện ============================== */
+.cs-stories__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-2);
+}
+.cs-stories__stats .card { padding: var(--sp-3); }
+.cs-stories__stats .stat__value { font-size: var(--fs-lg); }
+.cs-shelf__filters {
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+.cs-shelf {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.cs-story {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  padding: var(--sp-3);
+  border-radius: var(--r-lg);
+  background: var(--card);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-1);
+  text-align: left;
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
+}
+.cs-story:hover {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-2);
+}
+.cs-story:active { transform: scale(0.985); }
+.cs-story__cover {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  flex: 0 0 auto;
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+.cs-story__cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cs-story__ratio {
+  position: absolute;
+  left: 5px;
+  bottom: 5px;
+  padding: 2px 7px;
+  border-radius: var(--r-full);
+  background: var(--overlay-chip);
+  color: var(--overlay-chip-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+}
+.cs-story__body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.cs-story__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+}
+.cs-story__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  line-height: 1.2;
+}
+.cs-story__meta {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+.cs-story__words {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.cs-story__word {
+  padding: 2px 7px;
+  border-radius: var(--r-full);
+  background: var(--highlight-soft);
+  color: var(--highlight);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+}
+.cs-story__more {
+  align-self: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  color: var(--ink-3);
+}
+.cs-story__go {
+  flex: 0 0 auto;
+  color: var(--ink-3);
+}
+
+/* ============================================================================
+   BỐ CỤC THEO BỀ RỘNG KHUNG APP — @container appframe
+   ---------------------------------------------------------------------------
+   Vì sao KHÔNG dùng @media (min-width):
+   Trong chế độ demo (mặc định trên laptop), màn hình nằm trong khung điện thoại
+   390px giữa cửa sổ 1440px. `@media (min-width: 900px)` vẫn kích hoạt BÊN TRONG
+   khung 390px đó → bố cục hai cột bị nhồi vào 390px → vỡ đúng màn quan trọng
+   nhất. Container `appframe` do Lead đặt trên khung app (khung điện thoại, web
+   mode, `#frame` của probe, `.probe` của audit) nên nó đo BỀ RỘNG KHUNG, không
+   đo bề rộng viewport. Breakpoint dưới đây theo đúng quy đổi của WEB-SPEC:
+   600 → 600, 768 → 768, 900 → 900, 1100 → 1100.
+   ========================================================================== */
+
+/* ============================== Khung hẹp =============================== */
+@container appframe (max-width: 380px) {
+  .cs-stories__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cs-score__grid { gap: var(--sp-1); }
+  .cs-mic { width: 84px; height: 84px; }
+  .cs-player { flex-wrap: wrap; }
+}
+
+/* ======================= ≥ 600px: kệ truyện thành lưới ================== */
+/* Kệ truyện là danh sách dọc ở điện thoại; trên tablet nó phải là kệ thật.
+   Chỉ chia cột khi CÓ truyện — lúc kệ rỗng, `ui.empty` phải chiếm cả hàng. */
+@container appframe (min-width: 600px) {
+  .cs-shelf:has(> .cs-story) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    align-items: stretch;
+  }
+}
+
+/* =================== ≥ 900px: bố cục hai cột của nhóm C ================= */
+@container appframe (min-width: 900px) {
+  /* --- 1. Bề rộng nội dung: không kéo hết chiều rộng khung (WEB-SPEC §2) --- */
+  div.screen__body.cs-reader,
+  div.screen__body.cs-compose,
+  div.screen__body.cs-speaking,
+  div.screen__body.cs-stories {
+    width: 100%;
+    margin-inline: auto;
+    max-width: var(--measure-grid, 1040px);
+  }
+
+  /* --- 2. Khối chữ: không để một dòng dài quá tầm mắt --- */
+  div.screen__body.cs-compose p,
+  div.screen__body.cs-speaking p {
+    max-width: var(--measure-body, 720px);
+  }
+  .cs-prompt__text {
+    max-width: var(--measure-read, 68ch);
+  }
+
+  /* --- 3. `reader`: ảnh bìa một bên, cột đọc một bên ---------------------- */
+  /* Lưới chỉ có hai cột: bìa (cố định) và cột nội dung (co giãn). Mọi con trực
+     tiếp — trừ bìa — đều bị đẩy sang cột 2, nên cấu trúc DOM không phải đổi. */
+  div.screen__body.cs-reader {
+    display: grid;
+    /* 14 hàng ảo để bìa trải hết chiều cao nội dung; `position: sticky` chỉ có
+       chỗ trượt khi vùng chứa nó cao hơn chính nó. Hàng rỗng cao 0px. */
+    grid-template-rows: repeat(14, auto);
+    grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+    column-gap: var(--sp-7);
+    row-gap: var(--sp-5);
+    align-items: start;
+  }
+  div.screen__body.cs-reader > * {
+    grid-column: 2;
+  }
+  div.screen__body.cs-reader > .cs-cover {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    position: sticky;
+    /* Đứng dưới app bar đang dính (cao ~64px) để bìa không trôi mất sau nó. */
+    top: 72px;
+  }
+  /* Tiêu chuẩn CỨNG của màn đọc: đoạn văn ≤ 68ch. Luật phải đặt trên PHẦN TỬ
+     ĐOẠN VĂN (`.interleave`, font đọc 19px) chứ không đặt trên `article`: `ch`
+     được giải theo font của chính phần tử nhận nó, nên `68ch` trên `article`
+     (font UI 15px ≈ 9.0px/ch = 612px) sẽ siết cột chữ hẹp hơn ý muốn và lệch
+     khỏi 68ch của font đọc (Newsreader 19px ≈ 10.47px/ch = 712px). */
+  .cs-article .interleave {
+    max-width: var(--measure-read, 68ch);
+  }
+
+  /* Phụ đề app bar KHÔNG cap ở đây nữa: Lead đã xử lý ở tầng dùng chung
+     (`components.css` cap `.appbar__sub` 62ch; `tools/audit.js` bỏ qua mọi phần
+     tử trong `.appbar` khi đo khối chữ). Bản vá cục bộ từng màn là dư thừa. */
+
+  /* --- 4. `compose`: ô nhập bên trái, ảnh + chip bên phải ---------------- */
+  /* Panel là một `div.stack` ba khối ở cả hai chế độ nhập (kể lại / gõ từ):
+     [ô nhập] [chip chủ đề] [ảnh đính]  hoặc  [ô nhập] [gợi ý từ] [chủ đề].
+     Khối đầu giữ cột trái trải hai hàng; hai khối sau xếp dọc ở cột phải —
+     đúng thứ tự đọc của cả hai chế độ. */
+  .cs-compose__panel > .stack {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    column-gap: var(--sp-6);
+    row-gap: var(--sp-5);
+    align-items: start;
+  }
+  .cs-compose__panel > .stack > *:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+  .cs-compose__panel > .stack > *:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .cs-compose__panel > .stack > *:nth-child(3) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .cs-compose .cs-textarea {
+    min-height: 152px;
+  }
+  .cs-compose__note {
+    margin-inline: auto;
+  }
+
+  /* --- 5. `speaking`: transcript và diff đặt cạnh nhau ------------------- */
+  /* Chưa chỉnh / đang ghi: một cột, thu hẹp lại cho tập trung.
+     Đã chỉnh: câu gốc và bản sửa nằm hai cạnh để thấy ngay chỗ đổi. */
+  .cs-stage[data-phase='idle'],
+  .cs-stage[data-phase='recording'] {
+    width: 100%;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+  .cs-stage[data-phase='correcting'] {
+    width: 100%;
+    max-width: var(--measure-body, 720px);
+    margin-inline: auto;
+  }
+  .cs-stage[data-phase='recorded'] {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: var(--sp-5);
+    align-items: start;
+  }
+  .cs-stage[data-phase='recorded'] > .cs-transcript {
+    grid-column: 1;
+  }
+  .cs-stage[data-phase='recorded'] > .cs-actions {
+    grid-column: 2;
+  }
+  .cs-stage[data-phase='recorded'] > .callout {
+    grid-column: 1 / -1;
+  }
+  /* Điểm bán của slide 06: hai dòng đối chiếu cạnh nhau, lý do sửa nằm ngay
+     bên phải, không phải cuộn xuống mới thấy. */
+  .cs-stage[data-phase='corrected'] {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    column-gap: var(--sp-5);
+    row-gap: var(--sp-5);
+    align-items: start;
+  }
+  .cs-stage[data-phase='corrected'] > .cs-score {
+    grid-column: 1 / -1;
+  }
+  .cs-stage[data-phase='corrected'] > .cs-diff {
+    grid-column: 1;
+  }
+  .cs-stage[data-phase='corrected'] > .cs-changes {
+    grid-column: 2;
+  }
+  .cs-stage[data-phase='corrected'] > .cs-actions {
+    grid-column: 1 / -1;
+  }
+  /* Từ mới + lời hứa riêng tư: hai khối phụ, đặt cạnh nhau cho gọn. */
+  .cs-extra {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    column-gap: var(--sp-5);
+    align-items: start;
+  }
+}
+
+/* ============================================================================
+   ≥ 1100px: GIAO DIỆN MÁY TÍNH (WEB-SPEC §8)
+   ---------------------------------------------------------------------------
+   Mục tiêu khác hẳn tầng 900px: không phải "bố cục điện thoại canh giữa" mà là
+   web app dùng hết bề rộng, có nhiều VÙNG. Hạn mức bề rộng do Lead đặt theo bậc
+   thang trong web.css (≥1100: body 820 / grid 1160 / pad 28; ≥1500: 900/1400/40)
+   và cũng nằm trong container query nên nó theo BỀ RỘNG KHUNG.
+   Tầng 900–1099 (tablet ngang) giữ nguyên như cũ; < 900 (điện thoại) không đổi.
+   ========================================================================== */
+@container appframe (min-width: 1100px) {
+  /* --- 1. Bề rộng: dùng hết hạn mức, canh giữa --- */
+  div.screen__body.cs-reader,
+  div.screen__body.cs-compose,
+  div.screen__body.cs-speaking,
+  div.screen__body.cs-stories {
+    max-width: var(--measure-grid, 1160px);
+  }
+
+  /* --- 2. `reader` → 3 vùng ----------------------------------------------
+     Kim tự tháp đọc của màn này:
+       hàng 1      : đầu trang (tiêu đề + dẫn) trải cả hai cột
+       cột trái    : RAIL — bìa → trình phát audio → bộ đếm từ
+       cột phải    : BÀI ĐỌC (≤ 68ch) + callout + CTA
+     Rail gồm ba khối DOM rời nên được ghim vào hàng 2/3/4 của cột 1; bài đọc
+     nằm ở hàng 2 cột 2. Cách này giữ rail LIỀN MẠCH: nếu cho bài đọc trải hết
+     ba hàng của rail thì hàng sẽ bị kéo theo chiều cao bài đọc và rail sinh
+     khoảng trống giữa bìa với trình phát. Callout và CTA tự chảy xuống hàng
+     3/4/5 trong cột 2, ngay dưới bài đọc. ------------------------------- */
+  div.screen__body.cs-reader {
+    grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+    grid-template-rows: none;
+    column-gap: var(--sp-8);
+  }
+  div.screen__body.cs-reader > .cs-head {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+  div.screen__body.cs-reader > .cs-cover {
+    grid-column: 1;
+    grid-row: 2;
+    /* Ảnh gốc của người học là 1:1, nên ở desktop bìa vuông: không cần crop
+       dọc và rail thấp hơn, nhờ vậy bài đọc không bị bỏ lại một khoảng trống
+       lớn phía dưới khi nó ngắn hơn rail. */
+    aspect-ratio: 1 / 1;
+  }
+  div.screen__body.cs-reader > .cs-player {
+    grid-column: 1;
+    grid-row: 3;
+    flex-wrap: wrap;
+  }
+  div.screen__body.cs-reader > .cs-count {
+    grid-column: 1;
+    grid-row: 4;
+  }
+  div.screen__body.cs-reader > .cs-article {
+    grid-column: 2;
+    grid-row: 2;
+    /* Cột chữ đã được thiết kế < 68ch (684px ở 1100, 692px ở 1500 ≈ 65–66ch).
+       Hai dòng dưới là LƯỚI AN TOÀN để trần 68ch không trôi nếu sau này ai đổi
+       số cột: font đọc phải đặt trên CHÍNH khối này thì `68ch` mới giải đúng
+       bằng 10.47px/ch (xem ghi chú ở tầng 900px). */
+    font-family: var(--font-read);
+    font-size: 19px;
+    max-width: var(--measure-read, 68ch);
+  }
+  /* Dẫn đề chạy hết bề rộng một hàng nên phải tự giới hạn, nếu không nó thành
+     dòng ~85 ký tự và cổng `long-line` bắt đúng. */
+  .cs-head__lede {
+    max-width: var(--measure-read, 68ch);
+  }
+
+  /* --- 3. `compose`: hai vùng rộng rãi -------------------------------- */
+  .cs-compose__panel > .stack {
+    column-gap: var(--sp-7);
+  }
+  .cs-compose .cs-textarea {
+    min-height: 188px;
+  }
+
+  /* --- 4. `stories`: kệ thành lưới 3–4 cột ----------------------------- */
+  .cs-shelf:has(> .cs-story) {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  /* --- 5. `speaking`: hai vùng — câu hỏi (trái) | sân luyện (phải) ------
+     Vùng trái dính theo cuộn vì nó chỉ có một khối DOM duy nhất (thẻ câu hỏi),
+     nên `position: sticky` ở đây có tác dụng thật. Trong sân luyện, phần đối
+     chiếu vẫn giữ hai cột: câu gốc/bản sửa | lý do sửa. -------------------- */
+  div.screen__body.cs-speaking {
+    display: grid;
+    grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+    column-gap: var(--sp-8);
+    align-items: start;
+  }
+  div.screen__body.cs-speaking > .cs-prompt {
+    grid-column: 1;
+    grid-row: 1;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--sp-3);
+    position: sticky;
+    top: 88px;
+  }
+  div.screen__body.cs-speaking > .cs-prompt .cs-prompt__img {
+    width: 100%;
+    height: 200px;
+    border-radius: var(--r-lg);
+  }
+  div.screen__body.cs-speaking > .cs-stage {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  div.screen__body.cs-speaking > .cs-extra {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  /* Ở vùng phải rộng hơn, khối ghi âm không cần co lại nữa. */
+  .cs-stage[data-phase='idle'],
+  .cs-stage[data-phase='recording'] {
+    max-width: 560px;
+  }
+}
+
+/* ================== ≥ 1500px: màn rất rộng ============================== */
+@container appframe (min-width: 1500px) {
+  /* Rail rộng hơn để bìa và thẻ câu hỏi dùng được không gian, đồng thời giữ
+     cột chữ dưới 68ch — không để dòng trôi theo bề rộng khung.
+     1320px nội dung − 580px rail − 48px khe = 692px cột chữ ≈ 66ch. */
+  div.screen__body.cs-reader {
+    grid-template-columns: minmax(0, 580px) minmax(0, 1fr);
+    column-gap: var(--sp-9);
+  }
+  div.screen__body.cs-speaking {
+    grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+    column-gap: var(--sp-9);
+  }
+  div.screen__body.cs-speaking > .cs-prompt .cs-prompt__img {
+    height: 240px;
+  }
+}

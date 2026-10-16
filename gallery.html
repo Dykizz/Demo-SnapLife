@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SnapLife AI · Thư viện màn hình</title>
+
+  <!-- Font tu chua trong assets/fonts - demo chay duoc khi mat mang. -->
+  <link rel="stylesheet" href="styles/fonts.css" />
+
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/base.css" />
+  <link rel="stylesheet" href="styles/components.css" />
+  <link rel="stylesheet" href="styles/shell.css" />
+  <link rel="stylesheet" href="styles/screens-a.css" />
+  <link rel="stylesheet" href="styles/screens-b.css" />
+  <link rel="stylesheet" href="styles/screens-c.css" />
+  <link rel="stylesheet" href="styles/screens-d.css" />
+  <link rel="stylesheet" href="styles/screens-e.css" />
+  <link rel="stylesheet" href="styles/web.css" />
+
+  <style>
+    :root {
+      --card-w: 390px;
+      --card-h: 844px;
+    }
+    body.shell {
+      padding: 24px;
+    }
+    .ghead {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 14px 18px;
+      margin: -24px -24px 20px;
+      background: color-mix(in srgb, var(--paper) 88%, transparent);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .gsection + .gsection {
+      margin-top: 40px;
+    }
+    .gsection__head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed var(--line-strong);
+    }
+    .ggrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--card-w)), 1fr));
+      gap: 22px;
+      align-items: start;
+    }
+    .gcard {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .gcard__cap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .gcard .app {
+      position: relative;
+      inset: auto;
+      height: var(--card-h);
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-3);
+      background: var(--paper);
+    }
+    .gcard .app__statusbar {
+      flex: 0 0 auto;
+      height: 40px;
+      padding: 0 20px 0 26px;
+    }
+    .gcard .app__screen {
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+  </style>
+</head>
+
+<body class="shell">
+  <header class="ghead">
+    <div class="shell__brand">
+      <span class="shell__logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3.5 8.5a2 2 0 0 1 2-2h1.9l1.2-2h6.8l1.2 2h1.9a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/>
+          <circle cx="12" cy="13" r="3.9"/>
+        </svg>
+      </span>
+      <div>
+        <div class="shell__name">Thư viện màn hình</div>
+        <div class="shell__tag" id="stat">Đang nạp…</div>
+      </div>
+    </div>
+
+    <div class="row grow" style="gap:8px;flex-wrap:wrap">
+      <span class="label">Bề rộng khung</span>
+      <div class="chip-row" id="widths"></div>
+      <button class="chip" id="all-btn" type="button">Về 390px</button>
+    </div>
+
+    <button class="iconbtn iconbtn--solid" id="theme-btn" type="button" aria-label="Đổi giao diện sáng/tối">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2"/><path d="M12 19.3v2.2"/><path d="M2.5 12h2.2"/><path d="M19.3 12h2.2"/>
+      </svg>
+    </button>
+    <a class="btn btn--secondary btn--sm" href="index.html">← Về demo tương tác</a>
+  </header>
+
+  <main id="grid"></main>
+  <div id="overlay" style="position:fixed;inset:0;pointer-events:none;z-index:80"></div>
+
+  <script>
+    window.__BOOT_ERRORS__ = [];
+    (function () {
+      function note(msg) {
+        var text = String(msg).slice(0, 300);
+        window.__BOOT_ERRORS__.push(text);
+        document.documentElement.setAttribute('data-boot-errors', window.__BOOT_ERRORS__.join(' | ').slice(0, 900));
+      }
+      window.addEventListener('error', function (e) { note(e.message || e.error); });
+      window.addEventListener('unhandledrejection', function (e) {
+        note('rejection: ' + ((e.reason && e.reason.message) || e.reason));
+      });
+      var orig = console.error.bind(console);
+      console.error = function () {
+        note('console.error: ' + Array.prototype.map.call(arguments, String).join(' '));
+        orig.apply(null, arguments);
+      };
+    })();
+  </script>
+
+  <script type="module" src="src/gallery.js"></script>
+</body>
+</html>

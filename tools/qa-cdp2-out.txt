@@ -1,0 +1,630 @@
+﻿Chromium: Chrome/153.0.8010.12
+
+===== [H2] Sheet mo roi doi man: co that su bam duoc va co che man moi khong? =====
+{
+ "openedWord": "downpour",
+ "stateWithSheet": {
+  "hasSheet": true,
+  "hasScrim": true,
+  "scrimRect": {
+   "t": -179,
+   "l": 24,
+   "w": 456,
+   "h": 636
+  },
+  "overlayZ": "55",
+  "focusInsideSheet": true
+ },
+ "railClick": null,
+ "afterRailClick": null,
+ "arrowKey": {
+  "before": {
+   "hash": "#/reader",
+   "sheet": true
+  },
+  "after": {
+   "hash": "#/speaking",
+   "sheet": true,
+   "scrim": true
+  }
+ },
+ "afterEsc": {
+  "sheet": false,
+  "scrim": false,
+  "overlayChildren": 0
+ },
+ "ketLuan": "Neu sheetStillOpen=true sau khi doi man qua rail thi overlay khong duoc don khi router.render()"
+}
+
+===== [I2] Dialog co aria-modal="true" nhung Tab co thoat ra ngoai khong? =====
+{
+ "totalStops": 25,
+ "stopsInsideDialog": 8,
+ "stopsOutsideDialog": 17,
+ "firstEscapes": [
+  {
+   "inSheet": false,
+   "tag": "BUTTON",
+   "label": "Đặt lại dữ liệu demo",
+   "inApp": false
+  },
+  {
+   "inSheet": false,
+   "tag": "BUTTON",
+   "label": "Xoá bộ đếm chi phí",
+   "inApp": false
+  },
+  {
+   "inSheet": false,
+   "tag": "BODY",
+   "label": "SnapLife AI Học tiếng Anh qu",
+   "inApp": false
+  },
+  {
+   "inSheet": false,
+   "tag": "BUTTON",
+   "label": "Danh sách màn hình",
+   "inApp": false
+  },
+  {
+   "inSheet": false,
+   "tag": "BUTTON",
+   "label": "Chuyển sang giao diện tối",
+   "inApp": false
+  },
+  {
+   "inSheet": false,
+   "tag": "BUTTON",
+   "label": "Tắt âm thanh",
+   "inApp": false
+  }
+ ]
+}
+
+===== [J2] reduced-motion (do lai sau 1.2s de transition 1ms ket thuc) =====
+{
+ "rows": [
+  {
+   "screen": "home",
+   "immediate": {
+    "dur": "1ms",
+    "durSlow": "1ms",
+    "animDeclared": 0,
+    "animDetails": [],
+    "transitionsAbove1ms": 0,
+    "runningNow": 2,
+    "runningAfterSettle": null,
+    "runningNames": [
+     "sl-fade-in",
+     "sl-sheet-in"
+    ]
+   },
+   "settled": {
+    "runningAfterSettle": 0,
+    "names": []
+   }
+  },
+  {
+   "screen": "speaking?state=recording",
+   "immediate": {
+    "dur": "1ms",
+    "durSlow": "1ms",
+    "animDeclared": 27,
+    "animDetails": [
+     {
+      "cls": "cs-wave__bar",
+      "name": "cs-wave",
+      "dur": 0.001,
+      "iter": "1"
+     },
+     {
+      "cls": "cs-wave__bar",
+      "name": "cs-wave",
+      "dur": 0.001,
+      "iter": "1"
+     },
+     {
+      "cls": "cs-wave__bar",
+      "name": "cs-wave",
+      "dur": 0.001,
+      "iter": "1"
+     },
+     {
+      "cls": "cs-wave__bar",
+      "name": "cs-wave",
+      "dur": 0.001,
+      "iter": "1"
+     },
+     {
+      "cls": "cs-wave__bar",
+      "name": "cs-wave",
+      "dur": 0.001,
+      "iter": "1"
+     },
+     {
+      "cls": "cs-wave__bar",
+      "name": "cs-wave",
+      "dur": 0.001,
+      "iter": "1"
+     },
+     {
+      "cls": "cs-wave__bar",
+      "name": "cs-wave",
+      "dur": 0.001,
+      "iter": "1"
+     },
+     {
+      "cls": "cs-wave__bar",
+      "name": "cs-wave",
+      "dur": 0.001,
+      "iter": "1"
+     }
+    ],
+    "transitionsAbove1ms": 0,
+    "runningNow": 27,
+    "runningAfterSettle": null,
+    "runningNames": [
+     "cs-wave",
+     "cs-wave",
+     "cs-wave",
+     "cs-wave",
+     "cs-wave",
+     "cs-wave"
+    ]
+   },
+   "settled": {
+    "runningAfterSettle": 27,
+    "names": [
+     "cs-wave",
+     "cs-wave",
+     "cs-wave",
+     "cs-wave",
+     "cs-wave",
+     "cs-wave"
+    ]
+   }
+  },
+  {
+   "screen": "capture",
+   "immediate": {
+    "dur": "1ms",
+    "durSlow": "1ms",
+    "animDeclared": 2,
+    "animDetails": [
+     {
+      "cls": "viewfinder__scan",
+      "name": "sl-scan",
+      "dur": 0.001,
+      "iter": "1"
+     },
+     {
+      "cls": "spinner",
+      "name": "sl-spin",
+      "dur": 0.001,
+      "iter": "1"
+     }
+    ],
+    "transitionsAbove1ms": 0,
+    "runningNow": 5,
+    "runningAfterSettle": null,
+    "runningNames": [
+     "CSSTransition",
+     "CSSTransition",
+     "CSSTransition",
+     "sl-pulse",
+     "sl-scan"
+    ]
+   },
+   "settled": {
+    "runningAfterSettle": 0,
+    "names": []
+   }
+  },
+  {
+   "screen": "splash",
+   "immediate": {
+    "dur": "1ms",
+    "durSlow": "1ms",
+    "animDeclared": 1,
+    "animDetails": [
+     {
+      "cls": "a-splash__fill",
+      "name": "a-splash-fill",
+      "dur": 0.001,
+      "iter": "1"
+     }
+    ],
+    "transitionsAbove1ms": 0,
+    "runningNow": 0,
+    "runningAfterSettle": null,
+    "runningNames": []
+   },
+   "settled": {
+    "runningAfterSettle": 0,
+    "names": []
+   }
+  },
+  {
+   "screen": "review-run",
+   "immediate": {
+    "dur": "1ms",
+    "durSlow": "1ms",
+    "animDeclared": 0,
+    "animDetails": [],
+    "transitionsAbove1ms": 0,
+    "runningNow": 0,
+    "runningAfterSettle": null,
+    "runningNames": []
+   },
+   "settled": {
+    "runningAfterSettle": 0,
+    "names": []
+   }
+  }
+ ]
+}
+
+===== [K2] Tran ngang: phan biet scroller ngang co y do vs tran that =====
+{
+ "out": [
+  {
+   "width": 375,
+   "realOverflow": [],
+   "insideScroller": [
+    "regions",
+    "worddetail",
+    "compose",
+    "reader",
+    "review-run",
+    "review-summary",
+    "profile",
+    "system-states"
+   ],
+   "docOverflowAll": []
+  },
+  {
+   "width": 1440,
+   "realOverflow": [],
+   "insideScroller": [
+    "worddetail",
+    "compose",
+    "reader",
+    "review-run",
+    "system-states"
+   ],
+   "docOverflowAll": []
+  }
+ ]
+}
+
+===== [O2] Cost Meter tinh luc nao: vao man hay luc nguoi dung bam? =====
+{
+ "speaking_vao_man": {
+  "vlm": 0,
+  "llm": 1,
+  "ledger": [
+   "llm:speak-1"
+  ]
+ },
+ "speaking_click_lan1": {
+  "button": null,
+  "llm": 1,
+  "apiCalls": 1,
+  "labelsSauClick": [
+   "",
+   "",
+   ""
+  ]
+ },
+ "speaking_click_lan_nua": {
+  "button": null,
+  "llm": 1,
+  "ledger": [
+   "llm:speak-1"
+  ]
+ },
+ "deeplink_corrected_vao_man": {
+  "llm": 1,
+  "apiCalls": 1,
+  "ledger": [
+   "llm:speak-1"
+  ]
+ },
+ "deeplink_reader_vao_man": {
+  "llm": 1,
+  "apiCalls": 1,
+  "ledger": [
+   "llm:today"
+  ]
+ },
+ "capture_roi_regions": {
+  "taiCapture": 1,
+  "taiRegions": 1
+ }
+}
+
+===== [P2] regions: so vung vs so the tu; bbox DOM vs toa do % trong store =====
+{
+ "photoRect": {
+  "w": 416,
+  "h": 416,
+  "ratio": 1
+ },
+ "boxCount": 3,
+ "cardCount": 3,
+ "regionCount": 3,
+ "boxLabels": [
+  "1. mug",
+  "2. headphones",
+  "3. notebook"
+ ],
+ "cardLabelKey": [
+  "ai-0",
+  "ai-1",
+  "ai-2"
+ ],
+ "cardEn": [
+  "mug",
+  "headphones",
+  "notebook"
+ ],
+ "cardCoordText": [
+  "x 0% · y 61% · 30×28%",
+  "x 55% · y 27% · 26×22%",
+  "x 46% · y 68% · 34×26%"
+ ],
+ "storeCoords": [
+  "x 0% y 61% 30x28%",
+  "x 55% y 27% 26x22%",
+  "x 46% y 68% 34x26%"
+ ],
+ "geometryDeltas": [
+  {
+   "i": 0,
+   "key": "ai-0",
+   "wordId": "mug",
+   "dLeft": 0,
+   "dTop": 0,
+   "dWidth": 0,
+   "dHeight": 0
+  },
+  {
+   "i": 1,
+   "key": "ai-1",
+   "wordId": "headphones",
+   "dLeft": 0,
+   "dTop": 0,
+   "dWidth": 0,
+   "dHeight": 0
+  },
+  {
+   "i": 2,
+   "key": "ai-2",
+   "wordId": "notebook",
+   "dLeft": 0,
+   "dTop": 0,
+   "dWidth": 0,
+   "dHeight": 0
+  }
+ ]
+}
+
+===== [E2] regions: Bo het tu -> CTA co disable + ly do? Trang thai co giu qua man khac? =====
+{
+ "ctaBanDau": {
+  "label": "Học với 3 từ này",
+  "disabled": false
+ },
+ "legendBanDau": null,
+ "daBamBo": [
+  "Thẻ từ 1: mug",
+  "Thẻ từ 2: headphones",
+  "Thẻ từ 3: notebook",
+  "Thẻ từ 3: notebook",
+  "Thẻ từ 3: notebook"
+ ],
+ "sauKhiBoHet": {
+  "cta": {
+   "label": "Học với 1 từ này",
+   "disabled": false
+  },
+  "cardsLeft": 1,
+  "restoreRows": 2,
+  "removed": [
+   "ai-0",
+   "ai-1"
+  ],
+  "reasonText": null
+ },
+ "sauKhiQuayLai": {
+  "cta": {
+   "label": "Học với 1 từ này",
+   "disabled": false
+  },
+  "cardsLeft": 1,
+  "restoreRows": 2,
+  "removed": [
+   "ai-0",
+   "ai-1"
+  ]
+ }
+}
+
+===== [A2] Chrome/tabbar co khop BUILD-SPEC §5 khong? =====
+{
+ "expectedTabbarScreens": [
+  "home",
+  "wordlist",
+  "reader",
+  "stories",
+  "review-hub",
+  "progress"
+ ],
+ "actualTabbarScreens": [
+  "home",
+  "reader",
+  "review-hub",
+  "progress"
+ ],
+ "mismatches": [
+  "wordlist: chrome=appbar tabbar=false",
+  "stories: chrome=appbar tabbar=false"
+ ]
+}
+
+===== [T2] regions: 1 vung ↔ 1 the tu, va bam vung co nhay toi the? =====
+{
+ "oneToOne": {
+  "boxes": 3,
+  "cards": 1,
+  "boxText": [
+   "mug",
+   "headphones",
+   "notebook"
+  ],
+  "cardText": [
+   "notebook"
+  ],
+  "oneToOne": false
+ },
+ "jumpClick": {
+  "key": "ai-1",
+  "scrollTop": 0,
+  "cardTop": null,
+  "highlighted": null
+ },
+ "afterJump": {
+  "activeCard": false,
+  "cls": null,
+  "scrollTop": 0
+ }
+}
+
+===== [N2] Mat mang THAT (cache tat + profile sach + chan CDN font) =====
+{
+ "coMang": {
+  "fontsStatus": "loaded",
+  "fontsSize": 28,
+  "checkCalistoga": true,
+  "checkInter": true,
+  "checkNewsreader": true,
+  "checkMono": true,
+  "title": {
+   "sel": "#screen h1",
+   "text": "Chào buổi chiều, Tài",
+   "fontFamily": "Calistoga, \"Iowan Old Style\", Georgia, \"Times New Roman\", serif",
+   "fontSize": "20px",
+   "w": 368
+  },
+  "read": {
+   "sel": "#screen p",
+   "text": "Thứ Sáu, 16/10 · Chuỗi 12 ngày",
+   "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, system-ui, sans-serif",
+   "fontSize": "12px",
+   "w": 368
+  },
+  "docHeight": 1885
+ },
+ "chanCdn": {
+  "fontsStatus": "loaded",
+  "fontsSize": 0,
+  "checkCalistoga": true,
+  "checkInter": true,
+  "checkNewsreader": true,
+  "checkMono": true,
+  "title": {
+   "sel": "#screen h1",
+   "text": "Chào buổi chiều, Tài",
+   "fontFamily": "Calistoga, \"Iowan Old Style\", Georgia, \"Times New Roman\", serif",
+   "fontSize": "20px",
+   "w": 368
+  },
+  "read": {
+   "sel": "#screen p",
+   "text": "Thứ Sáu, 16/10 · Chuỗi 12 ngày",
+   "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, system-ui, sans-serif",
+   "fontSize": "12px",
+   "w": 368
+  },
+  "ready": "true",
+  "boot": null,
+  "docHeight": 1884,
+  "failedRequests": [
+   {
+    "u": "https://fonts.googleapis.com/css2?family=Calistoga&family=In",
+    "size": 0,
+    "dur": 0
+   },
+   {
+    "u": "https://fonts.googleapis.com/css2?family=Calistoga&family=In",
+    "size": 0,
+    "dur": 0
+   }
+  ]
+ },
+ "titleWidthDelta": 0,
+ "docHeightDelta": -1
+}
+
+===== [R2] Theme toi: render MOI trong theme toi (localStorage + reload) =====
+{
+ "paperTokenSauKhiDoiDark": "#fbf6ef",
+ "tatCa20ManDeuDark": false,
+ "coLoiBoot": [],
+ "tranNgang": [],
+ "mauMau": [
+  {
+   "id": "splash",
+   "paper": "#fbf6ef",
+   "bodyBg": "rgb(243, 233, 220)",
+   "samples": [
+    {
+     "cls": "label a-splash__team",
+     "color": "rgb(110, 96, 85)",
+     "fontSize": "10px",
+     "contrastOnPaper": 5.05
+    }
+   ]
+  },
+  {
+   "id": "onboarding",
+   "paper": "#fbf6ef",
+   "bodyBg": "rgb(243, 233, 220)",
+   "samples": [
+    {
+     "cls": "label",
+     "color": "rgb(110, 96, 85)",
+     "fontSize": "10px",
+     "contrastOnPaper": 5.05
+    },
+    {
+     "cls": "label",
+     "color": "rgb(110, 96, 85)",
+     "fontSize": "10px",
+     "contrastOnPaper": 5.05
+    }
+   ]
+  },
+  {
+   "id": "placement",
+   "paper": "#fbf6ef",
+   "bodyBg": "rgb(243, 233, 220)",
+   "samples": [
+    {
+     "cls": "label",
+     "color": "rgb(110, 96, 85)",
+     "fontSize": "10px",
+     "contrastOnPaper": 5.05
+    }
+   ]
+  },
+  {
+   "id": "topics",
+   "paper": "#fbf6ef",
+   "bodyBg": "rgb(243, 233, 220)",
+   "samples": []
+  }
+ ]
+}
+
+Da ghi tools/qa-cdp2-report.json

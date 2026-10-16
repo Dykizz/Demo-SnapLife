@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <base href="/" />
+  <title>SnapLife AI · Audit tự động</title>
+  <link rel="stylesheet" href="/styles/fonts.css" />
+  <link rel="stylesheet" href="/styles/tokens.css" />
+  <link rel="stylesheet" href="/styles/base.css" />
+  <link rel="stylesheet" href="/styles/components.css" />
+  <link rel="stylesheet" href="/styles/shell.css" />
+  <link rel="stylesheet" href="/styles/screens-a.css" />
+  <link rel="stylesheet" href="/styles/screens-b.css" />
+  <link rel="stylesheet" href="/styles/screens-c.css" />
+  <link rel="stylesheet" href="/styles/screens-d.css" />
+  <link rel="stylesheet" href="/styles/screens-e.css" />
+  <link rel="stylesheet" href="/styles/web.css" />
+  <style>
+    :root { --probe-w: 390px; }
+    body { padding: 20px; font-family: var(--font-mono); }
+    #stage { position: absolute; left: -99999px; top: 0; width: var(--probe-w); }
+    .probe { width: var(--probe-w); height: 844px; overflow: auto; background: var(--paper); }
+    #report { white-space: pre-wrap; font-size: 12px; line-height: 1.5; }
+    h1 { font-family: var(--font-display); font-size: 22px; margin-bottom: 12px; }
+    .bad { color: #a8261c; font-weight: 600; }
+    .good { color: #2f6b4f; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>SnapLife AI — Audit tự động</h1>
+  <p class="muted" style="font-size:13px">Harness này render MỌI màn hình ở 390×844 rồi đo: lỗi runtime, tên truy cập được,
+    touch target, tràn ngang, tương phản màu, ảnh hỏng, hex hardcode, id trùng. Kết quả nằm trong
+    <code>&lt;pre id="report"&gt;</code> để <code>--dump-dom</code> đọc được.</p>
+  <pre id="report">Đang chạy…</pre>
+  <div id="stage"></div>
+
+  <script type="module" src="/tools/audit.js"></script>
+</body>
+</html>

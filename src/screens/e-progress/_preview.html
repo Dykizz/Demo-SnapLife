@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <title>SnapLife AI · Nhóm E — xem trước một màn (sáng/tối)</title>
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <link rel="stylesheet" href="../../../styles/base.css" />
+  <link rel="stylesheet" href="../../../styles/components.css" />
+  <link rel="stylesheet" href="../../../styles/shell.css" />
+  <link rel="stylesheet" href="../../../styles/screens-e.css" />
+  <link rel="stylesheet" href="../../../styles/web.css" />
+  <style>
+    html, body { margin: 0; background: var(--paper); }
+    body { font-family: var(--font-ui); }
+    #stage {
+      width: 390px;
+      min-height: 844px;
+      background: var(--paper);
+      /* Container đúng như .device__viewport / .app / #frame / .probe, để bản xem
+         trước này tuân cùng quy tắc responsive với app thật. */
+      container-type: inline-size;
+      container-name: appframe;
+    }
+  </style>
+</head>
+<body>
+  <div id="stage"></div>
+  <div id="overlay"></div>
+
+  <!--
+    Vì sao có file này: headless Chrome trong môi trường dựng demo luôn báo
+    prefers-color-scheme: light và bỏ qua mọi cờ ép dark (đã thử
+    --force-dark-mode, --blink-settings=darkMode=1, preferredColorScheme=2,
+    không cờ nào đổi được). App lấy theme từ localStorage/matchMedia nên không
+    chụp được ảnh theme tối từ index.html. Trang này đặt data-theme trước khi
+    render để chụp ảnh tối thật của từng màn, dùng đúng CSS/token/component.
+
+    Dùng: _preview.html?screen=progress&theme=dark
+          _preview.html?screen=profile&theme=light
+  -->
+  <script type="module">
+    import { h, qs } from '../../core/dom.js';
+    import { ui, setNav, setOverlayHost } from '../../core/ui.js';
+    import { createStore } from '../../core/store.js';
+    import { cost } from '../../core/cost.js';
+
+    import * as fixtures from '../../data/fixtures.js';
+    import * as wordsData from '../../data/words.js';
+    import * as photosData from '../../data/photos.js';
+    import * as storyData from '../../data/story.js';
+    import * as logic from '../../data/logic.js';
+
+    import diary from './diary.js';
+    import progress from './progress.js';
+    import profile from './profile.js';
+    import systemStates from './system-states.js';
+
+    const params = new URLSearchParams(location.search);
+    const theme = params.get('theme') === 'dark' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+
+    const screens = { diary, progress, profile, 'system-states': systemStates };
+    const wanted = params.get('screen') || 'progress';
+    const screen = screens[wanted] || progress;
+
+    const data = {
+      ...fixtures, ...wordsData, ...photosData, ...logic,
+      story: storyData, stories: storyData.stories, hydrateStory: storyData.hydrateStory,
+      speakingSample: storyData.speakingSample, parseStory: storyData.parseStory,
+      userStoryDraft: storyData.userStoryDraft, sampleTopics: storyData.sampleTopics,
+    };
+
+    setNav({ go: () => {}, back: () => {}, replace: () => {} });
+    setOverlayHost(qs('#overlay'));
+    qs('#stage').appendChild(screen.render({
+      store: createStore(fixtures.createInitialState()),
+      params: {},
+      nav: { go: () => {}, back: () => {}, replace: () => {} },
+      ui, icon: ui.ICON, icons: { icon: ui.ICON },
+      cost, data, onCleanup: () => {}, gallery: true,
+    }));
+
+    document.documentElement.setAttribute('data-preview', `${wanted}-${theme}`);
+  </script>
+</body>
+</html>

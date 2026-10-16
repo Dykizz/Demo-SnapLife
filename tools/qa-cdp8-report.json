@@ -1,0 +1,90 @@
+[
+  {
+    "viewport": [
+      1440,
+      900
+    ],
+    "truoc": {
+      "scrollY": 0,
+      "docH": 1445,
+      "viewH": 900,
+      "deviceTop": 361,
+      "deviceBottom": 1071,
+      "deviceFits": true
+    },
+    "sau": {
+      "scrollY": 0,
+      "deviceTop": 361,
+      "deviceBottom": 1071,
+      "sheetOpen": true,
+      "cardSheetTop": 665
+    },
+    "biNhay": false
+  },
+  {
+    "viewport": [
+      1440,
+      720
+    ],
+    "truoc": {
+      "scrollY": 0,
+      "docH": 1265,
+      "viewH": 720,
+      "deviceTop": 361,
+      "deviceBottom": 891,
+      "deviceFits": true
+    },
+    "sau": {
+      "scrollY": 0,
+      "deviceTop": 361,
+      "deviceBottom": 891,
+      "sheetOpen": true,
+      "cardSheetTop": 485
+    },
+    "biNhay": false
+  },
+  {
+    "viewport": [
+      1280,
+      800
+    ],
+    "truoc": {
+      "scrollY": 0,
+      "docH": 1345,
+      "viewH": 800,
+      "deviceTop": 361,
+      "deviceBottom": 971,
+      "deviceFits": true
+    },
+    "sau": {
+      "scrollY": 0,
+      "deviceTop": 361,
+      "deviceBottom": 971,
+      "sheetOpen": true,
+      "cardSheetTop": 95
+    },
+    "biNhay": false
+  },
+  {
+    "viewport": [
+      390,
+      844
+    ],
+    "truoc": {
+      "scrollY": 0,
+      "docH": 2140,
+      "viewH": 844,
+      "deviceTop": 236,
+      "deviceBottom": 948,
+      "deviceFits": true
+    },
+    "sau": {
+      "scrollY": 0,
+      "deviceTop": 236,
+      "deviceBottom": 948,
+      "sheetOpen": true,
+      "cardSheetTop": -1
+    },
+    "biNhay": false
+  }
+]

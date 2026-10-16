@@ -1,0 +1,1266 @@
+/* ============================================================================
+   SnapLife AI — CSS riêng của nhóm A
+   Owner: screens-onboard  | splash, onboarding, placement, topics, home
+   Chỉ nhóm này được ghi vào file này. Mọi màu đi qua token trong tokens.css,
+   mọi thành phần cơ bản dùng components.css — không hardcode mã màu.
+   ========================================================================== */
+
+/* ============================== Dùng chung =============================== */
+
+/* Nhãn mono nhỏ dùng cho số liệu phụ */
+.a-pl__score {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+
+/* Dải bước đánh số — dùng cho "giải pháp 3 bước" và "lộ trình đề xuất" */
+.a-steps {
+  display: flex;
+  flex-direction: column;
+}
+.a-step {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  padding-bottom: var(--sp-5);
+}
+.a-step:last-child {
+  padding-bottom: 0;
+}
+.a-step:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 34px;
+  bottom: 2px;
+  width: 2px;
+  background: var(--line);
+}
+.a-step__num {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--r-full);
+  display: grid;
+  place-items: center;
+  background: var(--primary);
+  color: var(--on-primary);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+.a-step__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  line-height: 1.25;
+}
+.a-step__text {
+  margin-top: 3px;
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+/* Nút hành động chính neo đáy khung, luôn trong tầm ngón tay */
+.a-cta {
+  position: sticky;
+  bottom: 0;
+  z-index: var(--z-sticky);
+  margin-top: auto;
+  padding: var(--sp-5) 0 var(--sp-5);
+  background: linear-gradient(to bottom, transparent, var(--paper) 46%);
+}
+
+/* ================================ SPLASH ================================= */
+.screen.a-splash {
+  position: relative;
+  /* Chỉ cắt theo chiều ngang. Không dùng overflow:hidden vì sẽ chặn cuộn dọc
+     trên máy thấp; `clip` là ngoại lệ duy nhất không kéo trục còn lại thành auto. */
+  overflow-x: clip;
+}
+.a-splash .a-splash__body {
+  position: relative;
+  padding-top: var(--sp-6);
+  justify-content: flex-start;
+  gap: var(--sp-5);
+}
+.a-splash__glow {
+  position: absolute;
+  /* Quầng sáng nằm gọn trong bề ngang: nền gradient tự tràn mà không tạo thanh cuộn. */
+  inset: -12% 0 auto 0;
+  height: 82%;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 32% 34%, color-mix(in srgb, var(--primary) 22%, transparent), transparent 62%),
+    radial-gradient(circle at 78% 6%, color-mix(in srgb, var(--success) 15%, transparent), transparent 58%);
+}
+.a-splash__hero {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--sp-5);
+  padding-bottom: var(--sp-5);
+}
+.a-splash__mark {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  border-radius: var(--r-2xl);
+  display: grid;
+  place-items: center;
+  background: var(--primary);
+  color: var(--on-primary);
+  box-shadow: var(--shadow-3);
+}
+.a-splash__spark {
+  position: absolute;
+  right: -7px;
+  bottom: -7px;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-full);
+  display: grid;
+  place-items: center;
+  background: var(--card);
+  color: var(--primary);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-2);
+}
+.a-splash__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.a-splash__name {
+  font-family: var(--font-display);
+  font-size: var(--fs-3xl);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+}
+.a-splash__tagline {
+  font-family: var(--font-read);
+  font-size: var(--fs-md);
+  line-height: 1.5;
+  color: var(--ink-2);
+  max-width: 26ch;
+}
+.a-splash__points {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.a-splash__point {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+.a-splash__point svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--primary);
+}
+.a-splash__foot {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding-bottom: var(--sp-4);
+}
+.a-splash__bar {
+  height: 4px;
+  border-radius: var(--r-full);
+  background: var(--line);
+  overflow: hidden;
+}
+.a-splash__fill {
+  height: 100%;
+  width: 6%;
+  border-radius: inherit;
+  background: var(--primary);
+  animation: a-splash-fill 2000ms linear forwards;
+}
+@keyframes a-splash-fill {
+  from {
+    width: 6%;
+  }
+  to {
+    width: 100%;
+  }
+}
+.a-splash__status {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+.a-splash__team {
+  margin-top: calc(-1 * var(--sp-1));
+}
+.a-splash__skip {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* ============================== ONBOARDING =============================== */
+.a-onb .a-onb__body {
+  gap: var(--sp-5);
+  padding-top: var(--sp-2);
+}
+.a-onb__top {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.a-onb__brandmark {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-sm);
+  display: grid;
+  place-items: center;
+  background: var(--primary-soft);
+  color: var(--primary);
+  flex: 0 0 auto;
+}
+.a-onb__wordmark {
+  font-family: var(--font-display);
+  font-size: var(--fs-base);
+}
+.a-onb__progress {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.a-onb__dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.a-onb__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--r-full);
+  background: var(--line-strong);
+  transition: width var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+.a-onb__dot--on {
+  width: 22px;
+  background: var(--primary);
+}
+.a-onb__stage {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+.a-onb__slide {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+.a-onb__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.a-onb__kicker {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.a-onb__kicker::after {
+  content: '';
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--line);
+}
+.a-onb__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  line-height: 1.14;
+  letter-spacing: var(--tracking-tight);
+  font-weight: 400;
+}
+.a-onb__lead {
+  font-family: var(--font-read);
+  font-size: var(--fs-md);
+  line-height: 1.6;
+  color: var(--ink-2);
+  max-width: var(--measure-read, 68ch); /* 77 ky tu/dong o 1440px la qua dai */
+}
+.a-onb__bullets {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.a-onb__bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--card-2);
+}
+.a-onb__bullet-art {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  border-radius: var(--r-sm);
+  display: grid;
+  place-items: center;
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+.a-onb__bullet-title {
+  font-size: var(--fs-base);
+  font-weight: 650;
+}
+.a-onb__bullet-text {
+  margin-top: 2px;
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+.a-onb__facts {
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-2) var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--card-2);
+}
+.a-onb__fact {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) 0;
+}
+.a-onb__fact + .a-onb__fact {
+  box-shadow: inset 0 1px 0 var(--line);
+}
+.a-onb__fact-art {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  border-radius: var(--r-sm);
+  display: grid;
+  place-items: center;
+  background: var(--success-soft);
+  color: var(--success);
+}
+.a-onb__fact-label {
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+.a-onb__fact-value {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  text-align: right;
+}
+.a-onb__perms {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.a-onb__perm {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+  background: var(--card);
+  box-shadow: var(--shadow-1);
+}
+.a-onb__perm-art {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  border-radius: var(--r-sm);
+  display: grid;
+  place-items: center;
+  background: var(--card-inset);
+  color: var(--ink-2);
+}
+.a-onb__perm-label {
+  font-size: var(--fs-base);
+  font-weight: 600;
+}
+.a-onb__perm-why {
+  font-size: var(--fs-xs);
+  color: var(--ink-2);
+  line-height: 1.4;
+  margin-top: 1px;
+}
+.a-onb__perm-slot {
+  flex: 0 0 auto;
+}
+.a-onb__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-top: auto;
+  padding-top: var(--sp-4);
+}
+
+/* =============================== PLACEMENT =============================== */
+.a-pl {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+.a-pl__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.a-pl__meta .a-pl__score {
+  margin-left: auto;
+}
+.a-pl__card {
+  background: var(--card-2);
+}
+.a-pl__q {
+  font-family: var(--font-read);
+  font-size: 20px;
+  line-height: 1.45;
+}
+.a-pl__opts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.a-pl__opt {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  min-height: 54px;
+  padding: var(--sp-3) var(--sp-4);
+  text-align: left;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+  background: var(--card);
+  font-size: var(--fs-base);
+  color: var(--ink);
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease),
+    transform var(--dur-instant) var(--ease);
+}
+.a-pl__opt:not(:disabled):hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.a-pl__opt:not(:disabled):active {
+  transform: scale(0.99);
+}
+.a-pl__opt:disabled {
+  cursor: default;
+  opacity: 1;
+}
+.a-pl__key {
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--r-full);
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  font-size: var(--fs-xs);
+  color: var(--ink-2);
+}
+.a-pl__opt--ok {
+  border-color: var(--success);
+  background: var(--success-soft);
+  color: var(--success);
+}
+.a-pl__opt--ok .a-pl__key {
+  border-color: var(--success);
+  color: var(--success);
+}
+.a-pl__opt--no {
+  border-color: var(--danger);
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+.a-pl__opt--no .a-pl__key {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+.a-pl__opt--dim {
+  opacity: 0.55;
+}
+.a-pl__feedback {
+  display: block;
+}
+.a-pl__result {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  align-items: flex-start;
+  background: var(--primary-soft);
+  border-color: var(--primary-soft-2);
+  box-shadow: none;
+}
+.a-pl__level {
+  font-family: var(--font-display);
+  font-size: 54px;
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+  color: var(--primary);
+}
+.a-pl__result-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+
+/* ================================ TOPICS ================================= */
+.a-topics__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(152px, 1fr));
+  gap: var(--sp-3);
+}
+.a-topic {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  min-height: 118px;
+  box-shadow: var(--shadow-1);
+  transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease),
+    transform var(--dur-instant) var(--ease);
+}
+.a-topic:hover {
+  border-color: var(--line-strong);
+}
+.a-topic:active {
+  transform: scale(0.985);
+}
+.a-topic__art {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-sm);
+  display: grid;
+  place-items: center;
+  background: var(--card-inset);
+  color: var(--ink-2);
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.a-topic__label {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.a-topic__count {
+  font-size: var(--fs-2xs);
+  color: var(--ink-3);
+}
+.a-topic__check {
+  position: absolute;
+  top: var(--sp-2);
+  right: var(--sp-2);
+  width: 24px;
+  height: 24px;
+  border-radius: var(--r-full);
+  display: grid;
+  place-items: center;
+  background: var(--primary);
+  color: var(--on-primary);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease-spring);
+}
+.a-topic--on,
+.a-topic[aria-pressed='true'] {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  box-shadow: none;
+}
+.a-topic--on .a-topic__art,
+.a-topic[aria-pressed='true'] .a-topic__art {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+.a-topic--on .a-topic__count,
+.a-topic[aria-pressed='true'] .a-topic__count {
+  color: var(--primary);
+}
+.a-topic--on .a-topic__check,
+.a-topic[aria-pressed='true'] .a-topic__check {
+  opacity: 1;
+  transform: none;
+}
+
+/* ================================= HOME ================================== */
+.a-home .screen__body {
+  gap: var(--sp-6);
+}
+.a-hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  background: var(--card-2);
+}
+.a-hero__top {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+}
+.a-hero__ringtext {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+.a-hero__ringnum {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  line-height: 1;
+}
+.a-hero__ringunit {
+  font-size: var(--fs-2xs);
+  color: var(--ink-3);
+}
+.a-hero__stats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.a-mini {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.a-mini__art {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  border-radius: var(--r-sm);
+  display: grid;
+  place-items: center;
+}
+.a-mini--flame .a-mini__art {
+  background: var(--highlight-soft);
+  color: var(--highlight);
+}
+.a-mini--words .a-mini__art {
+  background: var(--success-soft);
+  color: var(--success);
+}
+.a-mini__num {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  line-height: 1.1;
+}
+.a-mini__label {
+  font-size: var(--fs-xs);
+  color: var(--ink-2);
+  line-height: 1.3;
+}
+.a-mini__sub {
+  font-size: var(--fs-2xs);
+  color: var(--ink-3);
+}
+.a-hero__hint {
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--ink-2);
+  padding-top: var(--sp-3);
+  box-shadow: inset 0 1px 0 var(--line);
+}
+
+/* Câu hôm nay */
+.a-sentence {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin-top: var(--sp-4);
+}
+.a-sentence__en {
+  font-family: var(--font-read);
+  font-size: 23px;
+  line-height: 1.35;
+}
+.a-sentence__en::before {
+  content: '“';
+  color: var(--primary);
+}
+.a-sentence__en::after {
+  content: '”';
+  color: var(--primary);
+}
+.a-sentence__vi {
+  font-size: var(--fs-md);
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.a-sentence__foot {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding-top: var(--sp-2);
+  box-shadow: inset 0 1px 0 var(--line);
+}
+.a-sentence__audio {
+  display: flex;
+  align-items: center;
+}
+
+/* Ba hành động */
+.a-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-3);
+  margin-top: var(--sp-4);
+  /* Không kéo giãn: mỗi thẻ cao đúng theo nội dung của nó. Hai thẻ phụ đã được
+     viết cùng lượng chữ (tiêu đề 1 dòng + mô tả 2 dòng + dòng chi phí) nên vẫn
+     bằng nhau, mà không sinh khoảng trống chết bên trong thẻ. */
+  align-items: start;
+}
+.a-action {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease),
+    transform var(--dur-instant) var(--ease);
+}
+.a-action:hover {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-3);
+}
+.a-action:active {
+  transform: scale(0.985);
+}
+.a-action--feature {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--sp-3);
+  border-color: var(--primary-soft-2);
+  background: var(--primary-soft);
+  box-shadow: none;
+}
+.a-action--feature .a-action__art {
+  width: 54px;
+  height: 54px;
+  background: var(--primary);
+  color: var(--on-primary);
+}
+.a-action__art {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  border-radius: var(--r-sm);
+  display: grid;
+  place-items: center;
+  background: var(--card-inset);
+  color: var(--ink-2);
+}
+.a-action__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-base);
+  line-height: 1.25;
+}
+.a-action--feature .a-action__title {
+  font-size: var(--fs-md);
+}
+.a-action__text {
+  margin-top: 3px;
+  font-size: var(--fs-xs);
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+.a-action__meta {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-2xs);
+  color: var(--ink-3);
+  /* Dòng chi phí phải luôn đúng MỘT hàng: nếu xuống hàng ở bề rộng hẹp,
+     hai thẻ cạnh nhau sẽ cao lệch nhau. Chữ đã được viết đủ ngắn để không
+     bao giờ cần cắt; đây chỉ là lưới an toàn. */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.a-action--feature .a-action__meta {
+  color: var(--primary);
+}
+.a-action__go {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  color: var(--ink-3);
+  margin-left: auto;
+}
+.a-action--feature .a-action__go {
+  color: var(--primary);
+}
+
+/* Phiên ôn hôm nay */
+.a-session {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin-top: var(--sp-4);
+}
+.a-session__hint {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+
+/* ============================================================================
+   MÀN HÌNH RỘNG — container query `appframe`
+   ----------------------------------------------------------------------------
+   Vì sao KHÔNG dùng `@media (min-width: …)`: ở chế độ demo, app nằm trong khung
+   điện thoại 390px ngay cả khi cửa sổ là 1440px. Media query tính theo VIEWPORT
+   nên luật desktop vẫn kích hoạt BÊN TRONG khung 390px và làm vỡ bố cục.
+   `@container appframe` tính theo BỀ RỘNG KHUNG (khai báo ở styles/web.css) nên
+   đúng ở cả ba nơi: khung điện thoại demo, web mode, và harness audit `?w=`.
+   Breakpoint giữ nguyên con số quen dùng: 600 · 620 · 900.
+   ========================================================================== */
+
+/* ---------------------- ≥600px: lưới bắt đầu chia cột -------------------- */
+@container appframe (min-width: 600px) {
+  /* Ô chủ đề đủ chỗ cho tiêu đề dài. auto-fill nên SỐ CỘT tự tính theo bề rộng
+     khung — không hardcode 3 cột để khỏi vỡ khi khung hẹp hơn dự kiến. */
+  .a-topics__grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+}
+
+@container appframe (min-width: 620px) {
+  .a-splash .a-splash__body {
+    padding-left: var(--sp-8);
+    padding-right: var(--sp-8);
+  }
+  .a-pl__q {
+    font-size: 22px;
+  }
+}
+
+/* ------------------------------- ≥900px ---------------------------------- */
+/* Bề rộng nội dung (WEB-SPEC §2). Ghi đè được `[data-mode='web'] .screen__body`
+   của web.css vì selector ở đây có độ đặc hiệu cao hơn (3 lớp), không phụ thuộc
+   thứ tự nạp file. Màn danh sách/thẻ dừng ở --measure-body; màn có lưới nhiều
+   cột được rộng tới --measure-grid. */
+@container appframe (min-width: 900px) {
+  .screen.a-splash .screen__body,
+  .screen.a-onb .screen__body,
+  .screen:has(> .screen__body > .a-pl) .screen__body {
+    width: 100%;
+    max-width: var(--measure-body, 720px);
+    margin-inline: auto;
+  }
+  .screen.a-home .screen__body,
+  .screen:has(> .screen__body > .a-topics__grid) .screen__body {
+    width: 100%;
+    max-width: var(--measure-grid, 1040px);
+    margin-inline: auto;
+  }
+}
+
+/* ---- splash: một cột hẹp canh giữa, thương hiệu là tâm điểm -------------- */
+@container appframe (min-width: 900px) {
+  .a-splash .a-splash__body {
+    padding-top: var(--sp-7);
+    gap: var(--sp-6);
+  }
+  .a-splash__hero {
+    align-items: center;
+    text-align: center;
+    gap: var(--sp-6);
+  }
+  .a-splash__brand {
+    align-items: center;
+  }
+  .a-splash__mark {
+    width: 96px;
+    height: 96px;
+  }
+  .a-splash__name {
+    font-size: 52px;
+  }
+  /* Tagline xuống 2 hàng ở cỡ chữ đọc được, không kéo hết bề ngang khung. */
+  .a-splash__tagline {
+    max-width: 44ch;
+    font-size: var(--fs-lg);
+  }
+  /* Ba gạch đầu dòng canh giữa khối nhưng chữ vẫn căn trái cho dễ đọc. */
+  .a-splash__points {
+    width: 100%;
+    max-width: 54ch;
+    margin-inline: auto;
+    gap: var(--sp-4);
+  }
+  .a-splash__foot {
+    width: 100%;
+    max-width: 400px;
+    margin-inline: auto;
+  }
+  .a-splash__skip {
+    justify-content: center;
+  }
+}
+
+/* ---- onboarding: gạch đầu dòng, quyền và 3 bước đều chia cột ------------- */
+@container appframe (min-width: 900px) {
+  .a-onb__head {
+    /* Chữ đọc: chặn ở 68ch, không để dòng chạy hết bề ngang khung. */
+    max-width: var(--measure-read, 68ch);
+  }
+  .a-onb__title {
+    font-size: var(--fs-3xl);
+  }
+  .a-onb__bullets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
+    gap: var(--sp-3);
+  }
+  .a-onb__perms > .stack {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(272px, 1fr));
+    gap: var(--sp-3);
+  }
+  /* Ba bước thành một hàng ngang: bỏ đường nối dọc của dạng timeline. */
+  .a-onb__slide .a-steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--sp-4);
+  }
+  .a-onb__slide .a-step {
+    flex-direction: column;
+    gap: var(--sp-2);
+    padding-bottom: 0;
+  }
+  .a-onb__slide .a-step:not(:last-child)::before {
+    display: none;
+  }
+  .a-onb__nav {
+    max-width: 400px;
+  }
+}
+
+/* ---- placement: 4 đáp án thành lưới 2 cột; trang kết quả 2 cột ----------- */
+@container appframe (min-width: 900px) {
+  .a-pl__opts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-3);
+  }
+  .a-pl__opt {
+    min-height: 64px;
+  }
+  /* Kết quả: thẻ trình độ bên trái, callout "0 API call" bên phải. */
+  .a-pl:has(> .a-pl__result) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-5);
+    align-items: start;
+  }
+  .a-pl:has(> .a-pl__result) > :nth-child(3),
+  .a-pl:has(> .a-pl__result) > .a-cta {
+    grid-column: 1 / -1;
+  }
+  /* Lộ trình 3 bước: một hàng ngang thay cho timeline dọc. */
+  .a-pl .a-steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--sp-4);
+  }
+  .a-pl .a-step {
+    flex-direction: column;
+    gap: var(--sp-2);
+    padding-bottom: 0;
+  }
+  .a-pl .a-step:not(:last-child)::before {
+    display: none;
+  }
+}
+
+/* ---- topics: lưới 4 cột trong bề rộng --measure-grid -------------------- */
+@container appframe (min-width: 900px) {
+  /* Giữ nguyên gap --sp-3 của lưới gốc: ở body 1040px thì 4 cột × 240px vừa
+     đúng (4·240 + 3·12 = 996 ≤ 1000). Nới gap lên 16px là tụt còn 3 cột. */
+  .a-topic {
+    min-height: 132px;
+  }
+  .a-topic__art {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* ---- home: ba hành động thành BA CỘT ĐỀU NHAU --------------------------- */
+@container appframe (min-width: 900px) {
+  .a-home .screen__body {
+    gap: var(--sp-7);
+  }
+  /* Hai chỉ số chuỗi ngày / số từ nằm cạnh nhau bên phải vòng tròn phút. */
+  .a-hero__stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-4);
+    align-items: start;
+  }
+  .a-sentence__en,
+  .a-sentence__vi {
+    /* min(68ch, 780px): ở cỡ chữ 23px thì 68ch đã ~860px, dài hơn ngưỡng đọc
+       thoải mái; chặn thêm ở 780px để dòng câu không bao giờ quá dài. */
+    max-width: min(var(--measure-read, 68ch), 780px);
+  }
+  /* Điện thoại: 1 hàng ngang (thẻ Chụp) + 2 thẻ. Desktop: 3 cột bằng nhau, cả
+     ba đều dạng dọc — mắt không còn so sánh một thẻ to với hai thẻ nhỏ. */
+  .a-actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+  }
+  .a-action {
+    position: relative;
+    /* Chừa chỗ cho mũi tên ở góc trên phải. */
+    padding-right: var(--sp-6);
+  }
+  .a-action--feature {
+    grid-column: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-2);
+  }
+  .a-action--feature .a-action__art {
+    width: 48px;
+    height: 48px;
+  }
+  .a-action__go {
+    position: absolute;
+    top: var(--sp-3);
+    right: var(--sp-3);
+    margin-left: 0;
+  }
+  /* Phiên ôn: bộ chọn độ dài bên trái, nhắc + nút bắt đầu bên phải. */
+  .a-session:has(> .seg) {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    column-gap: var(--sp-6);
+    row-gap: var(--sp-3);
+    align-items: center;
+  }
+  .a-session:has(> .seg) > .seg {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+  .a-session:has(> .seg) > .a-session__hint {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: end;
+  }
+  .a-session:has(> .seg) > :last-child {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+  }
+}
+
+/* ---- CTA: hết neo đáy khung, thành nút thật trong luồng nội dung -------- */
+@container appframe (min-width: 900px) {
+  .a-cta {
+    position: static;
+    margin: var(--sp-6) 0 0;
+    padding: 0;
+    background: none;
+    max-width: 360px;
+  }
+}
+
+/* ---- Khối chữ dài: chặn ở measure đọc -----------------------------------
+   KHÔNG chặn gì trên `.appbar__sub` ở đây: app bar tràn hết bề rộng là đúng
+   (WEB-SPEC §2), việc giới hạn phụ đề đã có luật typographic chung trong
+   components.css, và harness audit cũng bỏ qua chrome trong `.appbar`.
+   Luật dưới đây chỉ nằm trên MỘT khối chữ thật sự dài: câu nhắc trong thẻ
+   hành trình — ở body 1000px nó rộng ~142ch. Chặn ở 68ch tính theo chính cỡ
+   chữ của khối, nên dài hơn là tự xuống dòng chứ không chạy một hàng. */
+@container appframe (min-width: 900px) {
+  .a-hero__hint {
+    max-width: var(--measure-read, 68ch);
+  }
+}
+
+/* ============================================================================
+   GIAO DIỆN MÁY TÍNH (≥1100px) — nhóm A
+   ----------------------------------------------------------------------------
+   Hợp đồng: docs/WEB-SPEC.md §8. Tầng này KHÔNG thay bố cục điện thoại/tablet
+   (đã chốt ở 600/900px); nó chỉ chia lại thành nhiều vùng khi khung thật sự
+   rộng. Hạn mức bề rộng tự nhảy bậc qua token của Lead: ≥1100px body 820 /
+   grid 1160, ≥1500px body 900 / grid 1400 — nhóm chỉ dùng var(), không hardcode.
+   ========================================================================== */
+
+/* ---- home: dashboard 3 vùng ---------------------------------------------
+   Trái = chuỗi ngày + số liệu · Giữa = câu hôm nay · Phải = phiên ôn, và ba
+   hành động chính nằm ở một hàng riêng phía dưới.
+   Vì sao không nhét 3 hành động vào cột giữa: ở khung 1160px cột giữa chỉ
+   ~500px, ba thẻ sẽ bị bóp còn ~150px mỗi thẻ — không đọc được. Cho chúng một
+   hàng riêng 3 cột đều (~350px/thẻ) thì vẫn đúng ý "3 cột đều nhau" mà đọc được. */
+@container appframe (min-width: 1100px) {
+  .screen.a-home .screen__body {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.7fr) minmax(0, 0.95fr);
+    column-gap: var(--sp-6);
+    row-gap: var(--sp-6);
+    align-items: start;
+    max-width: var(--measure-grid, 1160px);
+  }
+  .screen.a-home .screen__body > :nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .screen.a-home .screen__body > :nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .screen.a-home .screen__body > :nth-child(4) {
+    grid-column: 3;
+    grid-row: 1;
+  }
+  .screen.a-home .screen__body > :nth-child(3) {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  /* Cột trái hẹp (~280px) nên vòng tròn phút đặt TRÊN hai chỉ số, không cạnh. */
+  .a-hero__top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-4);
+  }
+  .a-hero__stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  /* Phiên ôn giờ nằm trong cột phải hẹp: trả về một cột. */
+  .a-session:has(> .seg) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .a-session:has(> .seg) > .seg {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .a-session:has(> .seg) > .a-session__hint {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: auto;
+  }
+  .a-session:has(> .seg) > :last-child {
+    grid-column: 1;
+    grid-row: 3;
+    align-self: auto;
+  }
+  /* Ba hành động: hàng riêng, ba cột đều. */
+  .a-actions {
+    margin-top: var(--sp-4);
+  }
+}
+
+/* ---- onboarding: 2 vùng (nội dung chính trái · điểm nhấn/quyền phải) -----
+   Kỹ thuật: cho `.a-onb__stage` và `.a-onb__slide` `display: contents` để các
+   khối bên trong slide trở thành item của lưới 2 cột — CSS thuần, không đổi
+   cấu trúc DOM và không ảnh hưởng bề rộng nào dưới 1100px.
+   `grid-auto-flow: dense` để khối điểm nhấn (callout / quyền / 3 bước) tự lấp
+   vào cột phải ở hàng đầu còn trống; mỗi slide một hình dạng nội dung khác nhau. */
+@container appframe (min-width: 1100px) {
+  .screen.a-onb .screen__body {
+    display: grid;
+    grid-auto-flow: row dense;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    column-gap: var(--sp-7);
+    row-gap: var(--sp-5);
+    align-items: start;
+    max-width: var(--measure-grid, 1160px);
+  }
+  /* Thanh thương hiệu, thanh tiến độ và hàng nút điều hướng trải hết bề ngang. */
+  .screen.a-onb .screen__body > :nth-child(1),
+  .screen.a-onb .screen__body > :nth-child(2),
+  .screen.a-onb .screen__body > :nth-child(4) {
+    grid-column: 1 / -1;
+  }
+  .screen.a-onb .a-onb__stage,
+  .screen.a-onb .a-onb__slide {
+    display: contents;
+  }
+  .screen.a-onb .a-onb__slide > .a-onb__head {
+    grid-column: 1;
+  }
+  .screen.a-onb .a-onb__slide > .a-onb__bullets,
+  .screen.a-onb .a-onb__slide > .a-onb__facts {
+    grid-column: 1;
+  }
+  .screen.a-onb .a-onb__slide > .callout,
+  .screen.a-onb .a-onb__slide > .a-onb__perms,
+  .screen.a-onb .a-onb__slide > .a-steps {
+    grid-column: 2;
+    align-self: start;
+  }
+  /* 3 bước sang cột phải hẹp: trả về danh sách dọc thay vì 3 cột. */
+  .a-onb__slide .a-steps {
+    display: flex;
+    grid-template-columns: none;
+  }
+}
+
+/* ---- placement: tiến độ trên cùng · câu hỏi trái · 4 đáp án phải --------- */
+@container appframe (min-width: 1100px) {
+  .screen:has(> .screen__body > .a-pl) .screen__body {
+    max-width: var(--measure-grid, 1160px);
+  }
+  .a-pl:has(> .a-pl__opts) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    column-gap: var(--sp-6);
+    row-gap: var(--sp-5);
+    align-items: start;
+  }
+  .a-pl:has(> .a-pl__opts) > .a-pl__meta,
+  .a-pl:has(> .a-pl__opts) > .progress,
+  .a-pl:has(> .a-pl__opts) > .a-cta {
+    grid-column: 1 / -1;
+  }
+  .a-pl:has(> .a-pl__opts) > .a-pl__card {
+    grid-column: 1;
+  }
+  .a-pl:has(> .a-pl__opts) > .a-pl__opts,
+  .a-pl:has(> .a-pl__opts) > .a-pl__feedback {
+    grid-column: 2;
+  }
+  /* Chữ đọc: vẫn ≤ 68ch dù cột đã rộng ra. */
+  .a-pl__q,
+  .a-pl__result p.muted {
+    max-width: var(--measure-read, 68ch);
+  }
+}
+
+/* ---- topics: lưới tự nới lên 4–5 cột ------------------------------------
+   Không cần luật mới: body đã rộng tới --measure-grid (≥1100px là 1160,
+   ≥1500px là 1400) và lưới `repeat(auto-fill, minmax(240px, 1fr))` tự tính
+   số cột — 4 cột ở khung 1160, 5 cột ở khung 1400. Ghi lại đây để người sau
+   không "tối ưu" bằng cách hardcode số cột. */
+
+/* ---- splash: giữ nguyên một cột canh giữa ---------------------------------
+   Splash là màn thương hiệu, cố ý hẹp và canh giữa; không chia vùng. Chỉ nới
+   cỡ chữ ở desktop để không trông như khung điện thoại phóng to. */
+@container appframe (min-width: 1100px) {
+  .a-splash__name {
+    font-size: 64px;
+  }
+  .a-splash__tagline {
+    max-width: 40ch;
+    font-size: var(--fs-xl);
+  }
+}

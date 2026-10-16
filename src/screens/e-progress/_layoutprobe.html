@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <title>SnapLife AI · Nhóm E — đo bố cục theo bề rộng khung</title>
+  <link rel="stylesheet" href="../../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <link rel="stylesheet" href="../../../styles/base.css" />
+  <link rel="stylesheet" href="../../../styles/components.css" />
+  <link rel="stylesheet" href="../../../styles/shell.css" />
+  <link rel="stylesheet" href="../../../styles/web.css" />
+  <link rel="stylesheet" href="../../../styles/screens-e.css" />
+  <style>
+    /* Khung đo = container appframe, đúng như .device__viewport / .app / .probe */
+    html, body { margin: 0; background: var(--paper); }
+    #stage {
+      width: var(--w, 1440px);
+      min-height: 600px;
+      background: var(--paper);
+      container-type: inline-size;
+      container-name: appframe;
+    }
+    #report { white-space: pre-wrap; font-family: var(--font-mono); font-size: 12px; margin: 0; padding: 12px; }
+    .report-on { padding: 0; }
+  </style>
+</head>
+<body>
+  <pre id="report">Đang chạy…</pre>
+  <div id="stage"></div>
+  <div id="overlay"></div>
+
+  <!--
+    Harness của nhóm E để đo bố cục theo BỀ RỘNG KHUNG (container appframe):
+      ?screen=progress&w=1440          → đo và in báo cáo
+      ?screen=progress&w=1440&report=0 → chỉ render (dùng để chụp ảnh)
+      &theme=dark                      → đo/chụp ở theme tối
+    Vì sao cần: tools/audit.html chỉ cho một dòng số mỗi màn; harness này in ra
+    gridTemplateColumns, bề rộng từng khối và khối chữ rộng nhất để sửa bố cục
+    bằng số đo thay vì đoán.
+  -->
+  <script type="module">
+    import { h, qs } from '../../core/dom.js';
+    import { ui, setNav, setOverlayHost } from '../../core/ui.js';
+    import { createStore, applyTheme } from '../../core/store.js';
+    import { cost } from '../../core/cost.js';
+    import * as fixtures from '../../data/fixtures.js';
+    import { data } from '../../data/bundle.js';
+
+    import diary from './diary.js';
+    import progress from './progress.js';
+    import profile from './profile.js';
+    import systemStates from './system-states.js';
+    import compare from './compare.js';
+
+    const params = new URLSearchParams(location.search);
+    const w = Number(params.get('w')) || 1440;
+    const theme = params.get('theme') === 'dark' ? 'dark' : 'light';
+    const showReport = params.get('report') !== '0';
+    const wanted = params.get('screen') || 'progress';
+
+    document.documentElement.style.setProperty('--w', `${w}px`);
+    applyTheme(theme);
+    if (!showReport) qs('#report').style.display = 'none';
+
+    const screens = { diary, progress, profile, compare, 'system-states': systemStates };
+    const screen = screens[wanted] || progress;
+
+    setNav({ go: () => {}, back: () => {}, replace: () => {} });
+    setOverlayHost(qs('#overlay'));
+    const store = createStore(fixtures.createInitialState());
+    /* ?empty=1 — mô phỏng trạng thái sau khi người dùng bấm "Xoá dữ liệu" ở profile:
+       bộ từ trống nên `progress` hiện banner cảnh báo + biểu đồ toàn số 0.
+       Cần kiểm riêng vì audit.html luôn render với dữ liệu đầy đủ. */
+    if (params.get('empty') === '1') store.set('words', []);
+    qs('#stage').appendChild(screen.render({
+      store,
+      params: {},
+      nav: { go: () => {}, back: () => {}, replace: () => {} },
+      ui, icon: ui.ICON, icons: { icon: ui.ICON },
+      cost, data, onCleanup: () => {}, gallery: true,
+    }));
+
+    const out = [];
+    const line = (s) => out.push(s);
+
+    const supportsHas = (() => { try { return CSS.supports('selector(:has(*))'); } catch { return false; } })();
+    const supportsCQ = (() => { try { return CSS.supports('container-type: inline-size'); } catch { return false; } })();
+
+    line(`screen=${wanted} · khung=${w}px · theme=${theme}`);
+    line(`hỗ trợ: container-type=${supportsCQ} · :has()=${supportsHas}`);
+    line('');
+
+    const body = qs('#stage .screen__body');
+    if (!body) {
+      line('KHÔNG thấy .screen__body');
+    } else {
+      const cs = getComputedStyle(body);
+      const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+      const rect = body.getBoundingClientRect();
+      const tracks = cs.gridTemplateColumns;
+      const nTracks = tracks && tracks !== 'none' ? tracks.trim().split(/\s+/).filter(Boolean).length : 0;
+      line(`body: display=${cs.display} · width=${Math.round(rect.width)}px · max-width=${cs.maxWidth}`);
+      line(`      contentWidth=${Math.round(rect.width - padX)}px (ngưỡng audit ≤1040) · margin-inline=${cs.marginInline}`);
+      line(`      gridTemplateColumns="${tracks}" → ${nTracks} cột`);
+      line('');
+      line('khối con trực tiếp của body (bề rộng / lệch trái):');
+      Array.from(body.children).forEach((el, i) => {
+        const r = el.getBoundingClientRect();
+        const cls = String(el.className || '').trim().split(/\s+/).join('.');
+        line(`  ${String(i).padStart(2)} ${el.tagName.toLowerCase()}.${cls}`.padEnd(52) + ` ${String(Math.round(r.width)).padStart(5)}px  left=${Math.round(r.left)}`);
+      });
+    }
+    line('');
+
+    // Số cột lớn nhất trong mọi lưới (giống audit đo)
+    let maxCols = 1;
+    let widestGrid = null;
+    qs('#stage').querySelectorAll('*').forEach((el) => {
+      const s = getComputedStyle(el);
+      if (s.display !== 'grid' && s.display !== 'inline-grid') return;
+      const t = s.gridTemplateColumns;
+      if (!t || t === 'none') return;
+      const c = t.trim().split(/\s+/).filter(Boolean).length;
+      if (c > maxCols) { maxCols = c; widestGrid = el; }
+    });
+    line(`maxCols toàn màn = ${maxCols}` + (widestGrid ? ` (${String(widestGrid.className).split(/\s+/)[0]})` : ''));
+    line('  mọi lưới có ≥2 cột (để đọc số cột của từng lưới, không bị lẫn với heatmap 7 cột):');
+    qs('#stage').querySelectorAll('*').forEach((el) => {
+      const s = getComputedStyle(el);
+      if (s.display !== 'grid' && s.display !== 'inline-grid') return;
+      const t = s.gridTemplateColumns;
+      if (!t || t === 'none') return;
+      const cols = t.trim().split(/\s+/).filter(Boolean);
+      if (cols.length < 2) return;
+      const cls = String(el.className || '').trim().split(/\s+/).slice(0, 2).join('.');
+      line(`    ${el.tagName.toLowerCase()}.${cls}`.padEnd(46) + ` ${cols.length} cột  "${t}"`);
+    });
+
+    // Khối chữ rộng nhất theo đúng selector audit dùng
+    let widest = 0;
+    let widestEl = null;
+    qs('#stage').querySelectorAll('p, article, .interleave, .note, li').forEach((el) => {
+      const rw = el.getBoundingClientRect().width;
+      if (rw > widest) { widest = rw; widestEl = el; }
+    });
+    line(`khối chữ rộng nhất = ${Math.round(widest)}px (ngưỡng audit ≤900)`);
+    if (widestEl) {
+      line(`   → ${widestEl.tagName.toLowerCase()}.${String(widestEl.className).trim().split(/\s+/).join('.')} "${(widestEl.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 46)}"`);
+    }
+    line('');
+
+    // Touch target nhỏ nhất trong vùng nội dung
+    let minTap = null;
+    let minTapEl = null;
+    qs('#stage').querySelectorAll('button, [role="switch"], [role="radio"]').forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.width < 1 || r.height < 1) return;
+      const m = Math.min(r.width, r.height);
+      if (minTap === null || m < minTap) { minTap = m; minTapEl = el; }
+    });
+    line(`touch target nhỏ nhất = ${minTap === null ? '—' : Math.round(minTap) + 'px'}` +
+      (minTapEl ? ` (${String(minTapEl.className).split(/\s+/)[0]})` : ''));
+
+    // Vài số đo đặc thù từng màn
+    if (wanted === 'progress') {
+      const heat = qs('#stage .e-heat');
+      const ring = qs('#stage .ring');
+      const kpis = qs('#stage .stat-grid');
+      if (heat) line(`ô heatmap = ${Math.round(heat.getBoundingClientRect().width)}×${Math.round(heat.getBoundingClientRect().height)}px`);
+      if (ring) line(`ring CEFR = ${Math.round(ring.getBoundingClientRect().width)}px`);
+      if (kpis) line(`thẻ số liệu = ${getComputedStyle(kpis).gridTemplateColumns}`);
+    }
+    if (wanted === 'compare') {
+      const sub = qs('#stage .appbar__sub');
+      if (sub) line(`appbar__sub rộng = ${Math.round(sub.getBoundingClientRect().width)}px`);
+    }
+
+    qs('#report').textContent = out.join('\n');
+    document.documentElement.setAttribute('data-layoutprobe', `${wanted}-${w}-${theme}`);
+  </script>
+</body>
+</html>

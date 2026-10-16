@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nhóm B · tự kiểm tra bằng trình duyệt thật</title>
+  <style>
+    body { font-family: var(--font-mono, monospace); padding: 12px; }
+    iframe { width: 390px; height: 844px; border: 1px solid gray; position: absolute; left: -99999px; top: 0; }
+    #report { white-space: pre-wrap; font-size: 12px; line-height: 1.55; }
+  </style>
+</head>
+<body>
+  <h1 style="font-size:15px">Nhóm B — tự kiểm tra (capture · regions · wordlist · worddetail)</h1>
+  <pre id="report">Đang chạy…</pre>
+  <iframe id="app" src="/index.html#/capture"></iframe>
+  <script type="module" src="./_selfcheck.js"></script>
+</body>
+</html>

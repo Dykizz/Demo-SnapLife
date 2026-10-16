@@ -1,0 +1,1004 @@
+/* ============================================================================
+   SnapLife AI — Thư viện component dùng chung
+   Owner: Lead.  Mọi màn hình dùng các lớp ở đây, KHÔNG tự vẽ lại nút/thẻ.
+   ========================================================================== */
+
+/* ============================== App bar ================================== */
+.appbar {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-height: 56px;
+  padding: calc(var(--sp-2) + 6px) var(--sp-4) var(--sp-2);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: saturate(1.4) blur(14px);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--dur) var(--ease);
+}
+.appbar--bordered {
+  border-bottom-color: var(--line);
+}
+.appbar__head {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.appbar__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  line-height: 1.15;
+  font-weight: 400;
+  letter-spacing: var(--tracking-tight);
+}
+.appbar__sub {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+  margin-top: 1px;
+  /* App bar tràn hết bề rộng (WEB-SPEC §2) nhưng phụ đề thì không nên thành một
+     dòng dài trên màn 1440px. Giới hạn theo số ký tự để luôn dễ đọc. */
+  max-width: 62ch;
+}
+.appbar--overlay {
+  position: absolute;
+  inset: 0 0 auto 0;
+  background: linear-gradient(to bottom, rgba(12, 8, 5, 0.62), rgba(12, 8, 5, 0));
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.appbar--overlay .appbar__title,
+.appbar--overlay .appbar__sub {
+  color: #fff8f1;
+}
+
+/* ============================== Icon button ============================== */
+.iconbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  flex: 0 0 auto;
+  border-radius: var(--r-full);
+  color: var(--ink-2);
+  background: transparent;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease),
+    transform var(--dur-instant) var(--ease);
+}
+.iconbtn:hover {
+  background: var(--card-inset);
+  color: var(--ink);
+}
+.iconbtn:active {
+  transform: scale(0.94);
+}
+.iconbtn--solid {
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: var(--shadow-2);
+}
+.iconbtn--solid:hover {
+  background: var(--card);
+}
+.iconbtn--quiet {
+  width: var(--tap-min);
+  height: var(--tap-min);
+}
+/* Giữ vùng chạm 44px nhưng cho icon nhỏ lại — mắt thấy nhẹ, tay vẫn dễ chạm. */
+.iconbtn--quiet svg {
+  width: 18px;
+  height: 18px;
+}
+.iconbtn[disabled] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ================================= Nút =================================== */
+.btn {
+  --btn-bg: var(--primary);
+  --btn-fg: var(--on-primary);
+  --btn-line: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  min-height: var(--tap-min);
+  padding: 0 var(--sp-5);
+  border-radius: var(--r-full);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: 1px solid var(--btn-line);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  /* Nhãn được phép xuống dòng thay vì đẩy hàng flex rộng ra ngoài khung.
+     Trước đây `white-space: nowrap` + `min-width: auto` khiến nút không co được
+     dưới bề rộng nhãn, làm 4 màn tràn ngang 2–15px khi font thật được nạp. */
+  white-space: normal;
+  overflow-wrap: break-word;
+  min-width: 0;
+  max-width: 100%;
+  transition: background var(--dur-fast) var(--ease), transform var(--dur-instant) var(--ease),
+    box-shadow var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.btn:hover {
+  background: var(--primary-hover);
+}
+.btn:active {
+  transform: scale(0.975);
+  background: var(--primary-press);
+}
+.btn svg {
+  flex: 0 0 auto;
+}
+.btn--secondary {
+  --btn-bg: var(--card);
+  --btn-fg: var(--ink);
+  --btn-line: var(--line-strong);
+  box-shadow: var(--shadow-1);
+}
+.btn--secondary:hover {
+  --btn-bg: var(--card-2);
+  background: var(--card-2);
+}
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--primary);
+}
+.btn--ghost:hover {
+  --btn-bg: var(--primary-soft);
+  background: var(--primary-soft);
+}
+.btn--soft {
+  --btn-bg: var(--primary-soft);
+  --btn-fg: var(--primary);
+}
+.btn--soft:hover {
+  --btn-bg: var(--primary-soft-2);
+  background: var(--primary-soft-2);
+}
+.btn--danger {
+  --btn-bg: var(--danger);
+  --btn-fg: var(--on-danger);
+}
+.btn--danger:hover {
+  background: var(--danger);
+  filter: brightness(0.92);
+}
+.btn--block {
+  width: 100%;
+}
+.btn--sm {
+  min-height: var(--tap-min);
+  padding: 0 var(--sp-4);
+  font-size: var(--fs-sm);
+}
+.btn--lg {
+  min-height: 54px;
+  padding: 0 var(--sp-6);
+  font-size: var(--fs-md);
+}
+.btn--pill-icon {
+  padding: 0 var(--sp-4) 0 var(--sp-3);
+}
+.btn[disabled] {
+  opacity: 0.45;
+  pointer-events: none;
+  box-shadow: none;
+}
+.btn-row {
+  display: flex;
+  gap: var(--sp-3);
+  /* Cho phép xuống hàng: hai nút cạnh nhau không vừa thì tách thành hai hàng,
+     tốt hơn là đẩy cả hàng rộng ra ngoài khung màn hình. */
+  flex-wrap: wrap;
+}
+.btn-row > .btn {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* ================================= Thẻ =================================== */
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-2);
+  padding: var(--sp-4);
+}
+.card--flush {
+  padding: 0;
+  overflow: hidden;
+}
+.card--quiet {
+  box-shadow: none;
+  background: var(--card-2);
+}
+.card--ink {
+  background: var(--ink);
+  border-color: transparent;
+  color: var(--ink-inverse);
+}
+.card--ink .muted {
+  color: color-mix(in srgb, var(--ink-inverse) 72%, transparent);
+}
+.card--ink .label {
+  color: color-mix(in srgb, var(--ink-inverse) 60%, transparent);
+}
+.card--primary {
+  background: var(--primary-soft);
+  border-color: var(--primary-soft-2);
+  box-shadow: none;
+}
+.card--pad-lg {
+  padding: var(--sp-5);
+}
+.card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-3);
+}
+.card__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+/* ================================= Chip ================================== */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: var(--tap-min);
+  padding: 0 var(--sp-4);
+  border-radius: var(--r-full);
+  border: 1px solid var(--line-strong);
+  background: var(--card);
+  color: var(--ink-2);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease), transform var(--dur-instant) var(--ease);
+}
+.chip:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.chip:active {
+  transform: scale(0.97);
+}
+.chip[aria-pressed='true'],
+.chip--selected {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary);
+}
+.chip--soft {
+  border-color: transparent;
+  background: var(--card-inset);
+}
+.chip--sm {
+  min-height: var(--tap-min);
+  padding: 0 var(--sp-3);
+  font-size: var(--fs-xs);
+}
+.chip-row {
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+.chip-scroller {
+  display: flex;
+  gap: var(--sp-2);
+  overflow-x: auto;
+  min-width: 0;      /* để cuộn nội bộ thay vì đẩy rộng khung màn hình */
+  max-width: 100%;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+}
+.chip-scroller::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================== Segmented ================================ */
+.seg {
+  display: flex;
+  gap: 3px;
+  padding: 3px;
+  background: var(--card-inset);
+  border-radius: var(--r-full);
+  border: 1px solid var(--line);
+}
+.seg__opt {
+  flex: 1 1 0;
+  min-height: var(--tap-min);
+  border-radius: var(--r-full);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ink-2);
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease);
+}
+.seg__opt:hover {
+  color: var(--ink);
+}
+.seg__opt[aria-selected='true'] {
+  background: var(--card);
+  color: var(--primary);
+  box-shadow: var(--shadow-1);
+}
+.seg--stack .seg__opt {
+  min-height: 46px;
+}
+
+/* ============================== Progress ================================= */
+.progress {
+  height: 8px;
+  border-radius: var(--r-full);
+  background: var(--card-inset);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.progress__bar {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--primary);
+  transition: width var(--dur-slow) var(--ease);
+}
+.progress--success .progress__bar {
+  background: var(--success);
+}
+.progress--thin {
+  height: 4px;
+}
+.progress--seg {
+  display: flex;
+  gap: 4px;
+  height: 6px;
+  border: 0;
+  background: none;
+  border-radius: 0;
+}
+.progress--seg .progress__seg {
+  flex: 1 1 0;
+  border-radius: var(--r-full);
+  background: var(--line);
+}
+.progress--seg .progress__seg--done {
+  background: var(--success);
+}
+.progress--seg .progress__seg--now {
+  background: var(--primary);
+}
+
+/* ============================== Progress ring ============================ */
+.ring {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+.ring svg {
+  transform: rotate(-90deg);
+}
+.ring__track {
+  stroke: var(--card-inset);
+}
+.ring__value {
+  stroke: var(--primary);
+  stroke-linecap: round;
+  transition: stroke-dashoffset var(--dur-slow) var(--ease);
+}
+.ring--success .ring__value {
+  stroke: var(--success);
+}
+.ring__inner {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  line-height: 1.1;
+}
+
+/* ================================ Stat =================================== */
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.stat__value {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  line-height: 1.05;
+  letter-spacing: var(--tracking-tight);
+}
+.stat__delta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  color: var(--success);
+}
+.stat__delta--down {
+  color: var(--danger);
+}
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-3);
+}
+
+/* ================================ Badge ================================== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: var(--r-full);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--card-inset);
+  color: var(--ink-2);
+  white-space: nowrap;
+  line-height: 1.6;
+}
+.badge--primary { background: var(--primary-soft); color: var(--primary); }
+.badge--success { background: var(--success-soft); color: var(--success); }
+.badge--warning { background: var(--warning-soft); color: var(--warning); }
+.badge--danger { background: var(--danger-soft); color: var(--danger); }
+.badge--info { background: var(--info-soft); color: var(--info); }
+.badge--outline {
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  color: var(--ink-2);
+}
+
+/* ============================== List item =============================== */
+.listitem {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  min-height: 60px;
+  padding: var(--sp-3) var(--sp-4);
+  text-align: left;
+  background: transparent;
+  transition: background var(--dur-fast) var(--ease);
+}
+.listitem:hover {
+  background: var(--card-inset);
+}
+.listitem:active {
+  background: var(--primary-soft);
+}
+.listitem__body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.listitem__title {
+  font-size: var(--fs-base);
+  font-weight: 550;
+  line-height: 1.35;
+}
+.listitem__sub {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+  margin-top: 2px;
+}
+.listitem__trail {
+  flex: 0 0 auto;
+  color: var(--ink-3);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.listitem + .listitem {
+  box-shadow: inset 0 1px 0 var(--line);
+}
+.list {
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--line);
+}
+
+/* ============================== Thẻ từ vựng ============================== */
+.wordrow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  min-height: 64px;
+  padding: var(--sp-3) var(--sp-3) var(--sp-3) var(--sp-4);
+  text-align: left;
+  transition: background var(--dur-fast) var(--ease);
+}
+.wordrow:hover { background: var(--card-inset); }
+.wordrow__en {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  line-height: 1.15;
+}
+.wordrow__ipa {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+  margin-top: 2px;
+}
+.wordrow__vi {
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+  margin-top: 2px;
+}
+.wordrow__side {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+}
+.wordrow--dim .wordrow__en { color: var(--ink-2); }
+
+/* Nút nghe — luôn cùng một hình dạng */
+.audio-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  /* Không cho co lại: mặc định flex-shrink:1 khiến nút này bị bóp xuống
+     43.98px trong hàng "nhãn dài + nút nghe", tức là vỡ đúng chuẩn 44px. */
+  flex: 0 0 auto;
+  border-radius: var(--r-full);
+  background: var(--primary-soft);
+  color: var(--primary);
+  transition: background var(--dur-fast) var(--ease), transform var(--dur-instant) var(--ease);
+}
+.audio-btn:hover { background: var(--primary-soft-2); }
+.audio-btn:active { transform: scale(0.92); }
+.audio-btn--wide { width: auto; padding: 0 var(--sp-4); }
+.audio-btn[data-playing='true'] {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+.audio-btn[data-playing='true'] svg {
+  animation: sl-pulse 900ms var(--ease) infinite;
+}
+
+/* =========================== Khung ảnh + Bbox =========================== */
+.photo-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  background: var(--card-inset);
+  aspect-ratio: 1 / 1;
+  box-shadow: var(--shadow-2);
+}
+.photo-frame--wide { aspect-ratio: 4 / 3; }
+.photo-frame--tall { aspect-ratio: 3 / 4; }
+.photo-frame--soft { box-shadow: none; border: 1px solid var(--line); }
+.photo-frame > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.photo-frame--dim > img {
+  filter: brightness(0.72) saturate(0.92);
+}
+
+.bbox {
+  position: absolute;
+  border: 2px solid var(--overlay-line);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--primary) 14%, transparent);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.28), 0 6px 18px -8px rgba(0, 0, 0, 0.5);
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+.bbox--on {
+  border-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 26%, transparent);
+}
+.bbox--off {
+  border-color: rgba(255, 255, 255, 0.5);
+  border-style: dashed;
+  background: rgba(0, 0, 0, 0.22);
+  opacity: 0.85;
+}
+.bbox--user {
+  border-color: var(--success);
+  background: color-mix(in srgb, var(--success) 22%, transparent);
+}
+.bbox__tag {
+  position: absolute;
+  left: -2px;
+  bottom: 100%;
+  margin-bottom: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: var(--r-full);
+  background: var(--overlay-chip);
+  color: var(--overlay-chip-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  backdrop-filter: blur(6px);
+}
+.bbox__tag--user { background: var(--success); color: var(--on-success); }
+.bbox__grip {
+  position: absolute;
+  right: -9px;
+  bottom: -9px;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--r-full);
+  background: var(--card);
+  border: 2px solid var(--primary);
+  box-shadow: var(--shadow-2);
+  display: grid;
+  place-items: center;
+  color: var(--primary);
+}
+
+/* Lớp phủ camera */
+.viewfinder {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #100c09;
+  border-radius: var(--r-lg);
+}
+.viewfinder > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.viewfinder__grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.16) 1px, transparent 1px);
+  background-size: 33.333% 33.333%;
+}
+.viewfinder__guide {
+  position: absolute;
+  inset: 14% 16%;
+  border: 2px dashed rgba(255, 255, 255, 0.55);
+  border-radius: var(--r-md);
+  pointer-events: none;
+}
+.viewfinder__scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 22%;
+  background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--primary) 42%, transparent), transparent);
+  animation: sl-scan 1.6s var(--ease) infinite;
+  pointer-events: none;
+}
+@keyframes sl-scan {
+  0% { top: -22%; }
+  100% { top: 100%; }
+}
+
+/* ============================== Bottom sheet ============================= */
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--scrim);
+  z-index: var(--z-sheet);
+  animation: sl-fade-in var(--dur) var(--ease) both;
+}
+.sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: calc(var(--z-sheet) + 1);
+  max-height: 82%;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  border-radius: var(--r-2xl) var(--r-2xl) 0 0;
+  box-shadow: var(--shadow-4);
+  animation: sl-sheet-in var(--dur-slow) var(--ease-out) both;
+}
+.sheet__grab {
+  width: 44px;
+  height: 5px;
+  border-radius: var(--r-full);
+  background: var(--line-strong);
+  margin: var(--sp-3) auto var(--sp-1);
+  flex: 0 0 auto;
+}
+.sheet__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-5) var(--sp-3);
+}
+.sheet__body {
+  padding: 0 var(--sp-5) calc(var(--sp-6) + 12px);
+  overflow-y: auto;
+}
+.sheet__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  line-height: 1.15;
+  font-weight: 400;
+}
+
+/* ================================ Modal ================================= */
+.modal {
+  position: absolute;
+  left: var(--sp-5);
+  right: var(--sp-5);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: var(--z-modal);
+  background: var(--paper);
+  border-radius: var(--r-xl);
+  padding: var(--sp-5);
+  box-shadow: var(--shadow-4);
+  animation: sl-enter var(--dur) var(--ease-out) both;
+}
+
+/* ================================ Toast ================================= */
+.toast {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(var(--sp-8) + 16px);
+  z-index: var(--z-toast);
+  max-width: 84%;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-full);
+  background: var(--ink);
+  color: var(--ink-inverse);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  box-shadow: var(--shadow-3);
+  animation: sl-enter var(--dur) var(--ease-out) both;
+}
+.toast--success { background: var(--success); color: var(--on-success); }
+.toast--danger { background: var(--danger); color: var(--on-danger); }
+
+/* ============================ Trạng thái rỗng =========================== */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-8) var(--sp-5);
+  text-align: center;
+}
+.empty__art {
+  width: 76px;
+  height: 76px;
+  border-radius: var(--r-xl);
+  display: grid;
+  place-items: center;
+  background: var(--primary-soft);
+  color: var(--primary);
+  margin-bottom: var(--sp-1);
+}
+.empty__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 400;
+}
+
+/* ============================== Skeleton =============================== */
+.skeleton {
+  border-radius: var(--r-sm);
+  background: linear-gradient(
+    90deg,
+    var(--card-inset) 0%,
+    var(--card-2) 42%,
+    var(--card-inset) 84%
+  );
+  background-size: 220% 100%;
+  animation: sl-shimmer 1.4s linear infinite;
+  height: 14px;
+}
+.skeleton--title { height: 24px; width: 62%; }
+.skeleton--photo { aspect-ratio: 1 / 1; border-radius: var(--r-lg); height: auto; }
+.skeleton--line { width: 100%; }
+.skeleton--short { width: 40%; }
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2.5px solid color-mix(in srgb, currentColor 26%, transparent);
+  border-top-color: currentColor;
+  animation: sl-spin 720ms linear infinite;
+  flex: 0 0 auto;
+}
+
+/* ============================== Callout ================================ */
+.callout {
+  display: flex;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-md);
+  background: var(--info-soft);
+  color: var(--ink);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+}
+.callout--warning { background: var(--warning-soft); }
+.callout--danger { background: var(--danger-soft); }
+.callout--success { background: var(--success-soft); }
+.callout--primary { background: var(--primary-soft); }
+.callout svg { flex: 0 0 auto; margin-top: 1px; }
+.callout__title {
+  font-weight: 650;
+  font-size: var(--fs-sm);
+}
+
+/* ============================== Đoạn đan xen =========================== */
+.interleave {
+  font-family: var(--font-read);
+  font-size: 19px;
+  line-height: 1.8;
+  color: var(--ink);
+}
+.interleave p + p {
+  margin-top: var(--sp-4);
+}
+.en {
+  font-family: var(--font-read);
+  font-weight: 600;
+  color: var(--highlight);
+  background: linear-gradient(to bottom, transparent 62%, var(--highlight-soft) 62%);
+  border-radius: 3px;
+  padding: 0 2px;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.en:hover {
+  background: var(--highlight-soft);
+  text-decoration: underline;
+  text-decoration-color: var(--highlight);
+  text-underline-offset: 3px;
+}
+.en[aria-expanded='true'],
+.en--active {
+  background: var(--highlight);
+  color: var(--on-highlight);
+}
+
+/* =============================== Cost meter ============================ */
+.costmeter {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-full);
+  background: var(--card);
+  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.04em;
+  color: var(--ink-2);
+}
+.costmeter__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success);
+  flex: 0 0 auto;
+}
+.costmeter__dot--firing {
+  background: var(--primary);
+  animation: sl-pulse 600ms var(--ease) infinite;
+}
+.costmeter--zero .costmeter__dot { background: var(--success); }
+
+/* =============================== Divider =============================== */
+.divider {
+  height: 1px;
+  background: var(--line);
+  border: 0;
+  margin: var(--sp-4) 0;
+}
+.divider--tight { margin: var(--sp-3) 0; }
+.divider--label {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  height: auto;
+  background: none;
+  color: var(--ink-3);
+}
+.divider--label::before,
+.divider--label::after {
+  content: '';
+  flex: 1 1 0;
+  height: 1px;
+  background: var(--line);
+}
+
+/* ================================== Toggle ============================== */
+/* Công tắc: vùng chạm 44px, nhưng rãnh trượt chỉ cao 30px — đủ dễ chạm mà không thô. */
+.toggle {
+  position: relative;
+  width: 50px;
+  height: var(--tap-min);
+  flex: 0 0 auto;
+  background: transparent;
+  border-radius: var(--r-full);
+}
+.toggle::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 30px;
+  transform: translateY(-50%);
+  border-radius: var(--r-full);
+  background: var(--line-strong);
+  transition: background var(--dur) var(--ease);
+}
+.toggle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  margin-top: -12px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--shadow-1);
+  transition: transform var(--dur) var(--ease-spring);
+}
+.toggle[aria-checked='true']::before { background: var(--success); }
+.toggle[aria-checked='true']::after { transform: translateX(20px); }
+
+/* ================================ Avatar =============================== */
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-full);
+  display: grid;
+  place-items: center;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  flex: 0 0 auto;
+}
+.avatar--lg { width: 62px; height: 62px; font-size: var(--fs-xl); }
+
+/* ================================ Meter chữ ============================ */
+.keyval {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-2) 0;
+}
+.keyval + .keyval {
+  box-shadow: inset 0 1px 0 var(--line);
+}
+.keyval__k { font-size: var(--fs-sm); color: var(--ink-2); }
+.keyval__v { font-family: var(--font-mono); font-size: var(--fs-sm); font-weight: 500; }

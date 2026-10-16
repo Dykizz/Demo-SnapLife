@@ -1,0 +1,269 @@
+[
+  {
+    "viewport": [
+      1440,
+      900
+    ],
+    "truocKhiMoSheet": {
+      "viewport": [
+        1440,
+        900
+      ],
+      "device": {
+        "sel": ".device",
+        "l": 129,
+        "t": 361,
+        "w": 390,
+        "h": 710,
+        "ov": "visible",
+        "pos": "relative"
+      },
+      "app": {
+        "sel": "#app",
+        "l": 141,
+        "t": 373,
+        "w": 366,
+        "h": 686,
+        "ov": "visible",
+        "pos": "absolute"
+      },
+      "overlay": {
+        "sel": "#overlay",
+        "l": 141,
+        "t": 373,
+        "w": 366,
+        "h": 686,
+        "ov": "visible",
+        "pos": "absolute"
+      },
+      "screen": {
+        "sel": "#screen",
+        "l": 141,
+        "t": 417,
+        "w": 366,
+        "h": 549,
+        "ov": "hidden auto",
+        "pos": "relative"
+      }
+    },
+    "sauKhiMoSheet": {
+      "app": {
+        "sel": "#app",
+        "l": 141,
+        "t": -21,
+        "w": 366,
+        "h": 686,
+        "ov": "visible",
+        "pos": "absolute"
+      },
+      "overlay": {
+        "sel": "#overlay",
+        "l": 141,
+        "t": -21,
+        "w": 366,
+        "h": 686,
+        "ov": "visible",
+        "pos": "absolute"
+      },
+      "scrim": {
+        "l": 141,
+        "t": -21,
+        "w": 366,
+        "h": 686
+      },
+      "scrimTranRaNgoaiApp": {
+        "traiPhai": false,
+        "trenDuoi": false,
+        "lechTrai": 0,
+        "lechPhai": 0,
+        "overlayLechTrai": 0,
+        "overlayLechPhai": 0
+      },
+      "railProbe": {
+        "muc": "01 Khởi động",
+        "x": 172,
+        "y": 231,
+        "topElement": "grow truncate",
+        "biScrimNuot": false
+      }
+    }
+  },
+  {
+    "viewport": [
+      1024,
+      800
+    ],
+    "truocKhiMoSheet": {
+      "viewport": [
+        1024,
+        800
+      ],
+      "device": {
+        "sel": ".device",
+        "l": 97,
+        "t": 436,
+        "w": 390,
+        "h": 610,
+        "ov": "visible",
+        "pos": "relative"
+      },
+      "app": {
+        "sel": "#app",
+        "l": 109,
+        "t": 54,
+        "w": 366,
+        "h": 586,
+        "ov": "visible",
+        "pos": "absolute"
+      },
+      "overlay": {
+        "sel": "#overlay",
+        "l": 109,
+        "t": 54,
+        "w": 366,
+        "h": 586,
+        "ov": "visible",
+        "pos": "absolute"
+      },
+      "screen": {
+        "sel": "#screen",
+        "l": 109,
+        "t": 98,
+        "w": 366,
+        "h": 449,
+        "ov": "hidden auto",
+        "pos": "relative"
+      }
+    },
+    "sauKhiMoSheet": {
+      "app": {
+        "sel": "#app",
+        "l": 109,
+        "t": 54,
+        "w": 366,
+        "h": 586,
+        "ov": "visible",
+        "pos": "absolute"
+      },
+      "overlay": {
+        "sel": "#overlay",
+        "l": 109,
+        "t": 54,
+        "w": 366,
+        "h": 586,
+        "ov": "visible",
+        "pos": "absolute"
+      },
+      "scrim": {
+        "l": 109,
+        "t": 54,
+        "w": 366,
+        "h": 586
+      },
+      "scrimTranRaNgoaiApp": {
+        "traiPhai": false,
+        "trenDuoi": false,
+        "lechTrai": 0,
+        "lechPhai": 0,
+        "overlayLechTrai": 0,
+        "overlayLechPhai": 0
+      },
+      "railProbe": {
+        "muc": "01 Khởi động",
+        "x": 156,
+        "y": 306,
+        "topElement": "grow truncate",
+        "biScrimNuot": false
+      }
+    }
+  },
+  {
+    "viewport": [
+      390,
+      844
+    ],
+    "truocKhiMoSheet": {
+      "viewport": [
+        390,
+        844
+      ],
+      "device": {
+        "sel": ".device",
+        "l": 24,
+        "t": 236,
+        "w": 342,
+        "h": 712,
+        "ov": "visible",
+        "pos": "relative"
+      },
+      "app": {
+        "sel": "#app",
+        "l": 24,
+        "t": -158,
+        "w": 342,
+        "h": 712,
+        "ov": "visible",
+        "pos": "absolute"
+      },
+      "overlay": {
+        "sel": "#overlay",
+        "l": 24,
+        "t": -158,
+        "w": 342,
+        "h": 712,
+        "ov": "visible",
+        "pos": "absolute"
+      },
+      "screen": {
+        "sel": "#screen",
+        "l": 24,
+        "t": -114,
+        "w": 342,
+        "h": 575,
+        "ov": "hidden auto",
+        "pos": "relative"
+      }
+    },
+    "sauKhiMoSheet": {
+      "app": {
+        "sel": "#app",
+        "l": 24,
+        "t": -158,
+        "w": 342,
+        "h": 712,
+        "ov": "visible",
+        "pos": "absolute"
+      },
+      "overlay": {
+        "sel": "#overlay",
+        "l": 24,
+        "t": -158,
+        "w": 342,
+        "h": 712,
+        "ov": "visible",
+        "pos": "absolute"
+      },
+      "scrim": {
+        "l": 24,
+        "t": -158,
+        "w": 342,
+        "h": 712
+      },
+      "scrimTranRaNgoaiApp": {
+        "traiPhai": false,
+        "trenDuoi": false,
+        "lechTrai": 0,
+        "lechPhai": 0,
+        "overlayLechTrai": 0,
+        "overlayLechPhai": 0
+      },
+      "railProbe": {
+        "muc": "01Khởi động",
+        "x": 0,
+        "y": 0,
+        "topElement": "shell",
+        "biScrimNuot": false
+      }
+    }
+  }
+]

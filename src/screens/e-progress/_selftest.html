@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <title>SnapLife AI · Nhóm E tự kiểm tra</title>
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <link rel="stylesheet" href="../../../styles/base.css" />
+  <link rel="stylesheet" href="../../../styles/components.css" />
+  <link rel="stylesheet" href="../../../styles/shell.css" />
+  <link rel="stylesheet" href="../../../styles/screens-e.css" />
+  <style>
+    body { padding: 16px; font-family: var(--font-mono); font-size: 12px; }
+    #report { white-space: pre-wrap; }
+    #stage { width: 390px; }
+  </style>
+</head>
+<body>
+  <h1>Nhóm E — tự kiểm tra tương tác thật</h1>
+  <pre id="report">Đang chạy…</pre>
+  <div id="stage"></div>
+  <div id="overlay"></div>
+
+  <script type="module">
+    import { h, qs } from '../../core/dom.js';
+    import { ui, setNav, setOverlayHost } from '../../core/ui.js';
+    import { createStore } from '../../core/store.js';
+    import { cost } from '../../core/cost.js';
+
+    import * as fixtures from '../../data/fixtures.js';
+    import * as wordsData from '../../data/words.js';
+    import * as photosData from '../../data/photos.js';
+    import * as storyData from '../../data/story.js';
+    import * as logic from '../../data/logic.js';
+
+    import diary from './diary.js';
+    import progress from './progress.js';
+    import profile from './profile.js';
+    import systemStates from './system-states.js';
+
+    /* Tiện ích nhỏ cho tự kiểm tra giao diện: app.js nhớ theme trong localStorage
+       nên ảnh chụp headless luôn ra theme đã lưu, không có cờ dòng lệnh nào ép được.
+       Mở trang này với:
+         ?set-theme=dark | ?set-theme=light  → ghi theme cho lần chụp kế tiếp
+         ?set-theme=reset                    → xoá khoá, quay về mặc định hệ thống
+       Sau khi chụp xong nên gọi ?set-theme=light để trả demo về trạng thái ban đầu. */
+    const setTheme = new URLSearchParams(location.search).get('set-theme');
+    try {
+      if (setTheme === 'dark' || setTheme === 'light') localStorage.setItem('snaplife.theme', setTheme);
+      else if (setTheme === 'reset') localStorage.removeItem('snaplife.theme');
+    } catch { /* bỏ qua */ }
+
+    const data = {
+      ...fixtures, ...wordsData, ...photosData, ...logic,
+      story: storyData, stories: storyData.stories, hydrateStory: storyData.hydrateStory,
+      speakingSample: storyData.speakingSample, parseStory: storyData.parseStory,
+      userStoryDraft: storyData.userStoryDraft, sampleTopics: storyData.sampleTopics,
+    };
+
+    const lines = [];
+    const ok = (name, pass, detail = '') => lines.push(`${pass ? 'PASS' : 'FAIL'} · ${name}${detail ? ' · ' + detail : ''}`);
+    const stage = qs('#stage');
+    setNav({ go: () => {}, back: () => {}, replace: () => {} });
+    setOverlayHost(qs('#overlay'));
+
+    function mount(screen, store) {
+      const host = h('div', { style: { width: '390px', background: 'var(--paper)' } });
+      const ctx = {
+        store, params: {}, nav: { go: () => {}, back: () => {}, replace: () => {} },
+        ui, icons: { icon: ui.ICON }, cost, data, onCleanup: () => {}, gallery: true,
+      };
+      host.appendChild(screen.render(ctx));
+      stage.appendChild(host);
+      return host;
+    }
+
+    try {
+      /* ------------------------------ diary ------------------------------ */
+      const store1 = createStore(fixtures.createInitialState());
+      const diaryHost = mount(diary, store1);
+
+      ok('diary: 5 nút sắc thái', diaryHost.querySelectorAll('.e-mood').length === 5,
+        `đếm=${diaryHost.querySelectorAll('.e-mood').length}`);
+      ok('diary: lịch sử đủ 7 ô', diaryHost.querySelectorAll('.e-hist__cell').length === 7,
+        `đếm=${diaryHost.querySelectorAll('.e-hist__cell').length}`);
+      const moodIcons = Array.from(diaryHost.querySelectorAll('.e-mood__icon svg'));
+      ok('diary: icon sắc thái render thật (không SVG rỗng)',
+        moodIcons.length === 5 && moodIcons.every((s) => s.querySelector('path, circle, rect')),
+        `svg=${moodIcons.length} path=${moodIcons.filter((s) => s.querySelector('path, circle, rect')).length}`);
+
+      diaryHost.querySelector('[data-mood="low"]').click();
+      const lowEn = diaryHost.querySelector('.e-sentence__en').textContent.trim();
+      const lowVi = diaryHost.querySelector('.e-sentence__vi').textContent.trim();
+      const lowBadge = diaryHost.querySelector('.e-sentence .badge').textContent.trim();
+      const lowMeta = diaryHost.querySelector('.e-sentence__meta').textContent.trim();
+      ok('diary: "Rất thấp" → tone acknowledge', lowMeta.includes('acknowledge'), `meta="${lowMeta}"`);
+      ok('diary: "Rất thấp" → câu low-1', lowEn.includes('You made it through today'), `en="${lowEn}"`);
+      ok('diary: câu có nghĩa tiếng Việt', lowVi.length > 5, `vi="${lowVi}"`);
+      ok('diary: badge là "Câu ghi nhận"', lowBadge.includes('ghi nhận'), `badge="${lowBadge}"`);
+      ok('diary: store ghi daily.mood=low', store1.get('daily.mood') === 'low', `mood=${store1.get('daily.mood')}`);
+
+      diaryHost.querySelector('[data-mood="great"]').click();
+      const greatEn = diaryHost.querySelector('.e-sentence__en').textContent.trim();
+      const greatMeta = diaryHost.querySelector('.e-sentence__meta').textContent.trim();
+      ok('diary: "Rất tốt" → câu khác', greatEn !== lowEn, `en="${greatEn}"`);
+      ok('diary: "Rất tốt" → tone encourage', greatMeta.includes('encourage'), `meta="${greatMeta}"`);
+
+      diaryHost.querySelector('[data-mood="down"]').click();
+      const downMeta = diaryHost.querySelector('.e-sentence__meta').textContent.trim();
+      ok('diary: "Hơi xuống" → tone acknowledge', downMeta.includes('acknowledge'), `meta="${downMeta}"`);
+
+      const saveBtn = Array.from(diaryHost.querySelectorAll('.e-sentence .btn')).find((b) => b.textContent.includes('nhật ký'));
+      saveBtn.click();
+      ok('diary: lưu vào lịch sử 7 ngày', store1.get('daily.history').length === 8,
+        `history=${store1.get('daily.history').length}`);
+      ok('diary: ô cuối đổi thành "Hôm nay"', diaryHost.querySelectorAll('.e-hist__cell')[6].textContent.includes('Hôm nay'),
+        `ô cuối="${diaryHost.querySelectorAll('.e-hist__cell')[6].textContent}"`);
+      ok('diary: nhãn câu khác vẫn có nút nghe', Boolean(diaryHost.querySelector('.e-sentence .audio-btn')));
+
+      /* ----------------------------- progress ---------------------------- */
+      const store2 = createStore(fixtures.createInitialState());
+      const progressHost = mount(progress, store2);
+      const user = fixtures.user;
+      const cal = logic.streakCalendar({ weeks: 5 });
+
+      const heat = progressHost.querySelectorAll('.e-heat');
+      ok('progress: heatmap đủ 35 ô', heat.length === 35, `đếm=${heat.length}`);
+      const heatNums = Array.from(progressHost.querySelectorAll('.e-heat__n')).map((n) => Number(n.textContent));
+      const expectMin = cal.filter((c) => c.minutes > 0).map((c) => c.minutes);
+      ok('progress: số phút trong ô khớp streakCalendar',
+        JSON.stringify(heatNums) === JSON.stringify(expectMin),
+        `data=${expectMin.reduce((a, b) => a + b, 0)} phút, ô=${heatNums.reduce((a, b) => a + b, 0)} phút`);
+
+      const distRows = progressHost.querySelectorAll('.e-dist__row');
+      const distLevels = Array.from(distRows).map((r) => r.querySelector('.e-dist__lv').textContent.trim());
+      ok('progress: phân bố CEFR đủ 5 mức', distRows.length === 5 && JSON.stringify(distLevels) === JSON.stringify(['A1', 'A2', 'B1', 'B2', 'C1']),
+        `mức=${distLevels.join(',')}`);
+      const distTexts = Array.from(progressHost.querySelectorAll('.e-dist__meta')).map((n) => n.textContent.trim());
+      ok('progress: mỗi mức có nhãn + số đã thuộc', distTexts.every((t) => /thuộc \d+\/\d+/.test(t)), distTexts[2]);
+
+      const stageRows = progressHost.querySelectorAll('.cost-ledger__row');
+      ok('progress: histogram SRS đủ 5 giai đoạn', stageRows.length === 5, `đếm=${stageRows.length}`);
+
+      const statValues = Array.from(progressHost.querySelectorAll('.stat__value')).map((n) => n.textContent.trim());
+      ok('progress: statGrid khớp ctx.data.user',
+        JSON.stringify(statValues) === JSON.stringify([String(user.streak), String(user.wordsKnown), String(user.minutesWeek), String(user.level)]),
+        `stats=${statValues.join(' | ')}`);
+      ok('progress: có ring CEFR tới mức kế', Boolean(progressHost.querySelector('.ring')) && progressHost.textContent.includes(`${user.cefr} → ${user.cefrNext}`));
+      ok('progress: CTA "Làm lại test 3 phút"', (progressHost.querySelector('.screen__cta .btn') || {}).textContent?.includes('Làm lại test 3 phút'),
+        (progressHost.querySelector('.screen__cta .btn') || {}).textContent);
+      ok('progress: tab = progress, chrome = tabbar', progress.chrome === 'tabbar' && progress.tab === 'progress');
+
+      /* ------------------------------ profile ---------------------------- */
+      const store3 = createStore(fixtures.createInitialState());
+      const profileHost = mount(profile, store3);
+      const lock = profileHost.querySelector('.toggle--locked');
+      ok('profile: có công tắc trainOnData bị khoá', Boolean(lock));
+      ok('profile: trainOnData đang tắt', lock.getAttribute('aria-checked') === 'false', `aria-checked=${lock.getAttribute('aria-checked')}`);
+      ok('profile: có nhãn "đang tắt"', profileHost.textContent.includes('đang tắt'));
+      ok('profile: có giải thích vì sao không bật', profileHost.textContent.includes('không có đường bật') && profileHost.textContent.includes('không phải tuỳ chọn người dùng'));
+      ok('profile: cam kết nằm trong màn', profileHost.textContent.includes('Không dùng ảnh và giọng nói của người học để huấn luyện mô hình'));
+      lock.click();
+      const modal = qs('#overlay').querySelector('.modal');
+      ok('profile: bấm công tắc → mở modal cam kết', Boolean(modal));
+      ok('profile: bấm công tắc KHÔNG tự bật', lock.getAttribute('aria-checked') === 'false', `aria-checked=${lock.getAttribute('aria-checked')}`);
+      ok('profile: modal có nút đóng', Boolean(modal && Array.from(modal.querySelectorAll('.btn')).some((b) => b.textContent.includes('Đã hiểu'))));
+      modal.querySelector('.btn').click();
+      ok('profile: modal đóng được', !qs('#overlay').querySelector('.modal'));
+      ok('profile: mặc định store.profile.trainOnData = false', store3.get('profile.trainOnData') === false);
+
+      /* --------------------------- system-states ------------------------- */
+      const store4 = createStore(fixtures.createInitialState());
+      const statesHost = mount(systemStates, store4);
+      ok('system-states: đúng 4 khối trạng thái', statesHost.querySelectorAll('.e-state').length === 4,
+        `đếm=${statesHost.querySelectorAll('.e-state').length}`);
+      ok('system-states: khối rỗng dùng ui.empty', Boolean(statesHost.querySelector('.e-state .empty')));
+      ok('system-states: khối tải dùng skeleton + spinner', Boolean(statesHost.querySelector('.skeleton')) && Boolean(statesHost.querySelector('.spinner')));
+      ok('system-states: khối lỗi dùng systemStates.error', statesHost.textContent.includes(data.systemStates.error.title));
+      ok('system-states: khối offline dùng systemStates.offline', statesHost.textContent.includes(data.systemStates.offline.title));
+      ok('system-states: nói rõ vẫn ôn tập được', statesHost.textContent.includes('Vẫn ôn tập được vì bài tập sinh bằng quy tắc và audio đã cache'));
+      ok('system-states: 5 nút hành động (1 rỗng + 2 lỗi + 2 offline)', statesHost.querySelectorAll('.e-state .btn').length === 5,
+        `đếm=${statesHost.querySelectorAll('.e-state .btn').length}`);
+
+      /* ------------------------- hợp đồng màn hình ------------------------ */
+      const all = [diary, progress, profile, systemStates];
+      ok('hợp đồng: đủ 4 id đúng §5', JSON.stringify(all.map((s) => s.id)) === JSON.stringify(['diary', 'progress', 'profile', 'system-states']));
+      ok('hợp đồng: cả 4 api = []', all.every((s) => Array.isArray(s.api) && s.api.length === 0));
+      ok('hợp đồng: mỗi màn có 2–4 notes', all.every((s) => s.notes.length >= 2 && s.notes.length <= 4));
+      ok('hợp đồng: chrome đúng', diary.chrome === 'appbar' && progress.chrome === 'tabbar' && profile.chrome === 'appbar' && systemStates.chrome === 'appbar');
+      ok('hợp đồng: không màn nào bị lỗi render', stage.querySelectorAll('.screen').length === 4);
+      ok('a11y: mọi nút trong vùng E đều có tên', Array.from(stage.querySelectorAll('button')).every((b) => (b.getAttribute('aria-label') || b.textContent.trim()).length > 0),
+        `nút=${stage.querySelectorAll('button').length}`);
+      ok('a11y: không có emoji trong nội dung render',
+        !/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u.test(stage.textContent));
+
+      /* --------------------- đo hình học & tràn ngang --------------------- */
+      const interactive = Array.from(stage.querySelectorAll('button, [role="switch"], [role="radio"]'));
+      const smallControls = interactive.filter((el) => {
+        const r = el.getBoundingClientRect();
+        if (getComputedStyle(el).display === 'inline') return false;
+        return r.width < 43.5 || r.height < 43.5;
+      });
+      ok('touch target ≥44px cho mọi control', smallControls.length === 0,
+        `tổng=${interactive.length}` + (smallControls.length
+          ? ' · nhỏ: ' + smallControls.map((el) => `${el.className}:${Math.round(el.getBoundingClientRect().width)}x${Math.round(el.getBoundingClientRect().height)}`).join(', ')
+          : ''));
+
+      const overflow = Array.from(stage.querySelectorAll('.screen')).filter((s) => s.scrollWidth > s.clientWidth + 1);
+      ok('không tràn ngang ở khung 390px', overflow.length === 0,
+        overflow.map((s) => `${s.scrollWidth}>${s.clientWidth}`).join(','));
+
+      const clipped = Array.from(stage.querySelectorAll('*')).filter((el) => el.children.length === 0 && el.textContent.trim()
+        && el.scrollWidth > el.clientWidth + 2 && getComputedStyle(el).overflowX !== 'hidden');
+      ok('không có chữ bị cắt', clipped.length === 0,
+        clipped.slice(0, 3).map((el) => `${el.className}:"${el.textContent.trim().slice(0, 14)}"`).join(' | '));
+
+      const moodRect = diaryHost.querySelector('.e-mood').getBoundingClientRect();
+      ok('nút sắc thái cao ≥44px', moodRect.height >= 43.5, `${Math.round(moodRect.width)}x${Math.round(moodRect.height)}`);
+      const heatRect = progressHost.querySelector('.e-heat').getBoundingClientRect();
+      ok('ô heatmap đủ lớn để đọc số', heatRect.width >= 28 && heatRect.height >= 28 && Math.abs(heatRect.width - heatRect.height) < 2,
+        `${Math.round(heatRect.width)}x${Math.round(heatRect.height)}`);
+      const audioRect = diaryHost.querySelector('.audio-btn').getBoundingClientRect();
+      ok('nút nghe ≥44px', audioRect.height >= 43.5 && audioRect.width >= 43.5, `${Math.round(audioRect.width)}x${Math.round(audioRect.height)}`);
+      const lockRect = lock.getBoundingClientRect();
+      ok('công tắc bị khoá ≥44px', lockRect.height >= 43.5 && lockRect.width >= 43.5, `${Math.round(lockRect.width)}x${Math.round(lockRect.height)}`);
+      const trackCs = getComputedStyle(lock, '::before');
+      const knobCs = getComputedStyle(lock, '::after');
+      // getComputedStyle trả 'top' theo pixel đã dùng (50% của 44px = 22px), nên
+      // kiểm tâm chân công tắc có trùng tâm hộp không thay vì so chuỗi '50%'.
+      const knobCenter = parseFloat(knobCs.top) + parseFloat(knobCs.marginTop) + parseFloat(knobCs.height) / 2;
+      ok('công tắc dùng đúng dáng tầng dùng chung (50×44 · rãnh 30px · chân 24px giữa)',
+        Math.round(lockRect.width) === 50 && Math.round(lockRect.height) === 44
+          && trackCs.height === '30px' && knobCs.width === '24px'
+          && Math.abs(knobCenter - lockRect.height / 2) < 0.6,
+        `${Math.round(lockRect.width)}x${Math.round(lockRect.height)} · rãnh ${trackCs.height} · chân ${knobCs.width} · tâm chân ${knobCenter}px / tâm hộp ${lockRect.height / 2}px`);
+      const segRect = profileHost.querySelector('.seg__opt').getBoundingClientRect();
+      ok('segmented ≥44px', segRect.height >= 43.5, `${Math.round(segRect.width)}x${Math.round(segRect.height)}`);
+
+      const failed = lines.filter((l) => l.startsWith('FAIL'));
+      lines.push('');
+      lines.push(`TỔNG: ${lines.filter((l) => l.startsWith('PASS')).length} pass · ${failed.length} fail`);
+      lines.push(`DONE=${failed.length === 0}`);
+    } catch (err) {
+      lines.push('CRASH: ' + (err && err.stack ? err.stack : err));
+      lines.push('DONE=false');
+    }
+
+    qs('#report').textContent = lines.join('\n');
+    document.documentElement.setAttribute('data-selftest-done', 'true');
+  </script>
+</body>
+</html>

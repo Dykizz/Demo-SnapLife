@@ -1,0 +1,107 @@
+{
+  "tongNut": 269,
+  "soManCoNutThieuTen": 0,
+  "chiTiet": [],
+  "bang": [
+    {
+      "id": "splash",
+      "buttons": 1,
+      "noName": []
+    },
+    {
+      "id": "onboarding",
+      "buttons": 3,
+      "noName": []
+    },
+    {
+      "id": "placement",
+      "buttons": 7,
+      "noName": []
+    },
+    {
+      "id": "topics",
+      "buttons": 4,
+      "noName": []
+    },
+    {
+      "id": "home",
+      "buttons": 8,
+      "noName": []
+    },
+    {
+      "id": "capture",
+      "buttons": 4,
+      "noName": []
+    },
+    {
+      "id": "regions",
+      "buttons": 24,
+      "noName": []
+    },
+    {
+      "id": "wordlist",
+      "buttons": 65,
+      "noName": []
+    },
+    {
+      "id": "worddetail",
+      "buttons": 14,
+      "noName": []
+    },
+    {
+      "id": "compose",
+      "buttons": 16,
+      "noName": []
+    },
+    {
+      "id": "reader",
+      "buttons": 35,
+      "noName": []
+    },
+    {
+      "id": "speaking",
+      "buttons": 3,
+      "noName": []
+    },
+    {
+      "id": "stories",
+      "buttons": 7,
+      "noName": []
+    },
+    {
+      "id": "review-hub",
+      "buttons": 9,
+      "noName": []
+    },
+    {
+      "id": "review-run",
+      "buttons": 37,
+      "noName": []
+    },
+    {
+      "id": "review-summary",
+      "buttons": 4,
+      "noName": []
+    },
+    {
+      "id": "diary",
+      "buttons": 9,
+      "noName": []
+    },
+    {
+      "id": "progress",
+      "buttons": 2,
+      "noName": []
+    },
+    {
+      "id": "profile",
+      "buttons": 11,
+      "noName": []
+    },
+    {
+      "id": "system-states",
+      "buttons": 6,
+      "noName": []
+    }
+  ]
+}

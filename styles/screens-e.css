@@ -1,0 +1,935 @@
+/* ============================================================================
+   SnapLife AI — CSS nhóm E (Tiến độ & Hệ thống)
+   Owner: screens-progress | diary, progress, profile, system-states
+   Chỉ dùng token trong tokens.css, tái dùng component trong components.css.
+   Không hardcode màu: mọi giá trị màu đều đi qua var(...) hoặc color-mix() của token.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   0 · KHÔNG còn override lên component dùng chung
+   ---------------------------------------------------------------------------
+   Nhóm E từng phải tự nới touch target cho .toggle / .audio-btn / .seg__opt vì
+   tầng dùng chung thấp hơn 44px. Lead đã nâng cả ba (và .chip, .iconbtn--quiet)
+   lên đúng --tap-min trong components.css, nên mọi override ở đây đã được gỡ:
+     · .toggle 50×44, rãnh trượt 30px vẽ bằng ::before, chân công tắc 24px
+     · .audio-btn 44×44 (kể cả bản --wide vì đã có padding riêng trong components)
+     · .seg__opt min-height 44px
+   Nhờ vậy nhóm E khớp hoàn toàn với phần còn lại của app: cùng kích thước, cùng
+   chuyển động, cùng trạng thái nhấn. Mọi selector dưới đây chỉ còn là CSS của
+   riêng nhóm E, luôn bắt đầu bằng .e-screen.
+   ------------------------------------------------------------------------- */
+
+/* ============================================================================
+   1 · Khối nội dung chung (.e-block) — nhóm E dùng cho mọi mục
+   ========================================================================== */
+.e-screen .e-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-2);
+}
+.e-screen .e-block__head {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.e-screen .e-block__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  line-height: 1.2;
+  font-weight: 400;
+  letter-spacing: var(--tracking-tight);
+}
+.e-screen .e-block__meta {
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+.e-screen .e-why {
+  display: flex;
+  gap: var(--sp-2);
+  align-items: flex-start;
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.e-screen .e-why svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--primary);
+}
+
+.e-screen .e-chartnote {
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.e-screen .e-chartlegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-4);
+  font-size: var(--fs-xs);
+  color: var(--ink-2);
+}
+
+/* Nhóm E có tiêu đề riêng ở màn dùng tabbar (không có app bar) */
+.e-screen .e-screenhead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+/* ============================================================================
+   2 · KHỐI 1 · diary — thang sắc thái + câu của hôm nay + lịch sử 7 ngày
+   ========================================================================== */
+.e-screen .e-moods {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--sp-2);
+}
+.e-screen .e-mood {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  min-height: 92px;
+  padding: var(--sp-2) 4px var(--sp-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--card-2);
+  color: var(--ink);
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease), transform var(--dur-instant) var(--ease);
+}
+.e-screen .e-mood:hover {
+  border-color: var(--primary);
+}
+.e-screen .e-mood:active {
+  transform: scale(0.97);
+}
+.e-screen .e-mood.is-on {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary);
+  box-shadow: var(--shadow-2);
+}
+.e-screen .e-mood__icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--r-full);
+  background: var(--card-inset);
+  color: var(--primary);
+}
+.e-screen .e-mood.is-on .e-mood__icon {
+  background: color-mix(in srgb, var(--on-primary) 20%, transparent);
+  color: var(--on-primary);
+}
+.e-screen .e-mood__face {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  min-height: 2.4em;
+  overflow-wrap: anywhere;
+}
+.e-screen .e-mood__bars {
+  display: flex;
+  gap: 2px;
+  align-items: flex-end;
+  height: 12px;
+}
+.e-screen .e-mood__bar {
+  width: 4px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--line-strong);
+}
+.e-screen .e-mood__bar.is-on {
+  height: 12px;
+  background: var(--success);
+}
+.e-screen .e-mood.is-on .e-mood__bar {
+  background: color-mix(in srgb, var(--on-primary) 38%, transparent);
+}
+.e-screen .e-mood.is-on .e-mood__bar.is-on {
+  background: var(--on-primary);
+}
+
+.e-screen .e-mood-caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+.e-screen .e-mood-caption__lv {
+  color: var(--primary);
+}
+.e-screen .e-mood-caption__last {
+  font-size: var(--fs-2xs);
+}
+
+.e-screen .e-sentence {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.e-screen .e-sentence__en {
+  font-family: var(--font-read);
+  font-size: var(--fs-xl);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.e-screen .e-sentence__vi {
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+  color: var(--ink-2);
+}
+.e-screen .e-sentence__meta {
+  font-size: var(--fs-2xs);
+  color: var(--ink-2);
+}
+.e-screen .e-sentence__row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.e-screen .e-sentence__row > .btn {
+  flex: 1 1 auto;
+}
+
+.e-screen .e-hist {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+.e-screen .e-hist__cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2px;
+  padding: var(--sp-2) 2px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--card-2);
+}
+.e-screen .e-hist__icon {
+  color: var(--primary);
+}
+.e-screen .e-hist__lv {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.e-screen .e-hist__day {
+  font-size: 9px;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--ink-2);
+  overflow-wrap: anywhere;
+}
+.e-screen .e-hist__cap {
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+/* ============================================================================
+   3 · KHỐI 2 · progress — hero CEFR, heatmap, phân bố CEFR, SRS, trạng thái
+   ========================================================================== */
+.e-screen .e-hero {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  padding: var(--sp-4);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-2);
+}
+.e-screen .e-hero__center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+.e-screen .e-hero__lv {
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  color: var(--ink);
+}
+.e-screen .e-hero__pct {
+  font-size: var(--fs-2xs);
+  color: var(--ink-2);
+  margin-top: 3px;
+}
+.e-screen .e-hero__next {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  line-height: 1.15;
+  font-weight: 400;
+}
+.e-screen .e-hero__name {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  line-height: 1.15;
+  font-weight: 400;
+}
+.e-screen .e-hero__sub {
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--ink-2);
+  margin-top: 4px;
+}
+.e-screen .e-hero__meta {
+  font-size: var(--fs-2xs);
+  color: var(--ink-2);
+  margin-top: var(--sp-2);
+}
+.e-screen .e-hero--id {
+  align-items: flex-start;
+}
+
+/* --- Heatmap 5 tuần × 7 ngày ---------------------------------------------- */
+.e-screen .e-heatgrid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  align-items: start;
+}
+.e-screen .e-heat__wd {
+  font-size: var(--fs-2xs);
+  color: var(--ink-2);
+  text-align: center;
+  line-height: 1.2;
+}
+.e-screen .e-heat {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card-inset);
+}
+.e-screen .e-heat--1 {
+  background: color-mix(in srgb, var(--success) 18%, var(--card-inset));
+}
+.e-screen .e-heat--2 {
+  background: color-mix(in srgb, var(--success) 36%, var(--card-inset));
+}
+.e-screen .e-heat--3 {
+  background: color-mix(in srgb, var(--success) 55%, var(--card-inset));
+}
+.e-screen .e-heat__n {
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  color: var(--ink);
+}
+.e-screen .e-heatlegend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-4);
+  font-size: var(--fs-xs);
+  color: var(--ink-2);
+}
+.e-screen .e-heatlegend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.e-screen .e-swatch {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  background: var(--card-inset);
+}
+.e-screen .e-swatch--1 {
+  background: color-mix(in srgb, var(--success) 18%, var(--card-inset));
+}
+.e-screen .e-swatch--2 {
+  background: color-mix(in srgb, var(--success) 36%, var(--card-inset));
+}
+.e-screen .e-swatch--3 {
+  background: color-mix(in srgb, var(--success) 55%, var(--card-inset));
+}
+
+/* --- Phân bố CEFR: thanh đôi (tổng / đã thuộc) + số kèm theo -------------- */
+.e-screen .e-dist__row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-height: 40px;
+}
+.e-screen .e-dist__lv {
+  flex: 0 0 auto;
+  width: 26px;
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  color: var(--ink-2);
+}
+.e-screen .e-dist__col {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.e-screen .e-dist__track {
+  height: 14px;
+  border-radius: var(--r-full);
+  border: 1px solid var(--line);
+  background: var(--card-inset);
+  overflow: hidden;
+}
+.e-screen .e-dist__track.is-empty {
+  border-style: dashed;
+}
+.e-screen .e-dist__fill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--success);
+  transition: width var(--dur-slow) var(--ease);
+}
+.e-screen .e-dist__meta {
+  font-size: var(--fs-xs);
+  line-height: 1.4;
+  color: var(--ink-2);
+}
+.e-screen .e-dist__n {
+  flex: 0 0 auto;
+  min-width: 22px;
+  text-align: right;
+  font-size: var(--fs-xs);
+  color: var(--ink);
+}
+
+/* --- Trạng thái bộ từ: thanh tỉ lệ + chú giải có số ----------------------- */
+.e-screen .e-prop {
+  display: flex;
+  height: 16px;
+  border-radius: var(--r-full);
+  border: 1px solid var(--line);
+  background: var(--card-inset);
+  overflow: hidden;
+}
+.e-screen .e-prop__seg {
+  height: 100%;
+}
+.e-screen .e-prop__seg--known {
+  background: var(--success);
+}
+.e-screen .e-prop__seg--learning {
+  background: var(--primary);
+}
+.e-screen .e-prop__seg--new {
+  background: var(--line-strong);
+}
+.e-screen .e-legend {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+.e-screen .e-legend__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex: 0 0 auto;
+}
+.e-screen .e-legend__dot--known {
+  background: var(--success);
+}
+.e-screen .e-legend__dot--learning {
+  background: var(--primary);
+}
+.e-screen .e-legend__dot--new {
+  background: var(--line-strong);
+}
+.e-screen .e-legend__n {
+  color: var(--ink);
+}
+
+/* ============================================================================
+   4 · KHỐI 3 · profile — hàng cài đặt, cam kết dữ liệu, khoá trainOnData
+   ========================================================================== */
+.e-screen .e-setrow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-height: 64px;
+  padding: var(--sp-2) 0;
+}
+.e-screen .e-setrow + .e-setrow {
+  box-shadow: inset 0 1px 0 var(--line);
+}
+.e-screen .e-setrow__icon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-md);
+  background: var(--card-inset);
+  color: var(--primary);
+}
+.e-screen .e-setrow__title {
+  font-size: var(--fs-base);
+  font-weight: 600;
+  line-height: 1.35;
+}
+.e-screen .e-setrow__sub {
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--ink-2);
+  margin-top: 2px;
+}
+.e-screen .e-setrow--locked {
+  min-height: 0;
+  padding: 0;
+}
+.e-screen .e-lock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--card-inset);
+}
+
+/* Cam kết dữ liệu — nói to ở đầu màn hình */
+.e-screen .e-block--privacy {
+  border-color: var(--success);
+  box-shadow: var(--shadow-3);
+}
+.e-screen .e-priv {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--sp-3);
+}
+.e-screen .e-priv__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: var(--sp-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--card-2);
+}
+.e-screen .e-priv__icon {
+  color: var(--success);
+}
+.e-screen .e-priv__label {
+  font-size: var(--fs-xs);
+  color: var(--ink-2);
+}
+.e-screen .e-priv__value {
+  font-size: var(--fs-sm);
+  font-weight: 650;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+/* ============================================================================
+   5 · KHỐI 4 · system-states — khung thiết bị thu nhỏ cho 4 trạng thái
+   ========================================================================== */
+.e-screen .e-state {
+  gap: var(--sp-3);
+}
+.e-screen .e-state__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+}
+.e-screen .e-state__n {
+  flex: 0 0 auto;
+  padding: 3px 8px;
+  border-radius: var(--r-sm);
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+}
+.e-screen .e-state__frame {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--paper-sunken);
+  overflow: hidden;
+}
+.e-screen .e-state__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--card-inset);
+  border-bottom: 1px solid var(--line);
+}
+.e-screen .e-state__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--r-full);
+  background: var(--line-strong);
+  flex: 0 0 auto;
+}
+.e-screen .e-state__tag {
+  font-size: var(--fs-2xs);
+  color: var(--ink-2);
+}
+.e-screen .e-state__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+}
+.e-screen .e-state__inline {
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+.e-screen .e-state__skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.e-screen .e-state__claim {
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-md);
+  background: var(--success-soft);
+  color: var(--success);
+  font-size: var(--fs-base);
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+/* ============================================================================
+   6 · Responsive đa thiết bị — theo docs/WEB-SPEC.md
+
+   DÙNG @container appframe (bề rộng KHUNG APP), KHÔNG dùng @media (min-width: …).
+   Lý do: ở chế độ demo, app nằm trong khung điện thoại 390px giữa cửa sổ 1440px.
+   Media query tính theo viewport nên `@media (min-width: 900px)` vẫn kích hoạt
+   BÊN TRONG khung 390px → dashboard bị nhồi vào khung điện thoại. Container
+   `appframe` do Lead đặt trên `.device__viewport, .app, #frame, .probe` nên đúng
+   ở cả ba nơi: khung demo, web mode, và harness audit.
+   Quy đổi giữ nguyên con số: 600 → 600, 900 → 900.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   6.1 · Khung hẹp (≤400px): nhịp thở rộng hơn, không nhồi chữ
+   ------------------------------------------------------------------------- */
+@container appframe (max-width: 400px) {
+  .e-screen .e-mood {
+    min-height: 84px;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  .e-screen .e-mood__face {
+    font-size: var(--fs-2xs);
+  }
+  .e-screen .e-hero {
+    gap: var(--sp-4);
+  }
+  .e-screen .e-sentence__row {
+    flex-wrap: wrap;
+  }
+  .e-screen .e-sentence__row > .btn {
+    min-width: 100%;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   6.2 · ≥600px (md — điện thoại lớn / tablet dọc): lưới thẻ bắt đầu chia cột
+   ------------------------------------------------------------------------- */
+@container appframe (min-width: 600px) {
+  /* system-states — 4 khối trạng thái + 2 khối ghi chú thành lưới thẻ */
+  .e-screen.e-states .screen__body {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--sp-4);
+    align-items: start;
+  }
+  .e-screen.e-states .screen__body > p.lede,
+  .e-screen.e-states .screen__body > .e-why {
+    grid-column: 1 / -1;
+  }
+  .e-screen.e-states .e-state {
+    height: 100%;
+  }
+
+  /* compare — "Bạn nhận được gì": 4 thẻ ích lợi thành 2 cột */
+  .screen > .screen__body.e-screen > .stack--tight {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-3);
+    align-items: start;
+  }
+
+  /* diary — thang sắc thái đã là 5 ô ngang; ở md cho ô cao hơn, dễ chạm hơn */
+  .e-screen.e-diary .e-mood {
+    min-height: 104px;
+  }
+  .e-screen.e-diary .e-mood__face {
+    font-size: var(--fs-sm);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   6.3 · ≥900px (lg/xl — tablet ngang, laptop, desktop): dashboard nhiều cột
+   ------------------------------------------------------------------------- */
+
+/* Bề rộng nội dung: WEB-SPEC §2. Mọi màn nhóm E đều có lưới nhiều cột ở mức này
+   nên dùng --measure-grid; app bar và tab bar/rail do shell lo, KHÔNG đụng vào.
+   Selector 3 lớp để thắng `[data-mode='web'] .screen__body` của web.css (2 lớp)
+   bất kể thứ tự nạp file. */
+@container appframe (min-width: 900px) {
+  .screen.e-screen > .screen__body,
+  .screen > .screen__body.e-screen {
+    max-width: var(--measure-grid, 1040px);
+    width: 100%;
+    margin-inline: auto;
+  }
+
+  /* CTA dính đáy: canh theo cùng bề rộng nội dung, không kéo hết màn hình */
+  .screen.e-screen > .screen__cta,
+  .screen > .screen__body.e-screen > .screen__cta {
+    max-width: var(--measure-grid, 1040px);
+    width: 100%;
+    margin-inline: auto;
+  }
+
+  /* Chữ không kéo dài quá 68ch: audit chấm "dòng quá dài" khi khối chữ > 900px.
+     :where() giữ specificity 0 nên không đè lên component nào.
+     Lưu ý: app bar của compare nằm NGOÀI vùng body (nên không được luật dưới che),
+     vì vậy có thêm luật riêng cho `p.appbar__sub` của riêng màn đó. */
+  .e-screen :where(p, li, .note, .read),
+  .screen__body.e-screen :where(p, li, .note, .read) {
+    max-width: var(--measure-read, 68ch);
+  }
+  /* Chỉ màn compare mới có .e-screen đặt trên .screen__body → :has() khoanh đúng nó,
+     không đụng app bar của nhóm khác. Bề rộng app bar vẫn tràn hết khung (WEB-SPEC §2);
+     chỉ hộp chữ của tiêu đề phụ bị giới hạn, chữ ngắn nên nhìn không đổi. */
+  .screen:has(> .screen__body.e-screen) > .appbar .appbar__sub,
+  .screen:has(> .screen__body.e-screen) > .appbar .appbar__title {
+    max-width: var(--measure-read, 68ch);
+  }
+
+  /* ---------------------------- progress ---------------------------------- */
+  /* Dashboard: hero CEFR, thẻ số liệu, heatmap, phân bố CEFR, SRS, trạng thái.
+     Đặt 2 cột TƯỜNG MINH (không auto-fit) để số cột không phụ thuộc phép tính
+     bề rộng — bậc 3 cột nằm ở tier ≥1500px bên dưới. */
+  .e-screen.e-progress .screen__body {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-5);
+    align-items: start;
+  }
+  .e-screen.e-progress .screen__body > .e-screenhead,
+  .e-screen.e-progress .screen__body > .e-why,
+  .e-screen.e-progress .screen__body > .e-block:has(.e-heatgrid) {
+    grid-column: 1 / -1;
+  }
+  /* Banner "bộ từ đang trống" (chỉ hiện sau khi người dùng xoá dữ liệu) là thông
+     báo ngang, không phải thẻ số liệu — cho tràn hàng để không tạo ô trống. */
+  .e-screen.e-progress .screen__body > .callout {
+    grid-column: 1 / -1;
+  }
+  /* Heatmap 5 tuần × 7 ngày: ở cột đôi thì mỗi ô quá to, cho giãn vừa phải */
+  .e-screen.e-progress .e-block:has(.e-heatgrid) .e-heatgrid {
+    max-width: 760px;
+  }
+
+  /* ------------------------------ diary ----------------------------------- */
+  /* Câu của hôm nay | lịch sử 7 ngày đặt cạnh nhau */
+  .e-screen.e-diary .screen__body {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-5);
+    align-items: start;
+  }
+  .e-screen.e-diary .screen__body > .callout,
+  .e-screen.e-diary .screen__body > .e-block:has(.e-moods),
+  .e-screen.e-diary .screen__body > .e-why {
+    grid-column: 1 / -1;
+  }
+  .e-screen.e-diary .screen__body > .e-block:has(.e-sentence) {
+    grid-column: 1;
+  }
+  .e-screen.e-diary .screen__body > .e-block:has(.e-hist) {
+    grid-column: 2;
+  }
+
+  /* ----------------------------- profile ---------------------------------- */
+  /* Công tắc bên trái · quyền riêng tư + minh bạch chi phí bên phải.
+     Khối cam kết vẫn nổi bật: nằm đầu cột phải, giữ viền success + shadow-3. */
+  .e-screen.e-profile .screen__body {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-5);
+    align-items: start;
+  }
+  .e-screen.e-profile .screen__body > .e-hero--id,
+  .e-screen.e-profile .screen__body > .e-why {
+    grid-column: 1 / -1;
+  }
+  /* Công tắc + mục tiêu + đội thực hiện bên trái.
+     Quyền riêng tư + minh bạch chi phí + dữ liệu của bạn bên phải — ba mục này
+     cùng nói về dữ liệu người học nên đứng cạnh nhau, và khối cam kết vẫn ở đầu
+     cột phải (giữ viền success + shadow-3) nên không bị chìm. */
+  .e-screen.e-profile .screen__body > .e-block:has(.e-setrow),
+  .e-screen.e-profile .screen__body > .e-block:has(.seg),
+  .e-screen.e-profile .screen__body > .e-block:has(.list) {
+    grid-column: 1;
+  }
+  .e-screen.e-profile .screen__body > .e-block:has(.e-priv),
+  .e-screen.e-profile .screen__body > .e-block:has(.costmeter),
+  .e-screen.e-profile .screen__body > .e-block:has(.btn-row) {
+    grid-column: 2;
+  }
+  /* Cột nào cũng là cột hẹp: giữ nhãn/số của biểu đồ, không cắt chữ */
+  .e-screen.e-profile .e-block--privacy {
+    box-shadow: var(--shadow-3);
+  }
+
+  /* ------------------------------ compare --------------------------------- */
+  /* 5 thẻ tiêu chí: auto-fit minmax(300px, 1fr) */
+  .screen > .screen__body.e-screen > .stack:not(.stack--tight) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--sp-4);
+    align-items: start;
+  }
+  .screen > .screen__body.e-screen > .screen__cta {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   6.4 · ≥1100px — GIAO DIỆN MÁY TÍNH (docs/WEB-SPEC.md §8)
+   Bề rộng lúc này do web.css nâng theo bậc: --measure-grid 1160px, pad 28px.
+   Ở tier này mỗi màn phải thành nhiều VÙNG thật sự, không còn là bố cục điện
+   thoại được canh giữa. Bố cục < 900px không bị đụng tới.
+   ------------------------------------------------------------------------- */
+@container appframe (min-width: 1100px) {
+  /* Nút sắc thái cao hơn cho con trỏ chuột (touch target vẫn ≥44px) */
+  .e-screen .e-mood {
+    min-height: 112px;
+  }
+  .e-screen .e-mood__face {
+    font-size: var(--fs-sm);
+  }
+
+  /* ------------------------------ diary -----------------------------------
+     §8.4: 2 vùng — thang sắc thái + câu bên TRÁI, lịch sử 7 ngày bên PHẢI.
+     Ở tier 900px thang sắc thái còn tràn hàng; lên desktop nó vào cột trái. */
+  .e-screen.e-diary .screen__body > .callout {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+  .e-screen.e-diary .screen__body > .e-block:has(.e-moods) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .e-screen.e-diary .screen__body > .e-block:has(.e-sentence) {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  .e-screen.e-diary .screen__body > .e-block:has(.e-hist) {
+    grid-column: 2;
+    grid-row: 2 / span 2;
+  }
+  .e-screen.e-diary .screen__body > .e-why {
+    grid-column: 1 / -1;
+    grid-row: 4;
+  }
+  /* Cột phải là vùng lịch sử: cho 7 ô ngày rộng rãi hơn một chút */
+  .e-screen.e-diary .e-hist {
+    gap: var(--sp-2);
+  }
+
+  /* ------------------------------ compare ---------------------------------
+     §8.4: 3 cột tiêu chí + 2 cột lợi ích (trước đó auto-fit nên số cột trôi). */
+  .screen > .screen__body.e-screen > .stack:not(.stack--tight) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .screen > .screen__body.e-screen > .stack--tight {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* ---------------------------- system-states -----------------------------
+     auto-fit minmax(280px) ở tier này cho 3 cột; bậc 4 cột nằm ở ≥1500px. */
+  .e-screen.e-states .screen__body {
+    gap: var(--sp-5);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   6.5 · ≥1500px — BẬC 3 CỘT (docs/WEB-SPEC.md §8.2/§8.4)
+   --measure-grid 1400px, pad 40px → nội dung 1320px. Đây là chỗ `progress`
+   thành dashboard 3 cột thật, `system-states` thành lưới 4 cột.
+   ------------------------------------------------------------------------- */
+@container appframe (min-width: 1500px) {
+  /* ---------------------------- progress ----------------------------------
+     Dashboard 3 cột. Bố cục theo hàng để KHÔNG có ô trống:
+       hàng 1: tiêu đề (tràn)
+       hàng 2: ring CEFR (2 cột) + thẻ số liệu
+       hàng 3: heatmap (tràn)
+       hàng 4: phân bố CEFR + histogram SRS + trạng thái bộ từ
+       hàng 5: tuần này/mục tiêu (2 cột) + ghi chú vì sao
+     Hero tràn 2 cột vì ring 112px + khối chữ chỉ chiếm ~1 cột là chật. */
+  .e-screen.e-progress .screen__body {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .e-screen.e-progress .screen__body > .e-hero {
+    grid-column: span 2;
+  }
+  .e-screen.e-progress .screen__body > .e-block:has(.progress) {
+    grid-column: span 2;
+  }
+  /* Ghi chú cuối màn rơi vào ô còn trống của hàng 5 thay vì tạo hàng mới */
+  .e-screen.e-progress .screen__body > .e-why {
+    grid-column: auto;
+  }
+
+  /* ---------------------------- system-states -----------------------------
+     Lưới 4 cột: 4 khối trạng thái ở hàng đầu; 2 khối ghi chú mỗi khối 2 cột
+     cho kín hàng (không để ô trống bên phải). */
+  .e-screen.e-states .screen__body {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .e-screen.e-states .screen__body > .e-block:not(.e-state) {
+    grid-column: span 2;
+  }
+
+  /* ------------------------------ diary ----------------------------------
+     Giữ 2 vùng theo §8.4 nhưng cho cột trái (thang + câu) rộng hơn cột lịch sử,
+     vì thang 5 sắc thái cần chỗ cho 5 ô ngang. */
+  .e-screen.e-diary .screen__body {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+
+  /* ----------------------------- profile ---------------------------------
+     Vẫn 2 vùng (§8.4). Cột nội dung nay rộng 1320px nên tăng khoảng cách dọc
+     giữa các khối để không thành một dải chữ dày. */
+  .e-screen.e-profile .screen__body,
+  .e-screen.e-progress .screen__body,
+  .e-screen.e-states .screen__body {
+    column-gap: var(--sp-6);
+  }
+}
+

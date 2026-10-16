@@ -1,0 +1,751 @@
+[
+  {
+    "id": "C3",
+    "title": "Doi chieu noi dung tung muc deck voi text THAT cua 20 man hinh",
+    "data": {
+      "ghiChu": "CHI tim trong #screen (khong tron bang inspector). Man nao chi co chu trong inspector thi ghi o cot chuCoTrongInspector.",
+      "soManXet": 25,
+      "rows": [
+        {
+          "slide": "01 · Vấn đề",
+          "keys": {
+            "Tốn kém chi phí": [],
+            "Tốn thời gian": [
+              "onboarding"
+            ],
+            "Khó nhớ": [],
+            "bỏ cuộc": [
+              "onboarding"
+            ]
+          },
+          "chuCoTrongInspector": {
+            "Tốn kém chi phí": [],
+            "Tốn thời gian": [],
+            "Khó nhớ": [],
+            "bỏ cuộc": []
+          },
+          "khongXuatHienODau": [
+            "Tốn kém chi phí",
+            "Khó nhớ"
+          ]
+        },
+        {
+          "slide": "02 · Giải pháp",
+          "keys": {
+            "Gợi ý từ": [],
+            "Đọc truyện đan xen": [],
+            "Ôn tập đa dạng": [],
+            "15–20%": [
+              "splash"
+            ]
+          },
+          "chuCoTrongInspector": {
+            "Gợi ý từ": [],
+            "Đọc truyện đan xen": [],
+            "Ôn tập đa dạng": [],
+            "15–20%": [
+              "reader",
+              "reader?story=ceramic-cup",
+              "reader?word=mug"
+            ]
+          },
+          "khongXuatHienODau": [
+            "Gợi ý từ",
+            "Đọc truyện đan xen",
+            "Ôn tập đa dạng"
+          ]
+        },
+        {
+          "slide": "03 · Điểm nhấn 1",
+          "keys": {
+            "Mỗi vùng khoanh sinh": [],
+            "thẻ từ": [
+              "splash",
+              "home",
+              "capture",
+              "regions"
+            ],
+            "CEFR": [
+              "regions",
+              "wordlist",
+              "reader",
+              "stories",
+              "progress",
+              "profile",
+              "reader?story=ceramic-cup",
+              "reader?word=mug"
+            ]
+          },
+          "chuCoTrongInspector": {
+            "Mỗi vùng khoanh sinh": [],
+            "thẻ từ": [
+              "worddetail",
+              "review-summary",
+              "worddetail?word=downpour"
+            ],
+            "CEFR": [
+              "placement"
+            ]
+          },
+          "khongXuatHienODau": [
+            "Mỗi vùng khoanh sinh"
+          ]
+        },
+        {
+          "slide": "04 · Điểm nhấn 2",
+          "keys": {
+            "Kể lại một ngày": [
+              "compose"
+            ],
+            "Gõ từ hoặc chủ đề": []
+          },
+          "chuCoTrongInspector": {
+            "Kể lại một ngày": [],
+            "Gõ từ hoặc chủ đề": []
+          },
+          "khongXuatHienODau": [
+            "Gõ từ hoặc chủ đề"
+          ]
+        },
+        {
+          "slide": "05 · Điểm nhấn 3",
+          "keys": {
+            "very like": [
+              "speaking?state=corrected"
+            ],
+            "really like": [
+              "speaking?state=corrected"
+            ],
+            "make": [
+              "speaking?state=corrected"
+            ],
+            "makes": [
+              "speaking?state=corrected"
+            ],
+            "Nhờ AI chỉnh": [
+              "speaking?state=corrected"
+            ]
+          },
+          "chuCoTrongInspector": {
+            "very like": [],
+            "really like": [],
+            "make": [],
+            "makes": [],
+            "Nhờ AI chỉnh": []
+          },
+          "khongXuatHienODau": []
+        },
+        {
+          "slide": "06 · Điểm nhấn 4",
+          "keys": {
+            "You made it through today": [
+              "diary"
+            ],
+            "sắc thái": [
+              "diary"
+            ]
+          },
+          "chuCoTrongInspector": {
+            "You made it through today": [],
+            "sắc thái": []
+          },
+          "khongXuatHienODau": []
+        },
+        {
+          "slide": "07 · Ôn tập 5 dạng",
+          "keys": {
+            "Cloze": [
+              "capture",
+              "review-hub"
+            ],
+            "Ghép cặp": [
+              "review-hub"
+            ],
+            "Flashcard": [
+              "review-hub"
+            ],
+            "Chạm ảnh": [
+              "review-hub"
+            ],
+            "Đọc tương tác": [
+              "review-hub",
+              "review-run"
+            ]
+          },
+          "chuCoTrongInspector": {
+            "Cloze": [],
+            "Ghép cặp": [],
+            "Flashcard": [],
+            "Chạm ảnh": [],
+            "Đọc tương tác": []
+          },
+          "khongXuatHienODau": []
+        },
+        {
+          "slide": "08 · Công nghệ",
+          "keys": {
+            "nén": [
+              "capture",
+              "compose",
+              "profile",
+              "system-states"
+            ],
+            "tải lên": [],
+            "VLM": [
+              "home",
+              "capture",
+              "regions",
+              "review-summary",
+              "profile",
+              "system-states"
+            ],
+            "Bbox": [],
+            "quy tắc": [
+              "capture",
+              "worddetail",
+              "review-hub",
+              "review-run",
+              "review-summary",
+              "progress",
+              "profile",
+              "system-states",
+              "speaking?state=corrected",
+              "worddetail?word=downpour"
+            ],
+            "phân tầng": []
+          },
+          "chuCoTrongInspector": {
+            "nén": [],
+            "tải lên": [],
+            "VLM": [
+              "splash",
+              "onboarding",
+              "placement",
+              "topics",
+              "wordlist",
+              "worddetail"
+            ],
+            "Bbox": [
+              "capture",
+              "regions"
+            ],
+            "quy tắc": [
+              "splash",
+              "onboarding",
+              "placement",
+              "topics",
+              "home",
+              "wordlist"
+            ],
+            "phân tầng": []
+          },
+          "khongXuatHienODau": [
+            "tải lên",
+            "Bbox",
+            "phân tầng"
+          ]
+        },
+        {
+          "slide": "09 · Tiết kiệm",
+          "keys": {
+            "0 API call": [
+              "home",
+              "wordlist",
+              "stories",
+              "review-hub",
+              "review-run",
+              "review-summary",
+              "diary",
+              "progress",
+              "system-states",
+              "speaking?state=corrected"
+            ],
+            "tiết kiệm": [],
+            "gọi AI": [
+              "reader",
+              "stories",
+              "reader?story=ceramic-cup",
+              "reader?word=mug"
+            ]
+          },
+          "chuCoTrongInspector": {
+            "0 API call": [
+              "splash",
+              "onboarding",
+              "placement",
+              "topics",
+              "worddetail",
+              "compose"
+            ],
+            "tiết kiệm": [
+              "placement"
+            ],
+            "gọi AI": [
+              "splash",
+              "onboarding",
+              "placement",
+              "topics",
+              "home",
+              "compose"
+            ]
+          },
+          "khongXuatHienODau": [
+            "tiết kiệm"
+          ]
+        },
+        {
+          "slide": "10 · So sánh",
+          "keys": {
+            "Duolingo": [],
+            "Memrise": [],
+            "Anki": [],
+            "so sánh": []
+          },
+          "chuCoTrongInspector": {
+            "Duolingo": [
+              "topics"
+            ],
+            "Memrise": [],
+            "Anki": [],
+            "so sánh": [
+              "home"
+            ]
+          },
+          "khongXuatHienODau": [
+            "Duolingo",
+            "Memrise",
+            "Anki",
+            "so sánh"
+          ]
+        },
+        {
+          "slide": "11 · Lộ trình & Kết",
+          "keys": {
+            "Story Chain": [],
+            "lớp học": [],
+            "Roadmap": [],
+            "Nhật": [
+              "diary"
+            ],
+            "Hàn": []
+          },
+          "chuCoTrongInspector": {
+            "Story Chain": [],
+            "lớp học": [],
+            "Roadmap": [],
+            "Nhật": [],
+            "Hàn": []
+          },
+          "khongXuatHienODau": [
+            "Story Chain",
+            "lớp học",
+            "Roadmap",
+            "Hàn"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "D3",
+    "title": "Bat bien UX-FLOWS §5: sac thai thap CHI nhan cau \"acknowledge\", khong lan \"encourage\"",
+    "data": {
+      "tonesTheoMood": {
+        "low": [
+          {
+            "id": "low-1",
+            "tone": "acknowledge",
+            "en": "You made it through today."
+          },
+          {
+            "id": "low-2",
+            "tone": "acknowledge",
+            "en": "Rest is part of the work."
+          },
+          {
+            "id": "low-3",
+            "tone": "acknowledge",
+            "en": "Some days, showing up is enough."
+          }
+        ],
+        "down": [
+          {
+            "id": "down-1",
+            "tone": "acknowledge",
+            "en": "Slow progress is still progress."
+          },
+          {
+            "id": "down-2",
+            "tone": "acknowledge",
+            "en": "You do not have to catch up today."
+          },
+          {
+            "id": "down-3",
+            "tone": "acknowledge",
+            "en": "One small thing is enough for today."
+          }
+        ],
+        "ok": [
+          {
+            "id": "ok-1",
+            "tone": "encourage",
+            "en": "Steady beats fast."
+          },
+          {
+            "id": "ok-2",
+            "tone": "encourage",
+            "en": "Ten quiet minutes count."
+          },
+          {
+            "id": "ok-3",
+            "tone": "encourage",
+            "en": "Keep the streak warm."
+          }
+        ],
+        "up": [
+          {
+            "id": "up-1",
+            "tone": "encourage",
+            "en": "Good days are for building."
+          },
+          {
+            "id": "up-2",
+            "tone": "encourage",
+            "en": "You are ahead of yesterday."
+          },
+          {
+            "id": "up-3",
+            "tone": "encourage",
+            "en": "Momentum looks good on you."
+          }
+        ],
+        "great": [
+          {
+            "id": "great-1",
+            "tone": "encourage",
+            "en": "Ride it while it lasts."
+          },
+          {
+            "id": "great-2",
+            "tone": "encourage",
+            "en": "Today is a long-session day."
+          },
+          {
+            "id": "great-3",
+            "tone": "encourage",
+            "en": "This is what a good habit feels like."
+          }
+        ]
+      },
+      "viPham": [],
+      "dom": [
+        {
+          "mood": "low",
+          "label": "Rất thấp",
+          "cauEn": []
+        },
+        {
+          "mood": "down",
+          "label": "Hơi xuống",
+          "cauEn": []
+        },
+        {
+          "mood": "ok",
+          "label": "Bình thường",
+          "cauEn": []
+        },
+        {
+          "mood": "up",
+          "label": "Khá tốt",
+          "cauEn": []
+        },
+        {
+          "mood": "great",
+          "label": "Rất tốt",
+          "cauEn": []
+        }
+      ],
+      "ketLuan": "khong vi pham"
+    }
+  },
+  {
+    "id": "S3",
+    "title": "Man system-states co trung bay du 4 trang thai?",
+    "data": {
+      "skeleton": 5,
+      "spinner": 1,
+      "empty": 1,
+      "callout": 3,
+      "coRong": true,
+      "coDangTai": true,
+      "coLoi": true,
+      "coOffline": true,
+      "headings": [
+        "TRẠNG THÁI 1 · RỖNG",
+        "Bộ từ chưa có gì",
+        "Bộ từ của bạn đang trống",
+        "TRẠNG THÁI 2 · ĐANG TẢI",
+        "Đang nén ảnh và nhận diện",
+        "TRẠNG THÁI 3 · LỖI",
+        "Không đọc được ảnh",
+        "TRẠNG THÁI 4 · OFFLINE",
+        "Mất kết nối",
+        "BIẾN THỂ"
+      ]
+    }
+  },
+  {
+    "id": "P3",
+    "title": "profile: cam ket quyen rieng tu co that va cong tac co bi khoa?",
+    "data": {
+      "coCamKet": true,
+      "camKetText": "Không dùng ảnh và giọng nói của người học để huấn luyện mô hình",
+      "toggleLocked": 1,
+      "toggleAll": 4,
+      "switchValue": "false",
+      "switchDisabled": "true",
+      "coNenClient": true,
+      "co1Lan": true
+    }
+  },
+  {
+    "id": "R3",
+    "title": "review-hub 2/10/20 phut -> so cau; review-run xoay vong 5 dang bai",
+    "data": {
+      "hub": [
+        {
+          "chon": "2 phút",
+          "clicked": true,
+          "cta": {
+            "label": "Bắt đầu ôn 4 từ",
+            "disabled": false
+          }
+        },
+        {
+          "chon": "10 phút",
+          "clicked": true,
+          "cta": {
+            "label": "Bắt đầu ôn 10 từ",
+            "disabled": false
+          }
+        },
+        {
+          "chon": "20 phút",
+          "clicked": true,
+          "cta": {
+            "label": "Bắt đầu ôn 18 từ",
+            "disabled": false
+          }
+        }
+      ],
+      "typesTrongPhien": [
+        "Đọc tương tác",
+        "Đọc tương tác",
+        "Đọc tương tác",
+        "Đọc tương tác",
+        "Đọc tương tác",
+        "Đọc tương tác",
+        "Đọc tương tác",
+        "Đọc tương tác"
+      ],
+      "soLanLapLienTiep": 7,
+      "ghiChu": "UX-FLOWS §4 noi 2/10/20 phut = 4/10/18 cau va khong lap mot dang hai lan lien tiep."
+    }
+  },
+  {
+    "id": "U3",
+    "title": "Man nao khong co loi ra ro rang (khong tabbar, khong nut quay lai, khong link)?",
+    "data": {
+      "deadEnds": [
+        "splash (buttons=1)",
+        "onboarding (buttons=3)",
+        "capture (buttons=4)"
+      ],
+      "bang": [
+        {
+          "id": "splash",
+          "tabbar": false,
+          "backButtons": 0,
+          "hashLinks": 0,
+          "buttons": 1
+        },
+        {
+          "id": "onboarding",
+          "tabbar": false,
+          "backButtons": 0,
+          "hashLinks": 0,
+          "buttons": 3
+        },
+        {
+          "id": "placement",
+          "tabbar": false,
+          "backButtons": 1,
+          "hashLinks": 0,
+          "buttons": 7
+        },
+        {
+          "id": "topics",
+          "tabbar": false,
+          "backButtons": 1,
+          "hashLinks": 0,
+          "buttons": 4
+        },
+        {
+          "id": "home",
+          "tabbar": true,
+          "backButtons": 0,
+          "hashLinks": 0,
+          "buttons": 8
+        },
+        {
+          "id": "capture",
+          "tabbar": false,
+          "backButtons": 0,
+          "hashLinks": 0,
+          "buttons": 4
+        },
+        {
+          "id": "regions",
+          "tabbar": false,
+          "backButtons": 1,
+          "hashLinks": 0,
+          "buttons": 24
+        },
+        {
+          "id": "wordlist",
+          "tabbar": false,
+          "backButtons": 1,
+          "hashLinks": 0,
+          "buttons": 65
+        },
+        {
+          "id": "worddetail",
+          "tabbar": false,
+          "backButtons": 1,
+          "hashLinks": 0,
+          "buttons": 14
+        },
+        {
+          "id": "compose",
+          "tabbar": false,
+          "backButtons": 1,
+          "hashLinks": 0,
+          "buttons": 16
+        },
+        {
+          "id": "reader",
+          "tabbar": true,
+          "backButtons": 1,
+          "hashLinks": 0,
+          "buttons": 35
+        },
+        {
+          "id": "speaking",
+          "tabbar": false,
+          "backButtons": 1,
+          "hashLinks": 0,
+          "buttons": 3
+        },
+        {
+          "id": "stories",
+          "tabbar": false,
+          "backButtons": 1,
+          "hashLinks": 0,
+          "buttons": 7
+        },
+        {
+          "id": "review-hub",
+          "tabbar": true,
+          "backButtons": 0,
+          "hashLinks": 0,
+          "buttons": 9
+        },
+        {
+          "id": "review-run",
+          "tabbar": false,
+          "backButtons": 1,
+          "hashLinks": 0,
+          "buttons": 37
+        },
+        {
+          "id": "review-summary",
+          "tabbar": false,
+          "backButtons": 1,
+          "hashLinks": 0,
+          "buttons": 4
+        },
+        {
+          "id": "diary",
+          "tabbar": false,
+          "backButtons": 1,
+          "hashLinks": 0,
+          "buttons": 9
+        },
+        {
+          "id": "progress",
+          "tabbar": true,
+          "backButtons": 0,
+          "hashLinks": 0,
+          "buttons": 2
+        },
+        {
+          "id": "profile",
+          "tabbar": false,
+          "backButtons": 1,
+          "hashLinks": 0,
+          "buttons": 11
+        },
+        {
+          "id": "system-states",
+          "tabbar": false,
+          "backButtons": 1,
+          "hashLinks": 0,
+          "buttons": 6
+        }
+      ]
+    }
+  },
+  {
+    "id": "V3",
+    "title": "Chi dung Tab + Enter co vao duoc luong chup anh khong?",
+    "data": {
+      "timThayCtaChupAnh": null,
+      "sauEnter": {
+        "hash": "#/home",
+        "activeText": ""
+      }
+    }
+  },
+  {
+    "id": "W3",
+    "title": "So man hinh thuc te nap duoc",
+    "data": {
+      "screens": 20,
+      "ids": [
+        "splash",
+        "onboarding",
+        "placement",
+        "topics",
+        "home",
+        "capture",
+        "regions",
+        "wordlist",
+        "worddetail",
+        "compose",
+        "reader",
+        "speaking",
+        "stories",
+        "review-hub",
+        "review-run",
+        "review-summary",
+        "diary",
+        "progress",
+        "profile",
+        "system-states"
+      ],
+      "missing": [],
+      "loadErrors": [],
+      "inspectorText": 1037
+    }
+  }
+]

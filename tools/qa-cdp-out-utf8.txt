@@ -1,0 +1,1383 @@
+﻿Chromium: Chrome/153.0.8010.12  (devtools port 9411)
+
+===== [A] Deep link 20/20 man hinh (do bang CDP, khong dung audit.html) =====
+{
+ "total": 20,
+ "ready": 20,
+ "placeholder": 0,
+ "withBootErrors": 0,
+ "withConsoleErrors": 0,
+ "withOverflowX": 0,
+ "brokenImgs": 0,
+ "nodes": "splash:40 onboarding:67 placement:41 topics:172 home:133 capture:144 regions:188 wordlist:365 worddetail:143 compose:77 reader:116 speaking:47 stories:80 review-hub:142 review-run:135 review-summary:71 diary:219 progress:277 profile:223 system-states:228",
+ "textLen": "splash:349 onboarding:493 placement:143 topics:517 home:638 capture:836 regions:965 wordlist:1292 worddetail:592 compose:557 reader:1340 speaking:241 stories:494 review-hub:940 review-run:1362 review-summary:720 diary:1159 progress:1790 profile:2301 system-states:2570",
+ "notes": "splash:4 onboarding:4 placement:4 topics:4 home:4 capture:4 regions:5 wordlist:4 worddetail:5 compose:4 reader:4 speaking:4 stories:4 review-hub:4 review-run:4 review-summary:4 diary:4 progress:4 profile:4 system-states:4",
+ "tabbarVisible": "home,reader,review-hub,progress",
+ "apiDeclared": "capture=vlm:morning-desk, regions=vlm:morning-desk, reader=llm:today, speaking=llm:speak-1",
+ "worst": []
+}
+
+===== [B] Deep link toi man hinh KHONG ton tai =====
+{
+ "meta": {
+  "id": "khong-ton-tai-xyz",
+  "title": "SnapLife AI · Không tìm thấy màn hình",
+  "ready": true,
+  "bootErrors": null,
+  "placeholder": false,
+  "chrome": null,
+  "api": [],
+  "nodes": 11,
+  "textLen": 120,
+  "notes": 0,
+  "tabbarVisible": false,
+  "hasEmpty": true,
+  "hasSkeleton": false,
+  "hasSpinner": false,
+  "overflowX": 0,
+  "docOverflowX": 0,
+  "focusables": 1,
+  "buttonsNoName": 0,
+  "imgs": 0,
+  "brokenImgs": 0
+ },
+ "text": "Chưa có màn hình này\n\nKhông tìm thấy \"khong-ton-tai-xyz\" trong registry. Chọn màn hình ở cột bên trái.\n\nVề trang Hôm nay"
+}
+
+===== [C] Deep link co tham so (hop le + KHONG hop le) =====
+{
+ "cases": [
+  {
+   "hash": "#/reader",
+   "label": "mac dinh",
+   "ready": true,
+   "boot": null,
+   "nodes": 116,
+   "textLen": 1340,
+   "overflowX": 0,
+   "hasEmpty": false,
+   "errors": [],
+   "text": "Đoạn đan xen Hôm nay · trình độ B1 TRUYỆN CỦA PHÚ TÀI Chiều qua, trú mưa trước hiên quán 17% tiếng Anh Cơn mưa buổi sáng AI viết lại câu chuyện của bạ"
+  },
+  {
+   "hash": "#/reader?story=ceramic-cup",
+   "label": "truyen 2",
+   "ready": true,
+   "boot": null,
+   "nodes": 109,
+   "textLen": 1158,
+   "overflowX": 0,
+   "hasEmpty": false,
+   "errors": [],
+   "text": "Đoạn đan xen Hôm qua · trình độ B1 TRUYỆN CỦA PHÚ TÀI Chiếc ca mới mua ở phiên chợ gốm 17% tiếng Anh Chiếc ca ở phiên chợ gốm AI viết lại câu chuyện c"
+  },
+  {
+   "hash": "#/reader?story=khong-co",
+   "label": "truyen KHONG co",
+   "ready": true,
+   "boot": null,
+   "nodes": 124,
+   "textLen": 1417,
+   "overflowX": 0,
+   "hasEmpty": false,
+   "errors": [],
+   "text": "Đoạn đan xen Hôm nay · trình độ B1 Truyện không tồn tại Không thấy truyện \"khong-co\" — đang mở truyện gần nhất. TRUYỆN CỦA PHÚ TÀI Chiều qua, trú mưa "
+  },
+  {
+   "hash": "#/reader?word=mug",
+   "label": "sheet tu mug",
+   "ready": true,
+   "boot": null,
+   "nodes": 116,
+   "textLen": 1340,
+   "overflowX": 0,
+   "hasEmpty": false,
+   "errors": [],
+   "text": "Đoạn đan xen Hôm nay · trình độ B1 TRUYỆN CỦA PHÚ TÀI Chiều qua, trú mưa trước hiên quán 17% tiếng Anh Cơn mưa buổi sáng AI viết lại câu chuyện của bạ"
+  },
+  {
+   "hash": "#/speaking?state=recording",
+   "label": "dang ghi am",
+   "ready": true,
+   "boot": null,
+   "nodes": 57,
+   "textLen": 207,
+   "overflowX": 0,
+   "hasEmpty": false,
+   "errors": [],
+   "text": "Luyện nói AI chỉnh lại cách bạn diễn đạt CÂU HỎI HÔM NAY Nói một câu về chiếc ca trong ảnh của bạn Nói tự nhiên, sai cũng không sao — đó mới là chỗ AI"
+  },
+  {
+   "hash": "#/speaking?state=corrected",
+   "label": "da sua xong",
+   "ready": true,
+   "boot": null,
+   "nodes": 142,
+   "textLen": 954,
+   "overflowX": 0,
+   "hasEmpty": false,
+   "errors": [],
+   "text": "Luyện nói AI chỉnh lại cách bạn diễn đạt CÂU HỎI HÔM NAY Nói một câu về chiếc ca trong ảnh của bạn Nói tự nhiên, sai cũng không sao — đó mới là chỗ AI"
+  },
+  {
+   "hash": "#/speaking?state=bay-ba",
+   "label": "state KHONG hop le",
+   "ready": true,
+   "boot": null,
+   "nodes": 47,
+   "textLen": 241,
+   "overflowX": 0,
+   "hasEmpty": false,
+   "errors": [],
+   "text": "Luyện nói AI chỉnh lại cách bạn diễn đạt CÂU HỎI HÔM NAY Nói một câu về chiếc ca trong ảnh của bạn Nói tự nhiên, sai cũng không sao — đó mới là chỗ AI"
+  },
+  {
+   "hash": "#/worddetail?word=downpour",
+   "label": "tu downpour",
+   "ready": true,
+   "boot": null,
+   "nodes": 143,
+   "textLen": 622,
+   "overflowX": 0,
+   "hasEmpty": false,
+   "errors": [],
+   "text": "Thẻ từ đầy đủ downpour /ˈdaʊn.pɔːr/ B2 DANH TỪ TỪ MỚI WEATHER CITY trận mưa như trút nước VÍ DỤ TRONG NGỮ CẢNH Nghe câu Giọng Anh · en-US We got caugh"
+  },
+  {
+   "hash": "#/worddetail?word=khong-co",
+   "label": "tu KHONG co",
+   "ready": true,
+   "boot": null,
+   "nodes": 26,
+   "textLen": 217,
+   "overflowX": 0,
+   "hasEmpty": true,
+   "errors": [],
+   "text": "Thẻ từ đầy đủ Không tìm thấy \"khong-co\" Không có từ \"khong-co\" trong bộ từ Từ này chưa nằm trong bộ từ của bạn. Khoanh vùng trên ảnh để thêm từ mới, h"
+  },
+  {
+   "hash": "#/wordlist?filter=zzz",
+   "label": "tham so la",
+   "ready": true,
+   "boot": null,
+   "nodes": 365,
+   "textLen": 1292,
+   "overflowX": 0,
+   "hasEmpty": false,
+   "errors": [],
+   "text": "Bộ từ của tôi Tổng số từ 23 Đến hạn hôm nay 14 Đã thuộc 4 TRÌNH ĐỘ CEFR Tất cả · 23 A1 · 1 A2 · 6 B1 · 8 B2 · 6 C1 · 2 TRẠNG THÁI GHI NHỚ Tất cả · 23 "
+  }
+ ]
+}
+
+===== [D] wordlist: loc tu khoa khong ra ket qua -> trang thai rong =====
+{
+ "inputs": [
+  {
+   "tag": "INPUT",
+   "type": "search",
+   "ph": "Tìm \"mug\" hoặc \"cái ca\"…",
+   "label": "Tìm từ theo tiếng Anh, nghĩa tiếng Việt hoặc phiên âm"
+  }
+ ],
+ "focused": "Tìm \"mug\" hoặc \"cái ca\"…",
+ "before": {
+  "rows": 23,
+  "text": 1292
+ },
+ "after": {
+  "rows": 0,
+  "hasEmpty": true,
+  "text": "Bộ từ của tôi Tổng số từ 23 Đến hạn hôm nay 14 Đã thuộc 4 TRÌNH ĐỘ CEFR Tất cả · 23 A1 · 1 A2 · 6 B1 · 8 B2 · 6 C1 · 2 TRẠNG THÁI GHI NHỚ Tất cả · 23 Đang học · 10 Từ mới · 9 Đã thuộc · 4 Đến hạn · 14 SẮP XẾP chạy trên m"
+ }
+}
+
+===== [E] Du lieu co duoc GIU khi doi man roi quay lai? =====
+{
+ "home_session_length": {
+  "clickedText": "20 phút",
+  "reviewLengthBefore": 10,
+  "reviewLengthAfterClick": 20,
+  "reviewLengthAfterRoundTrip": 20,
+  "persisted": true,
+  "selectedVisualAfter": []
+ },
+ "regions_removed": {
+  "initial": {
+   "bbox": 3,
+   "bboxKeys": [
+    "ai-0",
+    "ai-1",
+    "ai-2"
+   ],
+   "kept": []
+  },
+  "toggledKey": "ai-0",
+  "afterToggle": {
+   "removed": [],
+   "bboxOff": 0
+  },
+  "afterRoundTrip": {
+   "removed": [],
+   "bboxOff": 0,
+   "bbox": 3
+  },
+  "persisted": true
+ }
+}
+
+===== [F] Dieu huong back/forward cua trinh duyet (history that) =====
+{
+ "sameTab_back_forward": [
+  {
+   "step": "start",
+   "hash": "#/regions",
+   "len": 3
+  },
+  {
+   "step": "back",
+   "hash": "#/capture"
+  },
+  {
+   "step": "forward",
+   "hash": "#/regions"
+  },
+  {
+   "step": "back x2 (ve man dau)",
+   "hash": "#/home",
+   "href": "http://127.0.0.1:8137/index.html#/home",
+   "bodyLen": 1929
+  }
+ ],
+ "deeplink_then_appbar_back": {
+  "historyLength": 1,
+  "backInfo": {
+   "found": true,
+   "label": "Quay lại",
+   "cls": "iconbtn"
+  },
+  "clicked": "Quay lại",
+  "afterBack": {
+   "href": "http://127.0.0.1:8137/index.html#/home",
+   "hash": "#/home",
+   "bodyText": "SnapLife AI\nHọc tiếng Anh qua chính câu chuyện và cuộc sống của bạn\nĐANG XEM\nHôm nay\n0 API call · sinh bằng quy tắc\n14:3",
+   "appStillThere": true
+  }
+ },
+ "back_at_first_screen": {
+  "historyLength": 1,
+  "call": "called",
+  "after": {
+   "href": "http://127.0.0.1:8137/index.html#/home",
+   "appStillThere": true
+  }
+ }
+}
+
+===== [G] Mo cung mot man lien tiep: co chong node / loi khong? =====
+{
+ "nodesFirst": 133,
+ "nodesAfterDoubleRailClick": 133,
+ "nodesAfterSameHash": 133,
+ "consoleErrors": [],
+ "hostChildren": 1,
+ "appScreens": 1
+}
+
+===== [H] Sheet dang mo roi doi man / nhan Esc =====
+{
+ "openedWord": "downpour",
+ "withSheet": {
+  "overlayChildren": 2,
+  "scrim": true,
+  "bodyText": 1340
+ },
+ "afterNav": {
+  "hash": "#/review-hub",
+  "overlayChildren": 2,
+  "sheetLeft": true,
+  "scrimLeft": true
+ },
+ "escClosed": {
+  "hash": "#/review-hub",
+  "sheet": true
+ },
+ "afterEsc": {
+  "sheet": false,
+  "overlayChildren": 0
+ }
+}
+
+===== [I] Phim Tab di het man hinh? Focus co ket / vo hinh khong? =====
+{
+ "screens": [
+  {
+   "screen": "home",
+   "tabPresses": 70,
+   "uniqueStops": 24,
+   "stuckAtEnd": false,
+   "invisibleFocusStops": 0,
+   "invisibleExamples": [],
+   "reachedInsideApp": 11,
+   "focusables": {
+    "all": 11,
+    "visible": 11
+   },
+   "first5": [
+    "BUTTON.iconbtn[Hồ sơ của bạn] [inApp]",
+    "BUTTON.btn btn--ghost btn--sm[Theo tâm trạng] [inApp]",
+    "BUTTON.audio-btn audio-btn--wide[Nghe câu: Steady beats fas] [inApp]",
+    "BUTTON.btn btn--secondary btn--sm[Câu khác] [inApp]",
+    "DIV.card a-action a-action--fe[Chụp ảnh. Chụp thứ đang ở ] [inApp]"
+   ]
+  },
+  {
+   "screen": "wordlist",
+   "tabPresses": 70,
+   "uniqueStops": 69,
+   "stuckAtEnd": false,
+   "invisibleFocusStops": 0,
+   "invisibleExamples": [],
+   "reachedInsideApp": 65,
+   "focusables": {
+    "all": 66,
+    "visible": 66
+   },
+   "first5": [
+    "BUTTON.iconbtn iconbtn--solid[Mở thư viện màn hình] [shell]",
+    "BUTTON.iconbtn iconbtn--solid[Chế độ chỉ hiện ứng dụng] [shell]",
+    "BUTTON.iconbtn[Quay lại] [inApp]",
+    "BUTTON.iconbtn[Chụp thêm từ mới] [inApp]",
+    "BUTTON.iconbtn[Mở phiên ôn tập] [inApp]"
+   ]
+  },
+  {
+   "screen": "review-run",
+   "tabPresses": 70,
+   "uniqueStops": 40,
+   "stuckAtEnd": false,
+   "invisibleFocusStops": 0,
+   "invisibleExamples": [],
+   "reachedInsideApp": 32,
+   "focusables": {
+    "all": 37,
+    "visible": 37
+   },
+   "first5": [
+    "BUTTON.btn btn--secondary btn--sm[Đặt lại dữ liệu demo] [shell]",
+    "BUTTON.btn btn--secondary btn--sm[Xoá bộ đếm chi phí] [shell]",
+    "BODY.shell[SnapLife AI Học tiếng Anh ] [shell]",
+    "BUTTON.iconbtn iconbtn--solid[Danh sách màn hình] [shell]",
+    "BUTTON.iconbtn iconbtn--solid[Chuyển sang giao diện tối] [shell]"
+   ]
+  },
+  {
+   "screen": "profile",
+   "tabPresses": 70,
+   "uniqueStops": 19,
+   "stuckAtEnd": false,
+   "invisibleFocusStops": 0,
+   "invisibleExamples": [],
+   "reachedInsideApp": 11,
+   "focusables": {
+    "all": 11,
+    "visible": 11
+   },
+   "first5": [
+    "BUTTON.iconbtn[Quay lại] [inApp]",
+    "BUTTON.toggle[Nhắc học mỗi ngày — đang b] [inApp]",
+    "BUTTON.toggle[Âm thanh phát âm — đang bậ] [inApp]",
+    "BUTTON.toggle[Gửi thống kê lỗi ẩn danh —] [inApp]",
+    "BUTTON.toggle toggle--locked[Huấn luyện trên dữ liệu ng] [inApp]"
+   ]
+  },
+  {
+   "screen": "regions",
+   "tabPresses": 70,
+   "uniqueStops": 26,
+   "stuckAtEnd": false,
+   "invisibleFocusStops": 0,
+   "invisibleExamples": [],
+   "reachedInsideApp": 18,
+   "focusables": {
+    "all": 24,
+    "visible": 24
+   },
+   "first5": [
+    "BUTTON.btn btn--secondary btn--sm[Đặt lại dữ liệu demo] [shell]",
+    "BUTTON.btn btn--secondary btn--sm[Xoá bộ đếm chi phí] [shell]",
+    "BODY.shell[SnapLife AI Học tiếng Anh ] [shell]",
+    "BUTTON.iconbtn iconbtn--solid[Danh sách màn hình] [shell]",
+    "BUTTON.iconbtn iconbtn--solid[Chuyển sang giao diện tối] [shell]"
+   ]
+  }
+ ]
+}
+
+===== [J] prefers-reduced-motion: con chuyen dong nao khong? =====
+{
+ "note": "Do lai bang cach RENDER MOI duoi che do reduce (Emulation.setEmulatedMedia), khong doi class tren DOM da render.",
+ "rows": [
+  {
+   "screen": "home",
+   "mode": "no-preference",
+   "p": {
+    "dur": "220ms",
+    "durSlow": "380ms",
+    "elementsAnimating": 1,
+    "elementsTransitioning": 13,
+    "maxDuration": 0.38,
+    "animNames": [
+     "sl-enter@0.38s"
+    ],
+    "runningAnimations": 1,
+    "runningNames": [
+     "sl-enter"
+    ]
+   }
+  },
+  {
+   "screen": "home",
+   "mode": "reduce",
+   "p": {
+    "dur": "1ms",
+    "durSlow": "1ms",
+    "elementsAnimating": 0,
+    "elementsTransitioning": 0,
+    "maxDuration": 0,
+    "animNames": [],
+    "runningAnimations": 121,
+    "runningNames": [
+     "CSSTransition",
+     "CSSTransition",
+     "CSSTransition",
+     "CSSTransition",
+     "CSSTransition"
+    ]
+   }
+  },
+  {
+   "screen": "speaking:recording",
+   "mode": "reduce",
+   "p": {
+    "dur": "1ms",
+    "durSlow": "1ms",
+    "elementsAnimating": 0,
+    "elementsTransitioning": 0,
+    "maxDuration": 0,
+    "animNames": [],
+    "runningAnimations": 6,
+    "runningNames": [
+     "cs-wave",
+     "cs-wave",
+     "cs-wave",
+     "cs-wave",
+     "cs-wave"
+    ]
+   }
+  },
+  {
+   "screen": "splash",
+   "mode": "reduce",
+   "p": {
+    "dur": "1ms",
+    "durSlow": "1ms",
+    "elementsAnimating": 0,
+    "elementsTransitioning": 0,
+    "maxDuration": 0,
+    "animNames": [],
+    "runningAnimations": 0,
+    "runningNames": []
+   }
+  },
+  {
+   "screen": "capture",
+   "mode": "reduce",
+   "p": {
+    "dur": "1ms",
+    "durSlow": "1ms",
+    "elementsAnimating": 0,
+    "elementsTransitioning": 0,
+    "maxDuration": 0,
+    "animNames": [],
+    "runningAnimations": 2,
+    "runningNames": [
+     "CSSTransition",
+     "CSSTransition"
+    ]
+   }
+  }
+ ]
+}
+
+===== [K] Tran ngang o 375px va 1440px (ca 20 man) =====
+{
+ "results": [
+  {
+   "width": 375,
+   "height": 812,
+   "offendersHost": [
+    "regions:33",
+    "worddetail:45",
+    "reader:39",
+    "review-summary:32",
+    "profile:14"
+   ],
+   "offendersDoc": [],
+   "offenderSample": [
+    {
+     "id": "regions",
+     "items": [
+      {
+       "t": "BUTTON.btn btn--secondary btn--sm",
+       "l": 214,
+       "r": 384
+      },
+      {
+       "t": "BUTTON.chip",
+       "l": 268,
+       "r": 379
+      },
+      {
+       "t": "SPAN.",
+       "l": 285,
+       "r": 362
+      }
+     ]
+    },
+    {
+     "id": "worddetail",
+     "items": [
+      {
+       "t": "BUTTON.btn btn--secondary",
+       "l": 280,
+       "r": 396
+      }
+     ]
+    },
+    {
+     "id": "compose",
+     "items": [
+      {
+       "t": "BUTTON.cs-photo",
+       "l": 304,
+       "r": 382
+      },
+      {
+       "t": "IMG.",
+       "l": 306,
+       "r": 380
+      },
+      {
+       "t": "BUTTON.cs-photo",
+       "l": 390,
+       "r": 468
+      },
+      {
+       "t": "IMG.",
+       "l": 392,
+       "r": 466
+      }
+     ]
+    },
+    {
+     "id": "reader",
+     "items": [
+      {
+       "t": "BUTTON.btn btn--ghost",
+       "l": 214,
+       "r": 390
+      }
+     ]
+    },
+    {
+     "id": "review-run",
+     "items": [
+      {
+       "t": "BUTTON.chip",
+       "l": 275,
+       "r": 378
+      },
+      {
+       "t": "SPAN.",
+       "l": 298,
+       "r": 361
+      },
+      {
+       "t": "BUTTON.chip",
+       "l": 386,
+       "r": 472
+      },
+      {
+       "t": "path.[object SVGAnimatedString]",
+       "l": 407,
+       "r": 414
+      },
+      {
+       "t": "path.[object SVGAnimatedString]",
+       "l": 421,
+       "r": 424
+      },
+      {
+       "t": "SPAN.",
+       "l": 409,
+       "r": 455
+      },
+      {
+       "t": "BUTTON.chip",
+       "l": 480,
+       "r": 561
+      },
+      {
+       "t": "path.[object SVGAnimatedString]",
+       "l": 500,
+       "r": 508
+      },
+      {
+       "t": "path.[object SVGAnimatedString]",
+       "l": 515,
+       "r": 517
+      }
+     ]
+    },
+    {
+     "id": "review-summary",
+     "items": [
+      {
+       "t": "BUTTON.btn",
+       "l": 253,
+       "r": 383
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "width": 1440,
+   "height": 900,
+   "offendersHost": [
+    "worddetail:14",
+    "reader:4"
+   ],
+   "offendersDoc": [],
+   "offenderSample": [
+    {
+     "id": "worddetail",
+     "items": [
+      {
+       "t": "BUTTON.btn btn--secondary",
+       "l": 405,
+       "r": 521
+      }
+     ]
+    },
+    {
+     "id": "compose",
+     "items": [
+      {
+       "t": "BUTTON.cs-photo",
+       "l": 511,
+       "r": 589
+      },
+      {
+       "t": "IMG.",
+       "l": 513,
+       "r": 587
+      }
+     ]
+    },
+    {
+     "id": "reader",
+     "items": [
+      {
+       "t": "BUTTON.btn btn--ghost",
+       "l": 335,
+       "r": 511
+      }
+     ]
+    },
+    {
+     "id": "review-run",
+     "items": [
+      {
+       "t": "BUTTON.chip",
+       "l": 507,
+       "r": 593
+      },
+      {
+       "t": "path.[object SVGAnimatedString]",
+       "l": 528,
+       "r": 535
+      },
+      {
+       "t": "path.[object SVGAnimatedString]",
+       "l": 542,
+       "r": 545
+      },
+      {
+       "t": "SPAN.",
+       "l": 530,
+       "r": 576
+      },
+      {
+       "t": "BUTTON.chip",
+       "l": 601,
+       "r": 682
+      },
+      {
+       "t": "path.[object SVGAnimatedString]",
+       "l": 621,
+       "r": 629
+      },
+      {
+       "t": "path.[object SVGAnimatedString]",
+       "l": 636,
+       "r": 638
+      },
+      {
+       "t": "SPAN.",
+       "l": 624,
+       "r": 665
+      }
+     ]
+    },
+    {
+     "id": "system-states",
+     "items": [
+      {
+       "t": "BUTTON.btn",
+       "l": 338,
+       "r": 529
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
+
+===== [L] Cuon xuong cuoi man: co bi tab bar / overlay che khong? =====
+{
+ "note": "elementFromPoint tai tam tung nut -> neu tra ve phan tu khac thi nut bi che.",
+ "screens": [
+  {
+   "id": "home",
+   "maxScroll": 762,
+   "tabbar": true,
+   "occludedCount": 0,
+   "occluded": []
+  },
+  {
+   "id": "wordlist",
+   "maxScroll": 2333,
+   "tabbar": false,
+   "occludedCount": 0,
+   "occluded": []
+  },
+  {
+   "id": "review-run",
+   "maxScroll": 1110,
+   "tabbar": false,
+   "occludedCount": 0,
+   "occluded": []
+  },
+  {
+   "id": "reader",
+   "maxScroll": 1654,
+   "tabbar": true,
+   "occludedCount": 0,
+   "occluded": []
+  },
+  {
+   "id": "progress",
+   "maxScroll": 2350,
+   "tabbar": true,
+   "occludedCount": 0,
+   "occluded": []
+  },
+  {
+   "id": "diary",
+   "maxScroll": 953,
+   "tabbar": false,
+   "occludedCount": 0,
+   "occluded": []
+  },
+  {
+   "id": "system-states",
+   "maxScroll": 3207,
+   "tabbar": false,
+   "occludedCount": 0,
+   "occluded": []
+  },
+  {
+   "id": "regions",
+   "maxScroll": 1702,
+   "tabbar": false,
+   "occludedCount": 0,
+   "occluded": []
+  },
+  {
+   "id": "speaking",
+   "maxScroll": 10,
+   "tabbar": false,
+   "occludedCount": 0,
+   "occluded": []
+  },
+  {
+   "id": "profile",
+   "maxScroll": 3059,
+   "tabbar": false,
+   "occludedCount": 0,
+   "occluded": []
+  }
+ ]
+}
+
+===== [M] Zoom 200% (proxy: viewport 195px): man nao tran ngang? =====
+{
+ "note": "Emulation.setDeviceMetricsOverride width=195 = viewport CSS khi zoom 200% tren khung 390. Khong phai zoom that cua trinh duyet.",
+ "offenders": [
+  "onboarding: host=66 doc=0",
+  "topics: host=69 doc=0",
+  "home: host=101 doc=0",
+  "capture: host=157 doc=0",
+  "regions: host=213 doc=0",
+  "wordlist: host=108 doc=0",
+  "worddetail: host=88 doc=0",
+  "compose: host=64 doc=0",
+  "reader: host=219 doc=0",
+  "speaking: host=13 doc=0",
+  "stories: host=59 doc=0",
+  "review-hub: host=92 doc=0",
+  "review-run: host=7 doc=0",
+  "review-summary: host=212 doc=0",
+  "diary: host=65 doc=0",
+  "progress: host=57 doc=0",
+  "profile: host=194 doc=0",
+  "system-states: host=73 doc=0"
+ ],
+ "checked": 20
+}
+
+===== [N] Web font Google CDN: neu mat mang khi demo thi sao? =====
+{
+ "withInternet": {
+  "fontsStatus": "loaded",
+  "fontsSize": 28,
+  "calistoga": true,
+  "inter": true,
+  "newsreader": true,
+  "mono": true,
+  "hFont": "Calistoga, \"Iowan Old Style\", Georgia, \"Times New Roman\", serif",
+  "hWidth": 368,
+  "hText": "Chào buổi chiều, Tài"
+ },
+ "withCdnBlocked": {
+  "fontsStatus": "loaded",
+  "fontsSize": 0,
+  "calistoga": true,
+  "inter": true,
+  "hFont": "Calistoga, \"Iowan Old Style\", Georgia, \"Times New Roman\", serif",
+  "hWidth": 368,
+  "hText": "Chào buổi chiều, Tài",
+  "ready": "true",
+  "bootErrors": null,
+  "docHeight": 1884
+ },
+ "docHeightWithFonts": 1885,
+ "docHeightWithoutFonts": 1884,
+ "widthDelta": 0,
+ "note": "Chan *fonts.googleapis.com* + *fonts.gstatic.com* = mo phong hoi truong khong co internet nhung server tinh van chay."
+}
+
+===== [O] Kiem cheo loi khai ve chi phi AI =====
+{
+ "vlm_idempotent": {
+  "after0": 0,
+  "after4RoundTrips": 1,
+  "pass": true,
+  "ledger": [
+   "vlm:morning-desk"
+  ]
+ },
+ "review_zero_api": {
+  "answeredText": "downpour",
+  "apiCallsBefore": 0,
+  "apiCallsAfter": 0,
+  "vlm": 0,
+  "llm": 0,
+  "rule": 0,
+  "pass": true
+ },
+ "llm_reader": {
+  "clicks": [
+   [
+    "viết lại",
+    "Viết lại thành đoạn đan xen",
+    0
+   ],
+   [
+    "viết",
+    null,
+    0
+   ],
+   [
+    "tạo",
+    null,
+    0
+   ],
+   [
+    "tiếp tục",
+    null,
+    1
+   ]
+  ],
+  "afterComposeClicks": 1,
+  "afterReader": 1,
+  "afterRoundTrip": 1,
+  "ledger": [
+   "llm:today"
+  ]
+ },
+ "speaking_second_call": {
+  "click1": "Nhờ AI chỉnh lại",
+  "click2": null,
+  "llm0": 1,
+  "llm1": 1,
+  "llm2": 1,
+  "pass": false,
+  "ledger": [
+   "llm:speak-1"
+  ]
+ },
+ "zero_screens_after_vlm_llm": {
+  "home": 1,
+  "wordlist": 1,
+  "worddetail?word=mug": 1,
+  "progress": 1,
+  "profile": 1,
+  "review-hub": 1,
+  "review-summary": 1,
+  "reviews-x": 1
+ }
+}
+
+===== [P] regions: moi vung dung 1 tu? bbox co nam tren dung toa do regionFor()? =====
+{
+ "boxCount": 3,
+ "storeRegions": 3,
+ "regionKeys": [
+  null,
+  null,
+  null
+ ],
+ "boxKeys": [
+  "ai-0",
+  "ai-1",
+  "ai-2"
+ ],
+ "wordCards": 0,
+ "wordIds": [
+  "mug",
+  "headphones",
+  "notebook"
+ ],
+ "dupWordIds": [],
+ "photoFound": true,
+ "checks": [],
+ "labelsPerBox": [
+  "1. mug",
+  "2. headphones",
+  "3. notebook"
+ ]
+}
+
+===== [Q] Ti le tieng Anh hien tren #/reader co phai so that? =====
+{
+ "rows": [
+  {
+   "hash": "#/reader",
+   "shownRatio": "17%",
+   "allPercents": [
+    "17%",
+    "17%"
+   ],
+   "storeStoryId": "today",
+   "enTokens": 29
+  },
+  {
+   "hash": "#/reader?story=ceramic-cup",
+   "shownRatio": "17%",
+   "allPercents": [
+    "17%",
+    "17%"
+   ],
+   "storeStoryId": "today",
+   "enTokens": 23
+  }
+ ],
+ "scriptSays": "check_story_ratio.py: ceramic-cup 16.8%, TODAY_RAW 17.0%"
+}
+
+===== [S] Bam moi nut mot lan: nut nao KHONG co phan hoi nao? =====
+{
+ "screens": [
+  {
+   "screen": "home",
+   "buttonCount": 8,
+   "tested": 8,
+   "noResponse": [
+    {
+     "label": "10 phút",
+     "changed": false,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    }
+   ],
+   "results": [
+    {
+     "label": "Hồ sơ của bạn",
+     "changed": true,
+     "hashMoved": true,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Theo tâm trạng",
+     "changed": true,
+     "hashMoved": true,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Nghe",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Câu khác",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "2 phút",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "10 phút",
+     "changed": false,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "20 phút",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Bắt đầu phiên 10 phút",
+     "changed": true,
+     "hashMoved": true,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    }
+   ]
+  },
+  {
+   "screen": "wordlist",
+   "buttonCount": 65,
+   "tested": 10,
+   "noResponse": [
+    {
+     "label": "Xoá từ khoá tìm kiếm",
+     "changed": false,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Tất cả · 23",
+     "changed": false,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    }
+   ],
+   "results": [
+    {
+     "label": "Quay lại",
+     "changed": true,
+     "hashMoved": true,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Chụp thêm từ mới",
+     "changed": true,
+     "hashMoved": true,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Mở phiên ôn tập",
+     "changed": true,
+     "hashMoved": true,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Xoá từ khoá tìm kiếm",
+     "changed": false,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Tất cả · 23",
+     "changed": false,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "A1 · 1",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "A2 · 6",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "B1 · 8",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "B2 · 6",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "C1 · 2",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    }
+   ]
+  },
+  {
+   "screen": "review-hub",
+   "buttonCount": 9,
+   "tested": 9,
+   "noResponse": [
+    {
+     "label": "10 phút",
+     "changed": false,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    }
+   ],
+   "results": [
+    {
+     "label": "2 phút",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "10 phút",
+     "changed": false,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "20 phút",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Đọc tương tác Chạm từ trong đoạn v",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Cloze điền khuyết Điền từ đúng vào",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Chạm ảnh Chọn đúng đồ vật trong ản",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Ghép cặp Nối từ với nghĩa tương ứn",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Flashcard SRS Lặp lại ngắt quãng t",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Bắt đầu ôn 10 từ",
+     "changed": true,
+     "hashMoved": true,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    }
+   ]
+  },
+  {
+   "screen": "diary",
+   "buttonCount": 9,
+   "tested": 9,
+   "noResponse": [],
+   "results": [
+    {
+     "label": "Quay lại",
+     "changed": true,
+     "hashMoved": true,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Rất thấp",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Hơi xuống",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Bình thường",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Khá tốt",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Rất tốt",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Nghe",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Câu khác",
+     "changed": true,
+     "hashMoved": false,
+     "toast": false,
+     "overlayOpened": false,
+     "boot": null
+    },
+    {
+     "label": "Lưu vào nhật ký hôm nay",
+     "changed": true,
+     "hashMoved": false,
+     "toast": true,
+     "overlayOpened": true,
+     "boot": null
+    }
+   ]
+  }
+ ]
+}
+
+Da ghi tools/qa-cdp-report.json (18 muc)

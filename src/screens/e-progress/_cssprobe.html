@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <title>SnapLife AI · Nhóm E — đo tương phản có/không CSS nhóm khác</title>
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <link rel="stylesheet" href="../../../styles/base.css" />
+  <link rel="stylesheet" href="../../../styles/components.css" />
+  <link rel="stylesheet" href="../../../styles/shell.css" />
+  <link rel="stylesheet" href="../../../styles/screens-e.css" />
+  <style>body { font-family: var(--font-mono); font-size: 12px; } #stage { width: 390px; }</style>
+</head>
+<body>
+  <pre id="report">Đang chạy…</pre>
+  <div id="stage"></div>
+  <div id="overlay"></div>
+
+  <script type="module">
+    import { h, qs } from '../../core/dom.js';
+    import { ui, setNav, setOverlayHost } from '../../core/ui.js';
+    import { createStore } from '../../core/store.js';
+    import { cost } from '../../core/cost.js';
+    import * as fixtures from '../../data/fixtures.js';
+    import * as wordsData from '../../data/words.js';
+    import * as photosData from '../../data/photos.js';
+    import * as storyData from '../../data/story.js';
+    import * as logic from '../../data/logic.js';
+    import diary from './diary.js';
+    import profile from './profile.js';
+
+    const data = {
+      ...fixtures, ...wordsData, ...photosData, ...logic,
+      story: storyData, stories: storyData.stories, hydrateStory: storyData.hydrateStory,
+      speakingSample: storyData.speakingSample, parseStory: storyData.parseStory,
+      userStoryDraft: storyData.userStoryDraft, sampleTopics: storyData.sampleTopics,
+    };
+
+    setNav({ go: () => {}, back: () => {}, replace: () => {} });
+    setOverlayHost(qs('#overlay'));
+
+    /* --- sao chép nguyên thuật toán đo của tools/audit.js để so sánh 1:1 --- */
+    const parseColor = (str) => {
+      if (!str) return null;
+      if (str[0] === '#') {
+        const v = str.length === 4
+          ? str.slice(1).split('').map((c) => c + c).join('')
+          : str.slice(1);
+        return {
+          r: parseInt(v.slice(0, 2), 16), g: parseInt(v.slice(2, 4), 16), b: parseInt(v.slice(4, 6), 16),
+          a: v.length === 8 ? parseInt(v.slice(6, 8), 16) / 255 : 1,
+        };
+      }
+      const m = str.match(/rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,\s/]+([\d.%]+))?\s*\)/i);
+      if (!m) return null;
+      let a = 1;
+      if (m[4] !== undefined) a = m[4].endsWith('%') ? parseFloat(m[4]) / 100 : parseFloat(m[4]);
+      return { r: +m[1], g: +m[2], b: +m[3], a: Number.isFinite(a) ? a : 1 };
+    };
+    const over = (fg, bg) => ({
+      r: fg.r * fg.a + bg.r * (1 - fg.a),
+      g: fg.g * fg.a + bg.g * (1 - fg.a),
+      b: fg.b * fg.a + bg.b * (1 - fg.a),
+      a: 1,
+    });
+    const channel = (v) => { const s = v / 255; return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4; };
+    const lum = ({ r, g, b }) => 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b);
+    const contrast = (fg, bg) => {
+      const l1 = lum(fg); const l2 = lum(bg);
+      const [hi, lo] = l1 > l2 ? [l1, l2] : [l2, l1];
+      return (hi + 0.05) / (lo + 0.05);
+    };
+    function effectiveBg(node) {
+      let acc = null;
+      let cur = node;
+      const trail = [];
+      while (cur && cur !== document.documentElement) {
+        const c = parseColor(getComputedStyle(cur).backgroundColor);
+        if (c && c.a > 0) {
+          trail.push(`${cur.className || cur.tagName}:${getComputedStyle(cur).backgroundColor}`);
+          acc = acc === null ? c : over(acc, c);
+          if (c.a >= 0.999) return { bg: acc, trail };
+        }
+        cur = cur.parentElement;
+      }
+      const rootBg = parseColor(getComputedStyle(document.body).backgroundColor) || { r: 255, g: 255, b: 255, a: 1 };
+      return { bg: acc ? over(acc, rootBg) : rootBg, trail };
+    }
+
+    const store = createStore(fixtures.createInitialState());
+    function mount(screen, st) {
+      const host = h('div', { style: { width: '390px', background: 'var(--paper)' } });
+      host.appendChild(screen.render({
+        store: st, params: {}, nav: { go: () => {}, back: () => {}, replace: () => {} },
+        ui, icons: { icon: ui.ICON }, cost, data, onCleanup: () => {}, gallery: true,
+      }));
+      qs('#stage').appendChild(host);
+      return host;
+    }
+    const diaryHost = mount(diary, store);
+    const profileHost = mount(profile, createStore(fixtures.createInitialState()));
+
+    let targets = [
+      ['diary · .audio-btn--wide > span', diaryHost.querySelector('.audio-btn--wide > span')],
+      ['profile · .seg__opt (chưa chọn)', profileHost.querySelector('.seg__opt')],
+      ['profile · .seg__opt[aria-selected=true]', profileHost.querySelector('.seg__opt[aria-selected="true"]')],
+    ];
+
+    function measure(label) {
+      const out = [`── ${label} ──`];
+      targets.forEach(([name, el]) => {
+        if (!el) { out.push(`${name}: không có phần tử`); return; }
+        const cs = getComputedStyle(el);
+        const fg = parseColor(cs.color);
+        const { bg, trail } = effectiveBg(el);
+        out.push(`${name}\n    color=${cs.color}  bg-chain=${trail.join(' ← ')}\n    nền hiệu dụng=rgb(${bg.r.toFixed(0)},${bg.g.toFixed(0)},${bg.b.toFixed(0)})  tỉ lệ=${contrast(fg, bg).toFixed(2)}:1`);
+      });
+      return out.join('\n');
+    }
+
+    const lines = [];
+    lines.push('=== LƯỢT 1: chỉ tokens/base/components/shell/screens-e.css · theme=sáng ===');
+    lines.push(measure('chỉ nhóm E · light'));
+
+    // Nạp thêm CSS của các nhóm khác (đúng như index.html / audit.html) rồi đo lại.
+    const others = ['screens-a', 'screens-b', 'screens-c', 'screens-d'];
+    for (const name of others) {
+      await new Promise((res) => {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = `../../../styles/${name}.css`;
+        link.onload = res;
+        link.onerror = res;
+        document.head.appendChild(link);
+      });
+      lines.push('');
+      lines.push(`=== LƯỢT 2.${others.indexOf(name) + 1}: + ${name}.css (theme sáng) ===`);
+      lines.push(measure(`sau khi nạp ${name}.css`));
+    }
+
+    /* --- LƯỢT 3: đổi data-theme sang tối, giống hệt audit.js làm cho lượt 2 --- */
+    document.documentElement.setAttribute('data-theme', 'dark');
+    await new Promise((r) => setTimeout(r, 400));
+    lines.push('');
+    lines.push('=== LƯỢT 3: theme=tối (audit.js cũng kiểm lượt này) ===');
+    lines.push(measure('dark'));
+
+    const rootCs = getComputedStyle(document.documentElement);
+    lines.push('');
+    lines.push('token dark thật sự áp dụng: ' + ['--paper', '--card', '--card-inset', '--ink-2', '--primary', '--primary-soft']
+      .map((t) => `${t}=${rootCs.getPropertyValue(t).trim()}`).join('  '));
+
+    /* --- LƯỢT 4: render MỚI ngay trong theme tối (không có transition treo) --- */
+    const darkDiary = mount(diary, createStore(fixtures.createInitialState()));
+    const darkProfile = mount(profile, createStore(fixtures.createInitialState()));
+    targets = [
+      ['diary · .audio-btn--wide > span (render mới, theme tối)', darkDiary.querySelector('.audio-btn--wide > span')],
+      ['profile · .seg__opt (render mới, theme tối)', darkProfile.querySelector('.seg__opt')],
+      ['profile · .seg__opt[aria-selected=true] (render mới, theme tối)', darkProfile.querySelector('.seg__opt[aria-selected="true"]')],
+    ];
+    await new Promise((r) => setTimeout(r, 300));
+    lines.push('');
+    lines.push('=== LƯỢT 4: theme tối + DOM render mới (không dính transition đang chạy) ===');
+    lines.push(measure('dark · render mới'));
+
+    qs('#report').textContent = lines.join('\n');
+    document.documentElement.setAttribute('data-probe-done', 'true');
+  </script>
+</body>
+</html>

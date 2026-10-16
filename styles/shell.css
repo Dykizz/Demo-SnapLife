@@ -1,0 +1,547 @@
+/* ============================================================================
+   SnapLife AI — Khung demo (shell), thiết bị, tab bar, rail chọn màn hình
+   Owner: Lead.
+   ========================================================================== */
+
+body.shell {
+  background:
+    radial-gradient(1200px 700px at 12% -8%, color-mix(in srgb, var(--primary) 13%, transparent), transparent 60%),
+    radial-gradient(900px 600px at 100% 0%, color-mix(in srgb, var(--success) 10%, transparent), transparent 55%),
+    var(--paper-sunken);
+  min-height: 100vh;
+}
+
+/* ============================== Bố cục shell ============================= */
+/* CHỈ áp cho <div class="shell"> BÊN TRONG — cố ý không áp cho <body class="shell">.
+   <body> mang cùng tên class đó chỉ để lấy nền giấy (xem `body.shell` ở trên).
+   Khi luật này còn viết là `.shell` thì body cũng thành lưới 3 cột: div con bị
+   nhét vào cột 264px, rồi tự chia 3 cột bên trong 264px đó → cột giữa (1fr) co
+   về 0, rail + khung điện thoại + inspector chồng lên nhau trong ~604px bên trái,
+   phần còn lại của cửa sổ trống trơn. Web mode không lộ vì luật web.css dùng
+   div.shell và ghi đè display:block — nên lỗi chỉ hiện ở DEMO mode, đúng thứ
+   người dùng nhìn thấy. Đo lại: tools/layout-check.html */
+div.shell {
+  display: grid;
+  grid-template-columns: 264px minmax(0, 1fr) 300px;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: var(--sp-5);
+  min-height: 100vh;
+  padding: var(--sp-5);
+  max-width: 1680px;
+  margin: 0 auto;
+  align-items: start;
+}
+.shell__topbar {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+.shell__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.shell__logo {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--r-md);
+  background: var(--primary);
+  color: var(--on-primary);
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-2);
+  flex: 0 0 auto;
+}
+.shell__name {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  line-height: 1.1;
+}
+.shell__tag {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+.shell__tools {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+/* ================================ Rail màn hình ========================== */
+.rail,
+.inspector {
+  position: sticky;
+  top: var(--sp-5);
+  max-height: calc(100vh - var(--sp-8));
+  overflow-y: auto;
+  background: color-mix(in srgb, var(--card) 78%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  padding: var(--sp-4);
+  box-shadow: var(--shadow-2);
+}
+.rail__group + .rail__group {
+  margin-top: var(--sp-5);
+}
+.rail__grouptitle {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-2);
+}
+.rail__item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  min-height: 40px;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-sm);
+  text-align: left;
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.rail__item:hover {
+  background: var(--card-inset);
+  color: var(--ink);
+}
+.rail__item[aria-current='true'] {
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-weight: 600;
+}
+.rail__num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  color: var(--ink-3);
+  min-width: 18px;
+}
+.rail__item[aria-current='true'] .rail__num {
+  color: var(--primary);
+}
+
+/* ============================== Sân khấu + thiết bị ====================== */
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+}
+.stage__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.device {
+  position: relative;
+  width: 390px;
+  /* KÍCH THƯỚC THIẾT KẾ — cố định 390×844, KHÔNG bóp chiều cao.
+     Trước đây có `max-height: calc(100vh - 190px)`: trên laptop cao ~722px CSS thì
+     khung bị ép còn 532px, tỉ lệ 390:844 (0.462) thành 0.73 — điện thoại bẹt ra và
+     màn hình bên trong chỉ còn ~508px thay vì 844, nên nội dung bị cắt cụt.
+     Khung điện thoại là ảnh chụp thiết kế: bóp một chiều là sai tỉ lệ và sai luôn
+     bố cục bên trong. Khi cửa sổ thấp hơn điện thoại + thanh trên, TRANG sẽ cuộn —
+     rail và inspector vẫn sticky nên không mất ngữ cảnh. */
+  height: 844px;
+  border-radius: 52px;
+  padding: 12px;
+  background: linear-gradient(160deg, #3a2f27, #1b1512 60%);
+  box-shadow: var(--shadow-4), inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+  flex: 0 0 auto;
+}
+.device__viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 42px;
+  overflow: hidden;
+  background: var(--paper);
+  isolation: isolate;
+}
+.device__notch {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 116px;
+  height: 26px;
+  border-radius: var(--r-full);
+  background: #15100d;
+  z-index: 50;
+  pointer-events: none;
+}
+.device--flat {
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  background: none;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  min-height: 0;
+}
+.device--flat .device__viewport {
+  border-radius: var(--r-xl);
+  border: 1px solid var(--line);
+}
+.device--flat .device__notch {
+  display: none;
+}
+
+/* ================================ App khung ============================== */
+.app {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+}
+.app__statusbar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 44px;
+  padding: 0 var(--sp-6) 0 var(--sp-7);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  color: var(--ink);
+  z-index: 40;
+  pointer-events: none;
+  background: transparent;
+}
+.app__statusbar--invert {
+  color: #fff;
+}
+/* Trên màn toàn màn hình, chữ trắng của status bar cần scrim riêng: ảnh camera
+   ở phía trên có thể rất sáng (cửa sổ, trời) làm chữ trắng mất hút. */
+.app--immersive .app__statusbar--invert {
+  background: linear-gradient(to bottom, rgba(12, 8, 5, 0.52), rgba(12, 8, 5, 0));
+}
+.app__statusbar-icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.app__screen {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+.app__screen[data-chrome='tabbar'] {
+  padding-bottom: 0;
+}
+.app__homebar {
+  flex: 0 0 auto;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  background: var(--paper);
+  z-index: 41;
+}
+.app__homebar::after {
+  content: '';
+  width: 128px;
+  height: 5px;
+  border-radius: var(--r-full);
+  background: var(--ink);
+  opacity: 0.28;
+}
+.app--immersive .app__statusbar,
+.app--immersive .app__homebar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: transparent;
+}
+.app--immersive .app__statusbar {
+  top: 0;
+}
+.app--immersive .app__homebar {
+  bottom: 0;
+}
+.app--immersive .app__screen {
+  padding-bottom: 0;
+}
+
+/* Lớp phủ cho bottom sheet / modal / toast (nằm trong khung app) */
+.app__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 55;
+  pointer-events: none;
+}
+.app__overlay > * {
+  pointer-events: auto;
+}
+
+/* Vùng an toàn trong nội dung màn hình */
+.screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.screen__body {
+  flex: 1 1 auto;
+  padding: var(--sp-4) var(--screen-pad) var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+.screen__body--flush {
+  padding-left: 0;
+  padding-right: 0;
+}
+.screen__body--tight {
+  gap: var(--sp-3);
+}
+.screen__cta {
+  position: sticky;
+  bottom: 0;
+  padding: var(--sp-3) var(--screen-pad) var(--sp-4);
+  background: linear-gradient(to top, var(--paper) 68%, transparent);
+  display: flex;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  z-index: var(--z-sticky);
+}
+.screen__cta > .btn {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* ================================= Tab bar =============================== */
+.tabbar {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: end;
+  gap: 2px;
+  padding: var(--sp-2) var(--sp-2) 0;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid var(--line);
+  z-index: var(--z-tabbar);
+}
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-height: var(--tap-min);
+  padding: 4px 0 6px;
+  border-radius: var(--r-md);
+  color: var(--ink-3);
+  font-size: var(--fs-2xs);
+  font-weight: 550;
+  transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+.tab:hover {
+  color: var(--ink-2);
+  background: var(--card-inset);
+}
+.tab[aria-current='page'] {
+  color: var(--primary);
+}
+.tab__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--primary);
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease);
+}
+.tab[aria-current='page'] .tab__dot {
+  opacity: 1;
+}
+/* Nút chụp ở giữa — hành động chính của sản phẩm */
+.tab--capture {
+  color: var(--on-primary);
+}
+.tab--capture .tab__fab {
+  width: 52px;
+  height: 52px;
+  margin-top: -18px;
+  border-radius: var(--r-full);
+  background: var(--primary);
+  color: var(--on-primary);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 8px 20px -8px color-mix(in srgb, var(--primary) 75%, transparent), var(--shadow-2);
+  transition: transform var(--dur-fast) var(--ease-spring), background var(--dur-fast) var(--ease);
+}
+.tab--capture:hover .tab__fab {
+  background: var(--primary-hover);
+}
+.tab--capture:active .tab__fab {
+  transform: scale(0.93);
+}
+.tab--capture[aria-current='page'] .tab__fab {
+  background: var(--primary-press);
+}
+.tab--capture .tab__label {
+  color: var(--ink-3);
+}
+.tab--capture[aria-current='page'] .tab__label {
+  color: var(--primary);
+}
+
+/* ============================== FAB phụ ================================= */
+.fab {
+  position: absolute;
+  right: var(--sp-4);
+  bottom: calc(var(--sp-8) + 12px);
+  z-index: var(--z-sticky);
+  width: 54px;
+  height: 54px;
+  border-radius: var(--r-full);
+  background: var(--primary);
+  color: var(--on-primary);
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-3);
+  transition: transform var(--dur-fast) var(--ease-spring), background var(--dur-fast) var(--ease);
+}
+.fab:hover { background: var(--primary-hover); }
+.fab:active { transform: scale(0.93); }
+
+/* ============================== Inspector =============================== */
+.inspector__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: 400;
+}
+.inspector__block + .inspector__block {
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-4);
+  box-shadow: inset 0 1px 0 var(--line);
+}
+.note {
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+.note strong { color: var(--ink); font-weight: 650; }
+.note + .note { margin-top: var(--sp-2); }
+.note-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.note-list li {
+  display: flex;
+  gap: var(--sp-2);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.note-list svg { flex: 0 0 auto; margin-top: 2px; color: var(--success); }
+
+.cost-ledger {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.cost-ledger__row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-sm);
+}
+.cost-ledger__bar {
+  flex: 1 1 auto;
+  height: 6px;
+  border-radius: var(--r-full);
+  background: var(--card-inset);
+  overflow: hidden;
+}
+.cost-ledger__fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: inherit;
+  transition: width var(--dur-slow) var(--ease);
+}
+.cost-ledger__n {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  min-width: 26px;
+  text-align: right;
+}
+
+/* =============================== Ẩn/hiện theo cỡ ======================== */
+@media (max-width: 1240px) {
+  div.shell {
+    grid-template-columns: 232px minmax(0, 1fr);
+  }
+  .inspector {
+    grid-column: 1 / -1;
+    position: static;
+    max-height: none;
+  }
+}
+@media (max-width: 900px) {
+  div.shell {
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--sp-3);
+    gap: var(--sp-3);
+  }
+  .rail {
+    display: none;
+  }
+  .device {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    aspect-ratio: 390 / 844;
+    max-height: none;
+  }
+  .shell--rail-open .rail {
+    display: block;
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: var(--z-modal);
+    max-height: 72vh;
+    border-radius: var(--r-2xl) var(--r-2xl) 0 0;
+  }
+}
+@media (max-width: 640px) {
+  .device {
+    border-radius: 0;
+    padding: 0;
+    aspect-ratio: auto;
+    height: calc(100vh - 132px);
+    max-width: none;
+  }
+  .device__viewport { border-radius: 0; }
+  .device__notch { display: none; }
+}
+
+/* Chế độ "chỉ app" để trình diễn toàn màn hình */
+body.shell--focus .shell__topbar,
+body.shell--focus .rail,
+body.shell--focus .inspector,
+body.shell--focus .stage__controls {
+  display: none;
+}
+body.shell--focus .shell {
+  grid-template-columns: minmax(0, 1fr);
+  place-items: center;
+  padding: var(--sp-4);
+}
